@@ -27,5 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+      working-directory: SystemZarzadzaniaKorepetycjami_FrontEnd
     - run: npm run build --if-present
+      working-directory: SystemZarzadzaniaKorepetycjami_FrontEnd
     - run: npm test
+      working-directory: SystemZarzadzaniaKorepetycjami_FrontEnd
