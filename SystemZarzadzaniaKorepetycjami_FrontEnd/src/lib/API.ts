@@ -1,5 +1,30 @@
-async function getALL() {
-  const response = await fetch('/all');
+interface LoginProps {
+  email: string;
+  password: string;
+}
+
+async function loginToApp({ email, password }: LoginProps) {
+  const response = await fetch('http://localhost:5230/api/login/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      twoFactorCode: 'string',
+      twoFactorRecoveryCode: 'string',
+    }),
+  });
+  if (!response.ok) {
+    if (response.status === 404) {
+      alert('Błędny login lub hasło');
+      return;
+    } else {
+      alert('Bazy danych'); //dodać przejcie do dstony kod 500
+      return;
+    }
+  }
   return response.json();
 }
 
@@ -8,4 +33,4 @@ async function getOne() {
   return response.json();
 }
 
-export { getALL, getOne };
+export { loginToApp, getOne };

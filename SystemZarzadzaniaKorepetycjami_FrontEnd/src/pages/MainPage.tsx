@@ -1,14 +1,18 @@
 import React from 'react';
 import './App.css';
+import AppButton from '../components/AppButtom';
+import { goToLogin } from '../lib/Navigate';
+import { useNavigate } from 'react-router-dom';
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="App">
       <header className="App-header">
         <div className="header-content">
-          <span>Admin</span>
           <div className="buttons">
-            <button className="login-btn">Logowanie</button>
+            <AppButton label="Logowanie" onClick={() => goToLogin(navigate)} />
             <button className="register-btn">Rejestracja</button>
           </div>
         </div>

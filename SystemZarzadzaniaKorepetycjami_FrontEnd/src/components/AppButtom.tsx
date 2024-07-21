@@ -1,6 +1,6 @@
 interface AppButtonProps {
   label: string;
-  onClick?: (e: any) => void;
+  onClick?: () => void;
 }
 
 export default function AppButton({ label, onClick }: AppButtonProps) {
