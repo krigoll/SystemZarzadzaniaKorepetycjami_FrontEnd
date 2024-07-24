@@ -12,21 +12,10 @@ async function loginToApp({ email, password }: LoginProps) {
     body: JSON.stringify({
       email: email,
       password: password,
-      twoFactorCode: 'string',
-      twoFactorRecoveryCode: 'string',
     }),
   });
-  const loginData = await response.json();
-  if (!response.ok) {
-    if (response.status === 404) {
-      alert('Błędny login lub hasło');
-      return;
-    } else {
-      alert('Bazy danych'); //dodać przejcie do dstony kod 500
-      return;
-    }
-  }
-  return loginData;
+  
+  return response;
 }
 
 async function getOne() {

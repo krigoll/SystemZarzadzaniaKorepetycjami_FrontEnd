@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import AppButton from '../components/AppButtom';
-import { goToLogin } from '../lib/Navigate';
+import { goToLogin, goToRegistration } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 
 const App: React.FC = () => {
@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <div className="header-content">
           <div className="buttons">
             <AppButton label="Logowanie" onClick={() => goToLogin(navigate)} />
-            <button className="register-btn">Rejestracja</button>
+            <AppButton label="Rejestracja" onClick={() => goToRegistration(navigate)} />
           </div>
         </div>
       </header>
