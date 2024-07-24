@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const response = await loginToApp({ email, password });
-      alert(response);
+      alert("dziala"+response);
     } catch (error) {
       console.error('Login failed', error);
       alert('Login failed');

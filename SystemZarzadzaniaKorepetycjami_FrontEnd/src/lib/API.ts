@@ -16,6 +16,7 @@ async function loginToApp({ email, password }: LoginProps) {
       twoFactorRecoveryCode: 'string',
     }),
   });
+  const loginData = await response.json();
   if (!response.ok) {
     if (response.status === 404) {
       alert('Błędny login lub hasło');
@@ -25,7 +26,7 @@ async function loginToApp({ email, password }: LoginProps) {
       return;
     }
   }
-  return response.json();
+  return loginData;
 }
 
 async function getOne() {
