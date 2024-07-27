@@ -3,6 +3,18 @@ interface LoginProps {
   password: string;
 }
 
+interface RegisterProps {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  phoneNumber: string;
+  isStudent: boolean;
+  isTeacher: boolean;
+  selectedFile: File | null;
+}
+
 async function loginToApp({ email, password }: LoginProps) {
   const response = await fetch('http://localhost:5230/api/login/login', {
     method: 'POST',
@@ -14,7 +26,43 @@ async function loginToApp({ email, password }: LoginProps) {
       password: password,
     }),
   });
-  
+
+  return response;
+}
+
+async function RegisterToApp({
+  email,
+  password,
+  firstName,
+  lastName,
+  birthDate,
+  phoneNumber,
+  isStudent,
+  isTeacher,
+  selectedFile,
+}: RegisterProps) {
+  var newBirthDate: string = birthDate.toString();
+  const response = await fetch(
+    'http://localhost:5230/api/person/registration',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: firstName,
+        surname: lastName,
+        birthDate: newBirthDate,
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        image: selectedFile,
+        isStudent: isStudent,
+        isTeacher: isTeacher,
+      }),
+    }
+  );
+
   return response;
 }
 
@@ -23,4 +71,4 @@ async function getOne() {
   return response.json();
 }
 
-export { loginToApp, getOne };
+export { loginToApp, getOne, RegisterToApp };
