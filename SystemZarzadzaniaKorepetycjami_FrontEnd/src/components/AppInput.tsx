@@ -1,13 +1,35 @@
-interface AppTextInputProps {
+interface AppNonTextInputProps {
   inputValue: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function AppTextInput({ inputValue, onChange }: AppTextInputProps) {
-  return <input type="text" value={inputValue} onChange={onChange} />;
+interface AppTextInputProps {
+  placecholder: string;
+  inputValue: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function AppEmailInput({ inputValue, onChange }: AppTextInputProps) {
+interface AppCheckboxInputProps {
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function AppTextInput({
+  placecholder,
+  inputValue,
+  onChange,
+}: AppTextInputProps) {
+  return (
+    <input
+      type="text"
+      placeholder={placecholder}
+      value={inputValue}
+      onChange={onChange}
+    />
+  );
+}
+
+function AppEmailInput({ inputValue, onChange }: AppNonTextInputProps) {
   return (
     <input
       type="email"
@@ -18,7 +40,7 @@ function AppEmailInput({ inputValue, onChange }: AppTextInputProps) {
   );
 }
 
-function AppPasswordInput({ inputValue, onChange }: AppTextInputProps) {
+function AppPasswordInput({ inputValue, onChange }: AppNonTextInputProps) {
   return (
     <input
       type="password"
@@ -29,4 +51,44 @@ function AppPasswordInput({ inputValue, onChange }: AppTextInputProps) {
   );
 }
 
-export { AppTextInput, AppEmailInput, AppPasswordInput };
+function AppRepeatPasswordInput({
+  inputValue,
+  onChange,
+}: AppNonTextInputProps) {
+  return (
+    <input
+      type="password"
+      placeholder="Powtórz hasło"
+      value={inputValue}
+      onChange={onChange}
+    />
+  );
+}
+
+function AppDateInput({
+  placecholder,
+  inputValue,
+  onChange,
+}: AppTextInputProps) {
+  return (
+    <input
+      type="date"
+      placeholder={placecholder}
+      value={inputValue}
+      onChange={onChange}
+    />
+  );
+}
+
+function AppCheckboxInput({ checked, onChange }: AppCheckboxInputProps) {
+  return <input type="checkbox" checked={checked} onChange={onChange} />;
+}
+
+export {
+  AppTextInput,
+  AppEmailInput,
+  AppPasswordInput,
+  AppRepeatPasswordInput,
+  AppDateInput,
+  AppCheckboxInput,
+};

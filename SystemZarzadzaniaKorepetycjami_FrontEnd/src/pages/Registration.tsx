@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+ï»¿import React, { useState } from 'react';
 import './App.css';
 import { goToMainPage } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '../components/AppButtom';
+import {
+    AppCheckboxInput,
+    AppDateInput,
+    AppEmailInput,
+    AppPasswordInput,
+    AppRepeatPasswordInput,
+    AppTextInput,
+} from '../components/AppInput';
 
 const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -12,7 +20,6 @@ const RegisterPage: React.FC = () => {
     const [lastName, setLastName] = useState<string>('');
     const [birthDate, setBirthDate] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
-    const [subjects, setSubjects] = useState<string>('');
     const [isStudent, setIsStudent] = useState<boolean>(false);
     const [isTeacher, setIsTeacher] = useState<boolean>(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -35,7 +42,7 @@ const RegisterPage: React.FC = () => {
                 <h1>Rejestracja</h1>
                 <div className="file-input-container">
                     <label htmlFor="file-input" className="file-input-label">
-                        {selectedFile ? selectedFile.name : 'Kliknij, aby dodaæ zdjêcie'}
+                        {selectedFile ? selectedFile.name : 'Kliknij, aby dodaÄ‡ zdjÄ™cie'}
                     </label>
                     <input
                         type="file"
@@ -44,66 +51,48 @@ const RegisterPage: React.FC = () => {
                         onChange={handleFileChange}
                     />
                 </div>
-                <input
-                    type="email"
-                    placeholder="Adres email"
-                    value={email}
+                <AppEmailInput
+                    inputValue={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input
-                    type="password"
-                    placeholder="Has³o"
-                    value={password}
+                <AppPasswordInput
+                    inputValue={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <input
-                    type="password"
-                    placeholder="Powtórz has³o"
-                    value={confirmPassword}
+                <AppRepeatPasswordInput
+                    inputValue={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <input
-                    type="text"
-                    placeholder="Imiê"
-                    value={firstName}
+                <AppTextInput
+                    placecholder="ImiÄ™"
+                    inputValue={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                 />
-                <input
-                    type="text"
-                    placeholder="Nazwisko"
-                    value={lastName}
+                <AppTextInput
+                    placecholder="Nazwisko"
+                    inputValue={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                 />
-                <input
-                    type="date"
-                    placeholder="Data urodzenia"
-                    value={birthDate}
+                <AppDateInput
+                    placecholder="Data urodzenia"
+                    inputValue={birthDate}
                     onChange={(e) => setBirthDate(e.target.value)}
                 />
-                <input
-                    type="text"
-                    placeholder="Numer telefonu"
-                    value={phoneNumber}
+                <AppTextInput
+                    placecholder="Numer telefonu"
+                    inputValue={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Przedmioty"
-                    value={subjects}
-                    onChange={(e) => setSubjects(e.target.value)}
                 />
                 <div className="checkbox-container">
                     <label>
-                        <input
-                            type="checkbox"
+                        <AppCheckboxInput
                             checked={isStudent}
                             onChange={(e) => setIsStudent(e.target.checked)}
                         />
-                        Uczeñ
+                        UczeÅ„
                     </label>
                     <label>
-                        <input
-                            type="checkbox"
+                        <AppCheckboxInput
                             checked={isTeacher}
                             onChange={(e) => setIsTeacher(e.target.checked)}
                         />
@@ -111,7 +100,7 @@ const RegisterPage: React.FC = () => {
                     </label>
                 </div>
                 <div className="button-container">
-                <AppButton label="Powrót" onClick={() => goToMainPage(navigate)} />
+                    <AppButton label="PowrÃ³t" onClick={() => goToMainPage(navigate)} />
                     <button onClick={handleSubmit}>Akceptuj</button>
                 </div>
             </div>
