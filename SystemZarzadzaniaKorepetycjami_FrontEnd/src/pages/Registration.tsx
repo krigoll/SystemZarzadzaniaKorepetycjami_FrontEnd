@@ -12,6 +12,7 @@ import {
   AppTextInput,
 } from '../components/AppInput';
 import { RegisterToApp } from '../lib/API';
+import { handleLogin } from '../lib/Login';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -128,6 +129,7 @@ const RegisterPage: React.FC = () => {
   const handleRegistration = async () => {
     const isOk = await validationAndSending();
     if (isOk) {
+      await handleLogin({ email, password });
       if (!isTeacher) goToLogin(navigate);
       goToAddSubject(navigate);
     }
