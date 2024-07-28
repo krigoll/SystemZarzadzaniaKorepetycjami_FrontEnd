@@ -13,6 +13,8 @@ import {
 } from '../components/AppInput';
 import { RegisterToApp } from '../lib/API';
 import { handleLogin } from '../lib/Login';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../futures/login/loginSlice';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -26,6 +28,7 @@ const RegisterPage: React.FC = () => {
   const [isTeacher, setIsTeacher] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -129,7 +132,16 @@ const RegisterPage: React.FC = () => {
   const handleRegistration = async () => {
     const isOk = await validationAndSending();
     if (isOk) {
-      await handleLogin({ email, password });
+      const personData = await handleLogin({ email, password });
+      dispatch(
+        setUser(
+          JSON.stringify({
+            email: email,
+            jwtToken: personData.token,
+            refreshToken: personData.refreshToken,
+          })
+        )
+      );
       if (!isTeacher) goToLogin(navigate);
       goToAddSubject(navigate);
     }

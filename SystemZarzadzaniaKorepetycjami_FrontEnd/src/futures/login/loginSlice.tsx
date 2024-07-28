@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: null,
-  isLoggedIn: false,
-  isAdmin: false,
+  email: null,
+  jwtToken: null,
+  refreshToken: null,
 };
 
 export const loginSlice = createSlice({
@@ -11,14 +11,15 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = JSON.parse(action.payload);
-      state.isLoggedIn = true;
-      state.isAdmin = state.user.Rodzaj === 'admin';
+      const { email, jwtToken, refreshToken } = JSON.parse(action.payload);
+      state.email = email;
+      state.jwtToken = jwtToken;
+      state.refreshToken = refreshToken;
     },
     deSetUser: (state) => {
-      state.user = null;
-      state.isLoggedIn = false;
-      state.isAdmin = false;
+      state.email = null;
+      state.jwtToken = null;
+      state.refreshToken = null;
     },
   },
 });

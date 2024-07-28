@@ -5,14 +5,26 @@ import { goToRegistration, goToMainPage } from '../lib/Navigate';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
 import { handleLogin } from '../lib/Login';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../futures/login/loginSlice';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin2 = async () => {
     const personData = await handleLogin({ email, password });
+    dispatch(
+      setUser(
+        JSON.stringify({
+          email: email,
+          jwtToken: personData.token,
+          refreshToken: personData.refreshToken,
+        })
+      )
+    );
     alert(personData.token);
   };
 
