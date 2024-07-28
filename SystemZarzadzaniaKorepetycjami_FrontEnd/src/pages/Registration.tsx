@@ -134,13 +134,11 @@ const RegisterPage: React.FC = () => {
     if (isOk) {
       const personData = await handleLogin({ email, password });
       dispatch(
-        setUser(
-          JSON.stringify({
-            email: email,
-            jwtToken: personData.token,
-            refreshToken: personData.refreshToken,
-          })
-        )
+        setUser({
+          email: email,
+          jwtToken: personData.token,
+          refreshToken: personData.refreshToken,
+        })
       );
       if (!isTeacher) goToLogin(navigate);
       goToAddSubject(navigate);

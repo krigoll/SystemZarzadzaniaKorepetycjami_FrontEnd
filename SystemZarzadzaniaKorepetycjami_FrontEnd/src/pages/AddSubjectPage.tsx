@@ -2,28 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
 import { getAllSubjects } from '../lib/API';
-
-
+import { RootState } from '../futures/store';
 
 const AddSubjectsPage: React.FC = () => {
-    const [subjectsList, setSubjectsList] = useState<string[]>([]);
-    const [selectedSubjects, setSelectedSubjects] = useState<{ [subject: string]: string }>({});
+  const [subjectsList, setSubjectsList] = useState<string[]>([]);
+  const [selectedSubjects, setSelectedSubjects] = useState<{
+    [subject: string]: string;
+  }>({});
 
-    const token = useSelector((state) => state.login.jwtToken);
+  const token = useSelector((state: RootState) => state.login.jwtToken);
 
-    useEffect(() => {
-        const fetchSubjects = async () => {
-            try {
-                const subjects = await getAllSubjects(token);
-                setSubjectsList(subjects.map((subject: any) => subject.name)); 
-            } catch (error) {
-                console.error('Error fetching subjects:', error);
-            }
-        };
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const subjects = await getAllSubjects(token);
+        setSubjectsList(subjects.map((subject: any) => subject.name));
+      } catch (error) {
+        console.error('Error fetching subjects:', error);
+      }
+    };
 
-        fetchSubjects();
-    }, [token]);
-
+    fetchSubjects();
+  }, [token]);
 
   const handleSubjectChange = (subject: string, checked: boolean) => {
     setSelectedSubjects((prev) => {

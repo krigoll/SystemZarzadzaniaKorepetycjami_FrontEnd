@@ -17,13 +17,11 @@ const Login: React.FC = () => {
   const handleLogin2 = async () => {
     const personData = await handleLogin({ email, password });
     dispatch(
-      setUser(
-        JSON.stringify({
-          email: email,
-          jwtToken: personData.token,
-          refreshToken: personData.refreshToken,
-        })
-      )
+      setUser({
+        email: email,
+        jwtToken: personData.token,
+        refreshToken: personData.refreshToken,
+      })
     );
     alert(personData.token);
   };

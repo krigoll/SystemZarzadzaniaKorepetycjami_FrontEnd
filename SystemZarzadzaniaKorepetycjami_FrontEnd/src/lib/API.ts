@@ -66,20 +66,23 @@ async function RegisterToApp({
   return response;
 }
 
-async function getAllSubjects(token:string) {
-    const response = await fetch('http://localhost:5230/api/subject/getAllSubjects', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+token,
-        },
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch subjects');
+async function getAllSubjects(token: string) {
+  const response = await fetch(
+    'http://localhost:5230/api/subject/getAllSubjects',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
+  );
 
-    return response.json();
+  if (!response.ok) {
+    throw new Error('Failed to fetch subjects');
+  }
+
+  return response.json();
 }
 
 async function getOne() {
