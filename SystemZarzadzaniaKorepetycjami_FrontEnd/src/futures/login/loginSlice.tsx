@@ -1,27 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LoginState } from '../../types/LoginState';
 
-const initialState = {
-  email: null,
-  jwtToken: null,
-  refreshToken: null,
+const initialState: LoginState = {
+  email: '',
+  jwtToken: '',
+  refreshToken: '',
 };
 
 export const loginSlice = createSlice({
-  name: 'user',
+  name: 'login',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      const { email, jwtToken, refreshToken } = JSON.parse(action.payload);
-      state.email = email;
-      state.jwtToken = jwtToken;
-      state.refreshToken = refreshToken;
+    setUser: (state, action: PayloadAction<{ email: string; jwtToken: string; refreshToken: string }>) => {
+      state.email = action.payload.email;
+      state.jwtToken = action.payload.jwtToken;
+      state.refreshToken = action.payload.refreshToken;
     },
     deSetUser: (state) => {
-      state.email = null;
-      state.jwtToken = null;
-      state.refreshToken = null;
+      state.email = '';
+      state.jwtToken = '';
+      state.refreshToken = '';
     },
   },
 });
+
 export const { setUser, deSetUser } = loginSlice.actions;
 export default loginSlice.reducer;

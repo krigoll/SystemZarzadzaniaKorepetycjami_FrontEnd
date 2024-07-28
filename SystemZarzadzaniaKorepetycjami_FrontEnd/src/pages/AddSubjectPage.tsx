@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './App.css';
+import { getAllSubjects } from '../lib/API';
 
-const subjectsList = [
-  'Matematyka',
-  'Fizyka',
-  'Chemia',
-  'Biologia',
-  'Historia',
-  'Język Polski',
-  'Język Angielski',
-];
+
 
 const AddSubjectsPage: React.FC = () => {
-  const [selectedSubjects, setSelectedSubjects] = useState<{
-    [subject: string]: string;
-  }>({});
+    const [subjectsList, setSubjectsList] = useState<string[]>([]);
+    const [selectedSubjects, setSelectedSubjects] = useState<{ [subject: string]: string }>({});
+
+    const token = useSelector((state) => state.login.jwtToken);
+
+    useEffect(() => {
+        const fetchSubjects = async () => {
+            try {
+                const subjects = await getAllSubjects(token);
+                setSubjectsList(subjects.map((subject: any) => subject.name)); 
+            } catch (error) {
+                console.error('Error fetching subjects:', error);
+            }
+        };
+
+        fetchSubjects();
+    }, [token]);
+
 
   const handleSubjectChange = (subject: string, checked: boolean) => {
     setSelectedSubjects((prev) => {
