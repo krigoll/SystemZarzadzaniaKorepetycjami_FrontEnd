@@ -89,6 +89,14 @@
           "SelectedChildIndex": 6,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{7f40df72-066b-4810-a08b-c0fbed76c948}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "LoginState.ts",
@@ -99,16 +107,7 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\types",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/types/LoginState.ts",
-              "WhenOpened": "2024-07-28T10:15:31.824Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{7f40df72-066b-4810-a08b-c0fbed76c948}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "WhenOpened": "2024-07-28T10:15:31.824Z"
             },
             {
               "$type": "Document",
@@ -120,8 +119,7 @@
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Login.ts",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-07-28T09:26:57.338Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-28T09:26:57.338Z"
             },
             {
               "$type": "Document",
@@ -133,8 +131,7 @@
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Registration.tsx",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAANIAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-07-27T09:13:47.625Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-27T09:13:47.625Z"
             },
             {
               "$type": "Document",
@@ -146,8 +143,7 @@
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\types\\User.ts",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-07-27T08:57:32.262Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-27T08:57:32.262Z"
             },
             {
               "$type": "Document",
@@ -187,8 +183,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
-              "WhenOpened": "2024-07-24T09:50:02.98Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:50:02.98Z"
             },
             {
               "$type": "Document",
@@ -201,8 +196,7 @@
               "ViewState": "AQIAADcAAAAAAAAAAAAiwFIAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
-              "WhenOpened": "2024-07-24T09:49:58.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:49:58.416Z"
             },
             {
               "$type": "Document",
@@ -215,8 +209,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
-              "WhenOpened": "2024-07-24T09:49:34.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:49:34.901Z"
             },
             {
               "$type": "Document",
@@ -266,8 +259,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures\\login",
-              "WhenOpened": "2024-07-24T09:48:28.557Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:48:28.557Z"
             },
             {
               "$type": "Document",
@@ -280,8 +272,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures",
-              "WhenOpened": "2024-07-24T09:50:32.554Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:50:32.554Z"
             },
             {
               "$type": "Document",
