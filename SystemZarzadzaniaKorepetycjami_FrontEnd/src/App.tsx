@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import AddSubjectsPage from './pages/AddSubjectPage';
+import Menu from './pages/Menu';
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-              <Route path="/registration" element={<Registration />} />
-              <Route path="/addSubjects" element={<AddSubjectsPage />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/addSubjects" element={<AddSubjectsPage />} />
+        <Route path="/menu" element={<Menu />} />
       </Routes>
     </Router>
   );

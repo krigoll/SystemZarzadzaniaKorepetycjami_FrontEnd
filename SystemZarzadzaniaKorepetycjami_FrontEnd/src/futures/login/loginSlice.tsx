@@ -1,10 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { jwtDecode } from "jwt-decode";
 import { LoginState } from '../../types/LoginState';
+
+interface DecodedToken {
+  isAdmin: string;
+  isTeacher: string;
+  isStudent: string;
+}
 
 const initialState: LoginState = {
   email: '',
   jwtToken: '',
   refreshToken: '',
+  isAdmin: false,
+  isTeacher: false,
+  isStudent: false,
 };
 
 export const loginSlice = createSlice({
@@ -12,14 +22,34 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<{ email: string; jwtToken: string; refreshToken: string }>) => {
-      state.email = action.payload.email;
-      state.jwtToken = action.payload.jwtToken;
-      state.refreshToken = action.payload.refreshToken;
+      const { email, jwtToken, refreshToken } = action.payload;
+      
+      let decoded: DecodedToken = {
+        isAdmin: 'false',
+        isTeacher: 'false',
+        isStudent: 'false'
+      };
+
+      try {
+        decoded = jwtDecode(jwtToken);
+      } catch (error) {
+        console.error('Invalid JWT token:', error);
+      }
+
+      state.email = email;
+      state.jwtToken = jwtToken;
+      state.refreshToken = refreshToken;
+      state.isAdmin = decoded.isAdmin === 'true';
+      state.isTeacher = decoded.isTeacher === 'true';
+      state.isStudent = decoded.isStudent === 'true';
     },
     deSetUser: (state) => {
       state.email = '';
       state.jwtToken = '';
       state.refreshToken = '';
+      state.isAdmin = false;
+      state.isTeacher = false;
+      state.isStudent = false;
     },
   },
 });

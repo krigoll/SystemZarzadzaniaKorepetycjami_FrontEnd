@@ -1,7 +1,7 @@
-import AppButton from '../components/AppButtom';
+import AppButton from '../components/AppButton';
 import { AppEmailInput, AppPasswordInput } from '../components/AppInput';
 import { useState } from 'react';
-import { goToRegistration, goToMainPage } from '../lib/Navigate';
+import { goToRegistration, goToMainPage, goToMenu } from '../lib/Navigate';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
 import { handleLogin } from '../lib/Login';
@@ -24,6 +24,7 @@ const Login: React.FC = () => {
       })
     );
     alert(personData.token);
+    goToMenu(navigate);
   };
 
   return (

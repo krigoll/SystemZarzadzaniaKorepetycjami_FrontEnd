@@ -2,7 +2,7 @@
 import './App.css';
 import { goToAddSubject, goToLogin, goToMainPage } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
-import AppButton from '../components/AppButtom';
+import AppButton from '../components/AppButton';
 import {
   AppCheckboxInput,
   AppDateInput,

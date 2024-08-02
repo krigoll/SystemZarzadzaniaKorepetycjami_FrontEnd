@@ -1,4 +1,4 @@
-import AppButton from '../components/AppButtom';
+import AppButton from '../components/AppButton';
 
 function Home() {
   return (

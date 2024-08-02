@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import AppButton from '../components/AppButtom';
+import AppButton from '../components/AppButton';
 import { goToLogin, goToRegistration } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 

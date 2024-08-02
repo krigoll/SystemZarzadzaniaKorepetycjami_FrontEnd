@@ -16,4 +16,8 @@ function goToAddSubject(navigate: NavigateFunction) {
   navigate('/addSubjects');
 }
 
-export { goToLogin, goToRegistration, goToMainPage, goToAddSubject };
+function goToMenu(navigate: NavigateFunction) {
+  navigate('/menu');
+}
+
+export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu };

@@ -3,8 +3,12 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import { getAllSubjects, setTeacherSalary } from '../lib/API';
 import { RootState } from '../futures/store';
+import AppButton from '../components/AppButton';
+import { goToMenu } from '../lib/Navigate';
+import { useNavigate } from 'react-router-dom';
 
 const AddSubjectsPage: React.FC = () => {
+    const navigate = useNavigate();
     const [subjectsList, setSubjectsList] = useState<any[]>([]);
     const [selectedSubjects, setSelectedSubjects] = useState<{
         [subjectLevelId: number]: string;
@@ -66,12 +70,6 @@ const AddSubjectsPage: React.FC = () => {
         }
     };
 
-    const handleBack = () => {
-        // Implement back navigation logic here
-        alert('Going forward');
-    };
-
-
     return (
         <div className="subjects-container">
             <h1>Dodaj Przedmioty i Koszty</h1>
@@ -100,7 +98,7 @@ const AddSubjectsPage: React.FC = () => {
                 ))
             )}
             <div className="button-container">
-                <button onClick={handleBack}>Pomiń</button>
+                <AppButton label="Pomiń" onClick={() => goToMenu(navigate)} />
                 <button onClick={handleSubmit}>Akceptuj</button>
             </div>
         </div>
