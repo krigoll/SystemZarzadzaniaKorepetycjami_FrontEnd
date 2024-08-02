@@ -3,11 +3,23 @@ import './App.css';
 import AppButton from '../components/AppButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { deSetUser } from '../futures/login/loginSlice';
+import { goToMainPage } from '../lib/Navigate';
 
 const App: React.FC = () => {
   const { isAdmin, isTeacher, isStudent } = useSelector(
     (state: RootState) => state.login
   );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogOut = () =>{
+    dispatch(deSetUser());
+    goToMainPage(navigate)
+  }
 
   return (
     <div className="App">
@@ -32,7 +44,7 @@ const App: React.FC = () => {
         />
         <AppButton
           label="Wyloguj się"
-          onClick={() => console.log('Wyloguj się')}
+          onClick={handleLogOut}
         />
       </div>
       <div className="main-content">
