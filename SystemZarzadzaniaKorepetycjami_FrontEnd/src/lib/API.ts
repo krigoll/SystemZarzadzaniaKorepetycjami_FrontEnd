@@ -15,6 +15,12 @@ interface RegisterProps {
   selectedFile: File | null;
 }
 
+interface TeacherSalaryProps {
+    subject_LevelId: number;
+    personEmail: string;
+    hourlyRate: number;
+}
+
 async function loginToApp({ email, password }: LoginProps) {
   const response = await fetch('http://localhost:5230/api/login/login', {
     method: 'POST',
@@ -66,6 +72,21 @@ async function RegisterToApp({
   return response;
 }
 
+async function setTeacherSalary(teacherSalaries: TeacherSalaryProps[],token: string) {
+    const response = await fetch(
+        'http://localhost:5230/api/teacherSalary/setTeacherSalary',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(teacherSalaries),
+        }
+    );
+    return response;
+}
+
 async function getAllSubjects(token: string) {
   const response = await fetch(
     'http://localhost:5230/api/subject/getAllSubjects',
@@ -90,4 +111,4 @@ async function getOne() {
   return response.json();
 }
 
-export { loginToApp, getOne, RegisterToApp, getAllSubjects };
+export { loginToApp, getOne, RegisterToApp, getAllSubjects, setTeacherSalary };
