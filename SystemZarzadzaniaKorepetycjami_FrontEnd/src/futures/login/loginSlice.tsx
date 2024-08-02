@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import { LoginState } from '../../types/LoginState';
 
 interface DecodedToken {
@@ -21,13 +21,20 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<{ email: string; jwtToken: string; refreshToken: string }>) => {
+    setUser: (
+      state,
+      action: PayloadAction<{
+        email: string;
+        jwtToken: string;
+        refreshToken: string;
+      }>
+    ) => {
       const { email, jwtToken, refreshToken } = action.payload;
-      
+
       let decoded: DecodedToken = {
         isAdmin: 'false',
         isTeacher: 'false',
-        isStudent: 'false'
+        isStudent: 'false',
       };
 
       try {
@@ -39,9 +46,9 @@ export const loginSlice = createSlice({
       state.email = email;
       state.jwtToken = jwtToken;
       state.refreshToken = refreshToken;
-      state.isAdmin = decoded.isAdmin === 'true';
-      state.isTeacher = decoded.isTeacher === 'true';
-      state.isStudent = decoded.isStudent === 'true';
+      state.isAdmin = decoded.isAdmin === 'True';
+      state.isTeacher = decoded.isTeacher === 'True';
+      state.isStudent = decoded.isStudent === 'True';
     },
     deSetUser: (state) => {
       state.email = '';
