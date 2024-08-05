@@ -1,6 +1,6 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import './App.css';
-import { goToAddSubject, goToLogin, goToMainPage } from '../lib/Navigate';
+import { goToAddSubject, goToLogin, goToMainPage, goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import {
@@ -13,8 +13,10 @@ import {
 } from '../components/AppInput';
 import { RegisterToApp } from '../lib/API';
 import { handleLogin } from '../lib/Login';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../futures/login/loginSlice';
+import Cookies from 'js-cookie';
+import { RootState } from '../futures/store';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -29,6 +31,14 @@ const RegisterPage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { jwtToken } = useSelector((state: RootState) => state.login);
+
+  useEffect(() => {
+    if (jwtToken) {
+      goToMenu(navigate);
+    }
+  }, [jwtToken, navigate]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -140,7 +150,10 @@ const RegisterPage: React.FC = () => {
           refreshToken: personData.refreshToken,
         })
       );
-      if (!isTeacher) goToLogin(navigate);
+      Cookies.set('jwtToken', personData.token, { expires: 1 });
+      Cookies.set('refreshToken', personData.refreshToken, { expires: 1 });
+      Cookies.set('email', email, { expires: 1 });
+      if (!isTeacher) goToMenu(navigate);
       goToAddSubject(navigate);
     }
   };

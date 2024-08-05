@@ -90,7 +90,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -99,6 +99,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
@@ -138,8 +142,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
-              "WhenOpened": "2024-07-27T08:56:48.311Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-27T08:56:48.311Z"
             },
             {
               "$type": "Document",
@@ -191,8 +194,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
-              "WhenOpened": "2024-07-24T09:49:34.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:49:34.901Z"
             },
             {
               "$type": "Document",
@@ -268,8 +270,7 @@
               "ViewState": "AQIAABcAAAAAAAAAAAAQwCIAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures\\login",
-              "WhenOpened": "2024-07-24T09:48:28.557Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:48:28.557Z"
             },
             {
               "$type": "Document",

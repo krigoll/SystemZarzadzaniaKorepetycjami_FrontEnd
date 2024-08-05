@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import AppButton from '../components/AppButton';
-import { goToLogin, goToRegistration } from '../lib/Navigate';
+import { goToLogin, goToRegistration, goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../futures/store';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
+
+  const { jwtToken } = useSelector((state: RootState) => state.login);
+
+  useEffect(() => {
+    if (jwtToken) {
+      goToMenu(navigate);
+    }
+  }, [jwtToken, navigate]);
 
   return (
     <div className="App">

@@ -1,12 +1,14 @@
 import AppButton from '../components/AppButton';
 import { AppEmailInput, AppPasswordInput } from '../components/AppInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { goToRegistration, goToMainPage, goToMenu } from '../lib/Navigate';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
 import { handleLogin } from '../lib/Login';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../futures/login/loginSlice';
+import Cookies from 'js-cookie';
+import { RootState } from '../futures/store';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -23,9 +25,19 @@ const Login: React.FC = () => {
         refreshToken: personData.refreshToken,
       })
     );
-    alert(personData.token);
+    Cookies.set('jwtToken', personData.token, { expires: 1 });
+    Cookies.set('refreshToken', personData.refreshToken, { expires: 1 });
+    Cookies.set('email', email, { expires: 1 });
     goToMenu(navigate);
   };
+
+  const { jwtToken } = useSelector((state: RootState) => state.login);
+
+  useEffect(() => {
+    if (jwtToken) {
+      goToMenu(navigate);
+    }
+  }, [jwtToken, navigate]);
 
   return (
     <div className="App">

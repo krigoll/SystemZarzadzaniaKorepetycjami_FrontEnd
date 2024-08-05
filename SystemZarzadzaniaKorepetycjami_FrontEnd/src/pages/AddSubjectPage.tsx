@@ -62,6 +62,7 @@ const AddSubjectsPage: React.FC = () => {
             const response = await setTeacherSalary(teacherSalaries, token);
             if (response.ok) {
                 alert('Subjects and costs submitted successfully');
+                goToMenu(navigate);
             } else {
                 alert('Failed to submit subjects and costs');
             }
