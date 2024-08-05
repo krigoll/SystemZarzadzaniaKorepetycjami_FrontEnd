@@ -6,7 +6,7 @@ import { RootState } from '../futures/store';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deSetUser } from '../futures/login/loginSlice';
-import { goToMainPage } from '../lib/Navigate';
+import { goToMainPage, goToProfile } from '../lib/Navigate';
 import Cookies from 'js-cookie';
 
 const App: React.FC = () => {
@@ -28,7 +28,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <div className="sidebar">
-        <AppButton label="Profil" onClick={() => console.log('Profil')} />
+        <AppButton label="Profil" onClick={() => goToProfile(navigate)} />
         <AppButton label="Kalendarz" onClick={() => console.log('Kalendarz')} />
         {isStudent && (
           <AppButton label="Uczeń" onClick={() => console.log('Uczeń')} />

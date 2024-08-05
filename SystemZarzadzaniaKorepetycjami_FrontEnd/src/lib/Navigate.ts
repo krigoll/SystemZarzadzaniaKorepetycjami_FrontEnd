@@ -1,4 +1,5 @@
 import { NavigateFunction } from 'react-router-dom';
+import { DataToEdit } from '../types/DataToEdit';
 
 function goToLogin(navigate: NavigateFunction) {
   navigate('/login');
@@ -20,4 +21,12 @@ function goToMenu(navigate: NavigateFunction) {
   navigate('/menu');
 }
 
-export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu };
+function goToProfile(navigate: NavigateFunction) {
+  navigate('/profile');
+}
+
+function goToEditProfile(navigate: NavigateFunction, dataToEdit: DataToEdit) {
+  navigate('/profile/edit', { state: { dataToEdit } })
+}
+
+export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile };

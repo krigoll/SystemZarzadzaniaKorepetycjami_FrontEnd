@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import { setUser } from './futures/login/loginSlice';
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +44,8 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/addSubjects" element={<AddSubjectsPage />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />  
       </Routes>
     </Router>
   );
