@@ -26,19 +26,20 @@ const ProfilePage: React.FC = () => {
     const generatePersonProfliHTML = async () => {
         try {
             const personData = await getPersonDetails(emailOld);
-            setEmail(personData.Email);
-            setFirstName(personData.FirstName);
-            setLastName(personData.LastName);
-            setBirthDate(personData.BithDate);
-            setPhoneNumber(personData.PhoneNumber);
-            setIsStudent(personData.IsStudent);
-            setIsTeacher(personData.IsTeacher);
-            setIsAdmin(personData.IsAdmin);
-            setSelectedFile(personData.Image);
-            setJoiningDate(personData.JoiningDate);
-            setIdPerson(personData.IdPerson);
+            console.log('Fetched person data:', personData);  // Debugging log
+            setEmail(personData.email);
+            setFirstName(personData.name);
+            setLastName(personData.surname);
+            setBirthDate(personData.birthDate);
+            setPhoneNumber(personData.phoneNumber);
+            setIsStudent(personData.isStudent);
+            setIsTeacher(personData.isTeacher);
+            setIsAdmin(personData.isAdmin);
+            setSelectedFile(personData.image);
+            setJoiningDate(personData.joiningDate);
+            setIdPerson(personData.idPerson);
         } catch (error) {
-            console.error('B³¹d generowania listy u¿ytkowników:', error);
+            console.error('Error fetching user details:', error);
         }
     };
 
@@ -47,7 +48,7 @@ const ProfilePage: React.FC = () => {
     }, []);
 
     const handleGoToEdit = () => {
-        const dataToEdit : DataToEdit = {
+        const dataToEdit: DataToEdit = {
             idPerson,
             firstName,
             lastName,
@@ -58,15 +59,17 @@ const ProfilePage: React.FC = () => {
             isTeacher,
             isAdmin,
             selectedFile
-        }
+        };
         goToEditProfile(navigate, dataToEdit);
-    }
+    };
 
     return (
         <div className="profile-container">
             <button className="delete-account" onClick={() => navigate('/delete-account')}>Usuñ konto</button>
             <div className="profile-header">Profil</div>
-            <div className="profile-picture"></div>
+            <div className="profile-picture">
+                {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Profile" />}
+            </div>
             <div className="profile-details">
                 <p>{firstName} {lastName}</p>
                 <p>{birthDate}</p>
@@ -74,10 +77,14 @@ const ProfilePage: React.FC = () => {
                 <p>{phoneNumber}</p>
                 <p>{joiningDate}</p>
             </div>
-            <div className="role">Uczeñ, Nauczyciel</div>
+            <div className="role">
+                {isStudent && 'Uczeñ'}
+                {isTeacher && 'Nauczyciel'}
+                {isAdmin && 'Admin'}
+            </div>
             <div className="button-container">
                 <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-                <AppButton label="Edytuj" onClick={() => handleGoToEdit} />
+                <AppButton label="Edytuj" onClick={handleGoToEdit} />
             </div>
         </div>
     );
