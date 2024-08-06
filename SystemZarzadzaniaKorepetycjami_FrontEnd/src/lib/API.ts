@@ -12,7 +12,7 @@ interface RegisterProps {
   phoneNumber: string;
   isStudent: boolean;
   isTeacher: boolean;
-  selectedFile: File | null;
+  jpegFile: string | null;
 }
 
 interface TeacherSalaryProps {
@@ -58,9 +58,20 @@ async function RegisterToApp({
   phoneNumber,
   isStudent,
   isTeacher,
-  selectedFile,
+  jpegFile,
 }: RegisterProps) {
   var newBirthDate: string = birthDate.toString();
+  console.log(JSON.stringify({
+    name: firstName,
+    surname: lastName,
+    birthDate: newBirthDate,
+    email: email,
+    password: password,
+    phoneNumber: phoneNumber,
+    image: jpegFile,
+    isStudent: isStudent,
+    isTeacher: isTeacher,
+  }));
   const response = await fetch(
     'http://localhost:5230/api/person/registration',
     {
@@ -75,7 +86,7 @@ async function RegisterToApp({
         email: email,
         password: password,
         phoneNumber: phoneNumber,
-        image: selectedFile,
+          image: jpegFile,
         isStudent: isStudent,
         isTeacher: isTeacher,
       }),

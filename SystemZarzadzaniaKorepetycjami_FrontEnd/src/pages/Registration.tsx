@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import './App.css';
-import { goToAddSubject, goToLogin, goToMainPage, goToMenu } from '../lib/Navigate';
+import { goToAddSubject, goToMainPage, goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import {
@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../futures/login/loginSlice';
 import Cookies from 'js-cookie';
 import { RootState } from '../futures/store';
+import { encodeFileToBase64 } from '../lib/ConvertImage';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -45,6 +46,11 @@ const RegisterPage: React.FC = () => {
       setSelectedFile(event.target.files[0]);
     }
   };
+
+  function isImageFile(file: File): boolean {
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    return validImageTypes.includes(file.type);
+}
 
   const validationAndSending = async () => {
     const isValidEmail = (email: string) => {
@@ -111,6 +117,15 @@ const RegisterPage: React.FC = () => {
       return false;
     }
 
+    let jpegFile: string | null = null;
+    if (selectedFile != null) {
+      if (!isImageFile(selectedFile)) {
+          alert('Wybrany plik musi być obrazkiem');
+          return;
+      }
+      jpegFile = encodeFileToBase64(selectedFile);
+    }
+
     try {
       const response = await RegisterToApp({
         email,
@@ -121,7 +136,7 @@ const RegisterPage: React.FC = () => {
         phoneNumber,
         isStudent,
         isTeacher,
-        selectedFile,
+        jpegFile,
       });
       if (!response.ok) {
         if (response.status === 409) {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getPersonDetails } from '../lib/API';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { goToEditProfile, goToMenu } from '../lib/Navigate';
+import { goToEditProfile, goToMainPage, goToMenu } from '../lib/Navigate';
 import { DataToEdit } from '../types/DataToEdit';
 import AppButton from '../components/AppButton';
 
@@ -42,6 +42,14 @@ const ProfilePage: React.FC = () => {
         }
     };
 
+    // const { jwtToken } = useSelector((state: RootState) => state.login);
+
+    // useEffect(() => {
+    // if (!jwtToken) {
+    //   goToMainPage(navigate);
+    // }
+    // }, [jwtToken, navigate]);
+
     useEffect(() => {
         if (emailOld) {
             generatePersonProfliHTML(emailOld);
@@ -53,7 +61,6 @@ const ProfilePage: React.FC = () => {
             idPerson,
             firstName,
             lastName,
-            birthDate,
             email,
             phoneNumber,
             isStudent,
@@ -79,9 +86,10 @@ const ProfilePage: React.FC = () => {
                 <p>{joiningDate}</p>
             </div>
             <div className="role">
-                {isStudent && 'Uczeñ'}
-                {isTeacher && 'Nauczyciel'}
-                {isAdmin && 'Admin'}
+                Role:
+                <p>{isStudent && 'Uczeñ'}</p>
+                <p>{isTeacher && 'Nauczyciel'}</p>
+                <p>{isAdmin && 'Admin'}</p>
             </div>
             <div className="button-container">
                 <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
