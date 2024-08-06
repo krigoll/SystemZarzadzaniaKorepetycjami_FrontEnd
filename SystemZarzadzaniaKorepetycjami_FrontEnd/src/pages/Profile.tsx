@@ -23,10 +23,9 @@ const ProfilePage: React.FC = () => {
 
     const emailOld = useSelector((state: RootState) => state.login.email);
 
-    const generatePersonProfliHTML = async () => {
+    const generatePersonProfliHTML = async (email: string) => {
         try {
-            const personData = await getPersonDetails(emailOld);
-            console.log('Fetched person data:', personData);  // Debugging log
+            const personData = await getPersonDetails(email);
             setEmail(personData.email);
             setFirstName(personData.name);
             setLastName(personData.surname);
@@ -44,8 +43,10 @@ const ProfilePage: React.FC = () => {
     };
 
     useEffect(() => {
-        generatePersonProfliHTML();
-    }, []);
+        if (emailOld) {
+            generatePersonProfliHTML(emailOld);
+        }
+    }, [emailOld]);
 
     const handleGoToEdit = () => {
         const dataToEdit: DataToEdit = {
