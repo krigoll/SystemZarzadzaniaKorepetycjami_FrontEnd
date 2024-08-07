@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../futures/login/loginSlice';
 import Cookies from 'js-cookie';
 import { RootState } from '../futures/store';
-import { encodeFileToBase64 } from '../lib/ConvertImage';
+//import { encodeFileToBase64 } from '../lib/ConvertImage';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -123,7 +123,7 @@ const RegisterPage: React.FC = () => {
           alert('Wybrany plik musi być obrazkiem');
           return;
       }
-      jpegFile = encodeFileToBase64(selectedFile);
+      //jpegFile = encodeFileToBase64(selectedFile);
     }
 
     try {

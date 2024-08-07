@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getPersonDetails } from '../lib/API';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { goToEditProfile, goToMainPage, goToMenu } from '../lib/Navigate';
+import { goToEditProfile, goToMenu } from '../lib/Navigate';
 import { DataToEdit } from '../types/DataToEdit';
 import AppButton from '../components/AppButton';
 
@@ -22,10 +22,11 @@ const ProfilePage: React.FC = () => {
     const [idPerson, setIdPerson] = useState<number>(0);
 
     const emailOld = useSelector((state: RootState) => state.login.email);
+    const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
 
-    const generatePersonProfliHTML = async (email: string) => {
+    const generatePersonProfliHTML = async (email: string, token: string) => {
         try {
-            const personData = await getPersonDetails(email);
+            const personData = await getPersonDetails(email, token);
             setEmail(personData.email);
             setFirstName(personData.name);
             setLastName(personData.surname);
@@ -51,10 +52,10 @@ const ProfilePage: React.FC = () => {
     // }, [jwtToken, navigate]);
 
     useEffect(() => {
-        if (emailOld) {
-            generatePersonProfliHTML(emailOld);
+        if (emailOld && jwtToken) {
+            generatePersonProfliHTML(emailOld, jwtToken);
         }
-    }, [emailOld]);
+    }, [emailOld, jwtToken]);
 
     const handleGoToEdit = () => {
         const dataToEdit: DataToEdit = {

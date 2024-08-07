@@ -50,6 +50,15 @@ export const loginSlice = createSlice({
       state.isTeacher = decoded.isTeacher === 'True';
       state.isStudent = decoded.isStudent === 'True';
     },
+    updateEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
+    updateStudent: (state, action: PayloadAction<boolean>) => {
+      state.isStudent = action.payload;
+    },
+    updateTeacher: (state, action: PayloadAction<boolean>) => {
+      state.isTeacher = action.payload;
+    },
     deSetUser: (state) => {
       state.email = '';
       state.jwtToken = '';
@@ -61,5 +70,5 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setUser, deSetUser } = loginSlice.actions;
+export const { setUser, deSetUser, updateEmail, updateStudent, updateTeacher } = loginSlice.actions;
 export default loginSlice.reducer;

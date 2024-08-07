@@ -25,13 +25,11 @@ interface EditProfileProps {
     idPerson: number;
     name: string;
     surname: string;
-    birthDate: string;
     email: string;
     phoneNumber: string;
     image: File | null;
     isStudent: boolean;
     isTeacher: boolean;
-    isAdmin: boolean;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -135,13 +133,14 @@ async function getOne() {
   return response.json();
 }
 
-async function getPersonDetails(email: string) {
+async function getPersonDetails(email: string, token: string) {
     const response = await fetch(
       `http://localhost:5230/api/person/getUser?email=${email}`,
       {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
           },
       }
     );
@@ -164,32 +163,28 @@ async function editpersonDetails({
     idPerson,
     name,
     surname,
-    birthDate,
     email,
     phoneNumber,
     image,
     isStudent,
     isTeacher,
-    isAdmin
-}: EditProfileProps) {
-    var newBirthDate: string = birthDate.toString();
+}: EditProfileProps, token: string) {
     const response = await fetch(
         `http://localhost:5230/api/person/${idPerson}/update`,
         {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 name: name,
                 surname: surname,
-                birthDate: newBirthDate,
                 email: email,
                 phoneNumber: phoneNumber,
                 image: image,
                 isStudent: isStudent,
                 isTeacher: isTeacher,
-                isAdmin: isAdmin
             }),
         }
     );

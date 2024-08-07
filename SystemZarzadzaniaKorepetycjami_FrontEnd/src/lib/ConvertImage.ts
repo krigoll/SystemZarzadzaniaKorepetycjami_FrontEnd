@@ -1,4 +1,4 @@
-function convertImageToJpeg(file: File): Promise<string> {
+async function convertImageToJpeg(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         
@@ -56,9 +56,9 @@ async function imageToByteArray(file: File): Promise<Uint8Array> {
     return dataURLToByteArray(jpegDataUrl);
 }
 
-function encodeFileToBase64(file: File): string {
+async function encodeFileToBase64(file: File): Promise<string> {
     const jpegDataUrl = await convertImageToJpeg(file);
-    const base64String = jpegDataUrl.toString('base64');
+    const base64String = jpegDataUrl.toString(); // TODO
     return `data:image/jpeg;base64,${base64String}`;
   }
 
