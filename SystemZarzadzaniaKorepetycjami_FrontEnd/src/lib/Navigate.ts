@@ -29,4 +29,16 @@ function goToEditProfile(navigate: NavigateFunction, dataToEdit: DataToEdit) {
   navigate('/profile/edit', { state: { dataToEdit } })
 }
 
-export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile };
+function goToStudentMenu(navigate: NavigateFunction) {
+    navigate('/student');
+}
+
+function goToTeacherMenu(navigate: NavigateFunction) {
+    navigate('/teacher');
+}
+
+function goToDeterminingAvailabilty(navigate: NavigateFunction) {
+    navigate('/teacher/determiningAvailabilty');
+}
+
+export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile, goToStudentMenu, goToTeacherMenu, goToDeterminingAvailabilty };

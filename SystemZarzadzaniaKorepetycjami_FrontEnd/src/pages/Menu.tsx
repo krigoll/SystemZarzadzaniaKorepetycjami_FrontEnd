@@ -6,7 +6,7 @@ import { RootState } from '../futures/store';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deSetUser } from '../futures/login/loginSlice';
-import { goToMainPage, goToProfile } from '../lib/Navigate';
+import { goToMainPage, goToProfile, goToStudentMenu, goToTeacherMenu } from '../lib/Navigate';
 import Cookies from 'js-cookie';
 
 const App: React.FC = () => {
@@ -31,12 +31,12 @@ const App: React.FC = () => {
         <AppButton label="Profil" onClick={() => goToProfile(navigate)} />
         <AppButton label="Kalendarz" onClick={() => console.log('Kalendarz')} />
         {isStudent && (
-          <AppButton label="Uczeń" onClick={() => console.log('Uczeń')} />
+          <AppButton label="Uczeń" onClick={() => goToStudentMenu(navigate)} />
         )}
         {isTeacher && (
           <AppButton
             label="Nauczyciel"
-            onClick={() => console.log('Nauczyciel')}
+            onClick={() => goToTeacherMenu(navigate)}
           />
         )}
         {isAdmin && (

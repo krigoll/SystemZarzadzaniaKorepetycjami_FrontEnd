@@ -12,6 +12,9 @@ import Cookies from 'js-cookie';
 import { setUser } from './futures/login/loginSlice';
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import StudentMenu from "./pages/StudentMenu";
+import TeacherMenu from "./pages/TeacherMenu";
+import DeterminingAvailabilty from "./pages/DeterminingAvailabilty";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,9 +37,6 @@ function App() {
 
   return (
     <Router>
-      {/**
-       * tu dać elemnt menu <Menu/>
-       */}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/home" element={<Home />} />
@@ -44,6 +44,9 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/addSubjects" element={<AddSubjectsPage />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/teacher" element={<TeacherMenu />} />
+        <Route path="/teacher/determiningAvailabilty" element={<DeterminingAvailabilty />} />
+        <Route path="/student" element={<StudentMenu />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />  
       </Routes>
