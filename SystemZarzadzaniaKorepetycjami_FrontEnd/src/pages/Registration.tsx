@@ -17,6 +17,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../futures/login/loginSlice';
 import Cookies from 'js-cookie';
 import { RootState } from '../futures/store';
+import {
+  convertImageToBase64,
+  convertImageToJPEG,
+  isImageFile,
+  resizeImageTo400x400,
+} from '../lib/ConvertImage';
 //import { encodeFileToBase64 } from '../lib/ConvertImage';
 
 const RegisterPage: React.FC = () => {
@@ -30,14 +36,15 @@ const RegisterPage: React.FC = () => {
   const [isStudent, setIsStudent] = useState<boolean>(false);
   const [isTeacher, setIsTeacher] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isNotNewTeacher, setIsNotNewTeacher] = useState<boolean>(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { jwtToken } = useSelector((state: RootState) => state.login);
 
   useEffect(() => {
-    if (jwtToken) {
-      goToMenu(navigate);
+    if (jwtToken && isNotNewTeacher) {
+      goToMenu(navigate); //TODO
     }
   }, [jwtToken, navigate]);
 
@@ -46,11 +53,6 @@ const RegisterPage: React.FC = () => {
       setSelectedFile(event.target.files[0]);
     }
   };
-
-  function isImageFile(file: File): boolean {
-    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    return validImageTypes.includes(file.type);
-}
 
   const validationAndSending = async () => {
     const isValidEmail = (email: string) => {
@@ -120,10 +122,12 @@ const RegisterPage: React.FC = () => {
     let jpegFile: string | null = null;
     if (selectedFile != null) {
       if (!isImageFile(selectedFile)) {
-          alert('Wybrany plik musi być obrazkiem');
-          return;
+        alert('Wybrany plik musi być obrazkiem');
+        return;
       }
-      //jpegFile = encodeFileToBase64(selectedFile);
+      let jpgFile = await convertImageToJPEG(selectedFile);
+      jpgFile = await resizeImageTo400x400(jpgFile);
+      jpegFile = await convertImageToBase64(jpgFile);
     }
 
     try {
@@ -157,6 +161,7 @@ const RegisterPage: React.FC = () => {
   const handleRegistration = async () => {
     const isOk = await validationAndSending();
     if (isOk) {
+      if (isTeacher) setIsNotNewTeacher(false);
       const personData = await handleLogin({ email, password });
       dispatch(
         setUser({

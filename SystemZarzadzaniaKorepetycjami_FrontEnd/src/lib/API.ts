@@ -16,20 +16,20 @@ interface RegisterProps {
 }
 
 interface TeacherSalaryProps {
-    subject_LevelId: number;
-    personEmail: string;
-    hourlyRate: number;
+  subject_LevelId: number;
+  personEmail: string;
+  hourlyRate: number;
 }
 
 interface EditProfileProps {
-    idPerson: number;
-    name: string;
-    surname: string;
-    email: string;
-    phoneNumber: string;
-    image: File | null;
-    isStudent: boolean;
-    isTeacher: boolean;
+  idPerson: number;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  image: string | null;
+  isStudent: boolean;
+  isTeacher: boolean;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -59,17 +59,19 @@ async function RegisterToApp({
   jpegFile,
 }: RegisterProps) {
   var newBirthDate: string = birthDate.toString();
-  console.log(JSON.stringify({
-    name: firstName,
-    surname: lastName,
-    birthDate: newBirthDate,
-    email: email,
-    password: password,
-    phoneNumber: phoneNumber,
-    image: jpegFile,
-    isStudent: isStudent,
-    isTeacher: isTeacher,
-  }));
+  console.log(
+    JSON.stringify({
+      name: firstName,
+      surname: lastName,
+      birthDate: newBirthDate,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      image: jpegFile,
+      isStudent: isStudent,
+      isTeacher: isTeacher,
+    })
+  );
   const response = await fetch(
     'http://localhost:5230/api/person/registration',
     {
@@ -84,7 +86,7 @@ async function RegisterToApp({
         email: email,
         password: password,
         phoneNumber: phoneNumber,
-          image: jpegFile,
+        image: jpegFile,
         isStudent: isStudent,
         isTeacher: isTeacher,
       }),
@@ -94,19 +96,22 @@ async function RegisterToApp({
   return response;
 }
 
-async function setTeacherSalary(teacherSalaries: TeacherSalaryProps[],token: string) {
-    const response = await fetch(
-        'http://localhost:5230/api/teacherSalary/setTeacherSalary',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(teacherSalaries),
-        }
-    );
-    return response;
+async function setTeacherSalary(
+  teacherSalaries: TeacherSalaryProps[],
+  token: string
+) {
+  const response = await fetch(
+    'http://localhost:5230/api/teacherSalary/setTeacherSalary',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(teacherSalaries),
+    }
+  );
+  return response;
 }
 
 async function getAllSubjects(token: string) {
@@ -134,32 +139,33 @@ async function getOne() {
 }
 
 async function getPersonDetails(email: string, token: string) {
-    const response = await fetch(
-      `http://localhost:5230/api/person/getUser?email=${email}`,
-      {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-          },
-      }
-    );
+  const response = await fetch(
+    `http://localhost:5230/api/person/getUser?email=${email}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-    if (!response.ok) {
-      if (response.status === 400) {
-          console.error("Invalid Email");
-      } else if (response.status === 500) {
-          console.error("Database Error");
-      } else {
-          console.error("Unexpected Error");
-      }
-      return;
+  if (!response.ok) {
+    if (response.status === 400) {
+      console.error('Invalid Email');
+    } else if (response.status === 500) {
+      console.error('Database Error');
+    } else {
+      console.error('Unexpected Error');
+    }
+    return;
   }
 
-    return response.json();
+  return response.json();
 }
 
-async function editpersonDetails({
+async function editpersonDetails(
+  {
     idPerson,
     name,
     surname,
@@ -168,29 +174,38 @@ async function editpersonDetails({
     image,
     isStudent,
     isTeacher,
-}: EditProfileProps, token: string) {
-    const response = await fetch(
-        `http://localhost:5230/api/person/${idPerson}/update`,
-        {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                name: name,
-                surname: surname,
-                email: email,
-                phoneNumber: phoneNumber,
-                image: image,
-                isStudent: isStudent,
-                isTeacher: isTeacher,
-            }),
-        }
-    );
+  }: EditProfileProps,
+  token: string
+) {
+  const response = await fetch(
+    `http://localhost:5230/api/person/${idPerson}/update`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        surname: surname,
+        email: email,
+        phoneNumber: phoneNumber,
+        image: image,
+        isStudent: isStudent,
+        isTeacher: isTeacher,
+      }),
+    }
+  );
 
-    return response;
+  return response;
 }
 
-
-export { loginToApp, getOne, RegisterToApp, getAllSubjects, setTeacherSalary, getPersonDetails, editpersonDetails };
+export {
+  loginToApp,
+  getOne,
+  RegisterToApp,
+  getAllSubjects,
+  setTeacherSalary,
+  getPersonDetails,
+  editpersonDetails,
+};

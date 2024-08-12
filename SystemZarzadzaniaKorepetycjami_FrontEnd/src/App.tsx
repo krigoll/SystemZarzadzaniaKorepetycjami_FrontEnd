@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import MainPage from './pages/MainPage';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import AddSubjectsPage from './pages/AddSubjectPage';
@@ -10,11 +9,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import { setUser } from './futures/login/loginSlice';
-import Profile from "./pages/Profile";
-import EditProfile from "./pages/EditProfile";
-import StudentMenu from "./pages/StudentMenu";
-import TeacherMenu from "./pages/TeacherMenu";
-import DeterminingAvailabilty from "./pages/DeterminingAvailabilty";
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import StudentMenu from './pages/StudentMenu';
+import TeacherMenu from './pages/TeacherMenu';
+import DeterminingAvailabilty from './pages/DeterminingAvailabilty';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,16 +38,18 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/addSubjects" element={<AddSubjectsPage />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/teacher" element={<TeacherMenu />} />
-        <Route path="/teacher/determiningAvailabilty" element={<DeterminingAvailabilty />} />
+        <Route
+          path="/teacher/determiningAvailabilty"
+          element={<DeterminingAvailabilty />}
+        />
         <Route path="/student" element={<StudentMenu />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/edit" element={<EditProfile />} />  
+        <Route path="/profile/edit" element={<EditProfile />} />
       </Routes>
     </Router>
   );
