@@ -6,11 +6,17 @@ import { goToDeterminingAvailabilty } from '../lib/Navigate';
 
 const TeacherOptionsPage: React.FC = () => {
     const navigate = useNavigate();
+
+    const getDay = (): string => {
+        const currentDate = new Date();
+        return currentDate.toISOString().split('T')[0];
+    }
+
     return (
         <div className="options-container">
             <Menu/>
             <AppButton label="Zg³oszenia" onClick={() => console.log('Zg³oszenia')} />
-            <AppButton label="Okreœlenie dostêpnoœci" onClick={() => goToDeterminingAvailabilty(navigate)} />
+            <AppButton label="Okreœlenie dostêpnoœci" onClick={() => goToDeterminingAvailabilty(navigate, getDay() )} />
             <AppButton label="Opinie" onClick={() => console.log('Opinie')} />
             <AppButton label="Testy" onClick={() => console.log('Testy')} />
         </div>

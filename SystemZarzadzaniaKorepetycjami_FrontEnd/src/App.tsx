@@ -44,7 +44,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/teacher" element={<TeacherMenu />} />
         <Route
-          path="/teacher/determiningAvailabilty"
+          path="/teacher/determiningAvailabilty/:startDay"
           element={<DeterminingAvailabilty />}
         />
         <Route path="/student" element={<StudentMenu />} />

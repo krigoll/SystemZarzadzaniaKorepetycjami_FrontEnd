@@ -200,6 +200,32 @@ async function editpersonDetails(
   return response;
 }
 
+async function getAvailabilityCalendar(email: string, token: string, date: string) {
+    const response = await fetch(
+        `http://localhost:5230/api/calendar?date=${date}&email=${email}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        if (response.status === 400) {
+            console.error('Invalid Email');
+        } else if (response.status === 500) {
+            console.error('Database Error');
+        } else {
+            console.error('Unexpected Error');
+        }
+        return;
+    }
+
+    return response.json();
+}
+
 export {
   loginToApp,
   getOne,
@@ -207,5 +233,6 @@ export {
   getAllSubjects,
   setTeacherSalary,
   getPersonDetails,
-  editpersonDetails,
+    editpersonDetails,
+    getAvailabilityCalendar
 };
