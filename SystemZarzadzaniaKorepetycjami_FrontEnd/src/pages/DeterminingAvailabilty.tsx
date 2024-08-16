@@ -51,6 +51,10 @@ const SetAvailabilityPage: React.FC = () => {
         }
     }, [emailOld, jwtToken, startDay]);  // added startDay to the dependency array
 
+    useEffect(() => {
+        console.log(calendars);
+    }, [calendars]);  // Logs the updated calendars state
+
     function getNextWeekISO(dateString: string | undefined) {
         const currentDate = new Date(dateString ?? new Date().toISOString().split('T')[0]);
         currentDate.setDate(currentDate.getDate() + 7);
@@ -91,30 +95,31 @@ const SetAvailabilityPage: React.FC = () => {
             </div>
             <div>
                 {calendars.length > 0 ? calendars.map((calendar, index) => (
-                    <div key={calendar.StartingDate}>
-                        <p>{calendar.StartingDate}</p> //TODO
-                        <p>
-                            Liczba lekcji
-                            <input
-                                type="number"
-                                name="NumberOfLessons"
-                                placeholder="Liczba lekcji"
-                                value={calendar.NumberOfLessons}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </p>
-                        <p>
-                            Czas przerwy
-                            <input
-                                type="number"
-                                name="BreakTime"
-                                placeholder="Czas przerwy"
-                                value={calendar.BreakTime}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </p>
-                    </div>
-                )) : <p>Brak danych dostępności na wybrany tydzień.</p>}
+    <div key={calendar.StartingDate}>
+        <p>{calendar.StartingDate}</p>
+        <p>
+            Liczba lekcji
+            <input
+                type="number"
+                name="NumberOfLessons"
+                placeholder="Liczba lekcji"
+                value={calendar.NumberOfLessons}
+                onChange={(event) => handleInputChange(index, event)}
+            />
+        </p>
+        <p>
+            Czas przerwy
+            <input
+                type="number"
+                name="BreakTime"
+                placeholder="Czas przerwy"
+                value={calendar.BreakTime}
+                onChange={(event) => handleInputChange(index, event)}
+            />
+        </p>
+    </div>
+)) : <p>Brak danych dostępności na wybrany tydzień.</p>}
+
             </div>
             <div className="button-container">
                 <AppButton label="Powrót" onClick={() => goToTeacherMenu(navigate)} />
