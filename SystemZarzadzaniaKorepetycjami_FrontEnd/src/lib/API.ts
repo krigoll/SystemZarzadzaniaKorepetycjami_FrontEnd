@@ -32,6 +32,12 @@ interface EditProfileProps {
   isTeacher: boolean;
 }
 
+interface EditAddCalendarProps {
+    startingDate: string;
+    numberOfLessons: number;
+    breakTime: number;
+}
+
 async function loginToApp({ email, password }: LoginProps) {
   const response = await fetch('http://localhost:5230/api/login/login', {
     method: 'POST',
@@ -226,6 +232,27 @@ async function getAvailabilityCalendar(email: string, token: string, date: strin
     return response.json();
 }
 
+async function CreateAndUpdateCalendarsByEmail(calendars: EditAddCalendarProps[], email: string, token: string) {
+    const formattedCalendars = calendars.map((calendar) => ({
+        startingDate: calendar.startingDate.toString(),
+        numberOfLessons: calendar.numberOfLessons,
+        breakTime: calendar.breakTime,
+    }));
+
+    console.log(JSON.stringify(formattedCalendars));
+
+    const response = await fetch(`http://localhost:5230/api/calendar?email=${email}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ calendars: formattedCalendars }),  // Zwróæ uwagê na strukturê danych
+    });
+
+    return response;
+}
+
 export {
   loginToApp,
   getOne,
@@ -234,5 +261,6 @@ export {
   setTeacherSalary,
   getPersonDetails,
     editpersonDetails,
-    getAvailabilityCalendar
+    getAvailabilityCalendar,
+    CreateAndUpdateCalendarsByEmail
 };

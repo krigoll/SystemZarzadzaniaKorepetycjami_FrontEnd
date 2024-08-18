@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { goToDeterminingAvailabilty, goToTeacherMenu } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { getAvailabilityCalendar } from '../lib/API';
+import { CreateAndUpdateCalendarsByEmail, getAvailabilityCalendar } from '../lib/API';
 
 interface CalendarItem {
   startingDate: string;
@@ -91,18 +91,34 @@ const SetAvailabilityPage: React.FC = () => {
 
     setCalendars((prevCalendars) => {
       const newCalendars = [...prevCalendars];
-      const calendarItem = { ...newCalendars[index] };
+        const calendarItem = { ...newCalendars[index] };
+
+        const numericValue = Math.max(0, Number(value));
 
       if (name === 'numberOfLessons') {
-        calendarItem.numberOfLessons = Number(value);
+          calendarItem.numberOfLessons = numericValue;
       } else if (name === 'breakTime') {
-        calendarItem.breakTime = Number(value);
+          calendarItem.breakTime = numericValue;
       }
 
       newCalendars[index] = calendarItem;
       return newCalendars;
     });
   };
+
+  const handleSubmit = async () => {
+    try {
+      const responce = await CreateAndUpdateCalendarsByEmail(calendars,emailOld,jwtToken);
+      if (!responce.ok) {
+        alert("Nie udało się!"); 
+      } else {
+        alert("Udało się!"); 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
 
   return (
     <div className="availability-container">
@@ -131,20 +147,22 @@ const SetAvailabilityPage: React.FC = () => {
                 Liczba lekcji
                 <input
                   type="number"
-                  name="NumberOfLessons"
+                  name="numberOfLessons"
                   placeholder="Liczba lekcji"
                   value={calendar.numberOfLessons}
                   onChange={(event) => handleInputChange(index, event)}
+                          min="0"
                 />
               </p>
               <p>
                 Czas przerwy
                 <input
                   type="number"
-                  name="BreakTime"
+                  name="breakTime"
                   placeholder="Czas przerwy"
                   value={calendar.breakTime}
                   onChange={(event) => handleInputChange(index, event)}
+                          min="0"
                 />
               </p>
             </div>
@@ -155,7 +173,7 @@ const SetAvailabilityPage: React.FC = () => {
       </div>
       <div className="button-container">
         <AppButton label="Powrót" onClick={() => goToTeacherMenu(navigate)} />
-        <AppButton label="Zapisz" />
+        <AppButton label="Zapisz" onClick={() => handleSubmit}/>
       </div>
     </div>
   );
