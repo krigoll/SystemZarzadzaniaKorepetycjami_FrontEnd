@@ -144,7 +144,9 @@ const RegisterPage: React.FC = () => {
       });
       if (!response.ok) {
         if (response.status === 409) {
-          alert('Podany email już istnieje');
+          if (response.statusText === 'Not unique email')
+            alert('Podany email już istnieje');
+          else alert('Podany numer telefonu już istnieje');
           return false;
         } else {
           alert('Błąd bazy danych'); //dodać przejcie do dstony kod 500
