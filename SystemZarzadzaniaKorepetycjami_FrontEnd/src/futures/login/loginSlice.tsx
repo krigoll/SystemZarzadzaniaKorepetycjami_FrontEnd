@@ -59,6 +59,9 @@ export const loginSlice = createSlice({
     updateTeacher: (state, action: PayloadAction<boolean>) => {
       state.isTeacher = action.payload;
     },
+    updateToken: (state, action: PayloadAction<string>) => {
+      state.jwtToken = action.payload;
+    },
     deSetUser: (state) => {
       state.email = '';
       state.jwtToken = '';
@@ -70,5 +73,12 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setUser, deSetUser, updateEmail, updateStudent, updateTeacher } = loginSlice.actions;
+export const {
+  setUser,
+  deSetUser,
+  updateEmail,
+  updateStudent,
+  updateTeacher,
+  updateToken,
+} = loginSlice.actions;
 export default loginSlice.reducer;

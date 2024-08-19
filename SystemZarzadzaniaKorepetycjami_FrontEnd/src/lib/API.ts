@@ -1,3 +1,7 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../futures/store';
+import { updateToken } from '../futures/login/loginSlice';
+
 interface LoginProps {
   email: string;
   password: string;
@@ -33,9 +37,9 @@ interface EditProfileProps {
 }
 
 interface EditAddCalendarProps {
-    startingDate: string;
-    numberOfLessons: number;
-    breakTime: number;
+  startingDate: string;
+  numberOfLessons: number;
+  breakTime: number;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -157,6 +161,21 @@ async function getPersonDetails(email: string, token: string) {
   );
 
   if (!response.ok) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return await fetch(
+          `http://localhost:5230/api/person/getUser?email=${email}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${newToken}`,
+            },
+          }
+        );
+      }
+    }
     if (response.status === 400) {
       console.error('Invalid Email');
     } else if (response.status === 500) {
@@ -206,52 +225,96 @@ async function editpersonDetails(
   return response;
 }
 
-async function getAvailabilityCalendar(email: string, token: string, date: string) {
-    const response = await fetch(
-        `http://localhost:5230/api/calendar?date=${date}&email=${email}`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
+async function getAvailabilityCalendar(
+  email: string,
+  token: string,
+  date: string
+) {
+  const response = await fetch(
+    `http://localhost:5230/api/calendar?date=${date}&email=${email}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-    if (!response.ok) {
-        if (response.status === 400) {
-            console.error('Invalid Email');
-        } else if (response.status === 500) {
-            console.error('Database Error');
-        } else {
-            console.error('Unexpected Error');
-        }
-        return;
+  if (!response.ok) {
+    if (response.status === 400) {
+      console.error('Invalid Email');
+    } else if (response.status === 500) {
+      console.error('Database Error');
+    } else {
+      console.error('Unexpected Error');
+    }
+    return;
+  }
+
+  return response.json();
+}
+
+async function CreateAndUpdateCalendarsByEmail(
+  calendars: EditAddCalendarProps[],
+  email: string,
+  token: string
+) {
+  const formattedCalendars = calendars.map((calendar) => ({
+    startingDate: calendar.startingDate.toString(),
+    numberOfLessons: calendar.numberOfLessons,
+    breakTime: calendar.breakTime,
+  }));
+
+  console.log(JSON.stringify(formattedCalendars));
+
+  const response = await fetch(
+    `http://localhost:5230/api/calendar?email=${email}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ calendars: formattedCalendars }), // Zwrï¿½ï¿½ uwagï¿½ na strukturï¿½ danych
+    }
+  );
+
+  return response;
+}
+
+const refreshAccessToken = async (): Promise<string | null> => {
+  try {
+    const refreshToken = useSelector(
+      (state: RootState) => state.login.refreshToken
+    );
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
     }
 
-    return response.json();
-}
-
-async function CreateAndUpdateCalendarsByEmail(calendars: EditAddCalendarProps[], email: string, token: string) {
-    const formattedCalendars = calendars.map((calendar) => ({
-        startingDate: calendar.startingDate.toString(),
-        numberOfLessons: calendar.numberOfLessons,
-        breakTime: calendar.breakTime,
-    }));
-
-    console.log(JSON.stringify(formattedCalendars));
-
-    const response = await fetch(`http://localhost:5230/api/calendar?email=${email}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ calendars: formattedCalendars }),  // Zwróæ uwagê na strukturê danych
+    const response = await fetch('http://localhost:5230/api/login/refresh', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken }),
     });
 
-    return response;
-}
+    if (!response.ok) {
+      throw new Error('Failed to refresh token');
+    }
+
+    const data = await response.json();
+    const newAccessToken = data.accessToken;
+    const dispatch = useDispatch();
+    dispatch(updateToken(newAccessToken));
+
+    return newAccessToken;
+  } catch (error) {
+    console.error('Unable to refresh token:', error);
+    return null;
+  }
+};
 
 export {
   loginToApp,
@@ -260,7 +323,8 @@ export {
   getAllSubjects,
   setTeacherSalary,
   getPersonDetails,
-    editpersonDetails,
-    getAvailabilityCalendar,
-    CreateAndUpdateCalendarsByEmail
+  editpersonDetails,
+  getAvailabilityCalendar,
+  CreateAndUpdateCalendarsByEmail,
+  refreshAccessToken,
 };
