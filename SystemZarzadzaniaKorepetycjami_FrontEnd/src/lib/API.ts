@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
+import { useHandleLogOut } from '../lib/LogOut';
 
 interface LoginProps {
   email: string;
@@ -36,10 +37,10 @@ interface EditProfileProps {
   isTeacher: boolean;
 }
 
-interface EditAddCalendarProps {
-  startingDate: string;
-  numberOfLessons: number;
-  breakTime: number;
+interface EditAddAvailabilityProps {
+  IdDayOfTheWeek: number;
+  StartTime: string;
+  EndTime: string;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -164,19 +165,9 @@ async function getPersonDetails(email: string, token: string) {
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return await fetch(
-          `http://localhost:5230/api/person/getUser?email=${email}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${newToken}`,
-            },
-          }
-        );
-      }
-    }
-    if (response.status === 400) {
+        return getPersonDetails(email,token);
+      } 
+    } else if (response.status === 400) {
       console.error('Invalid Email');
     } else if (response.status === 500) {
       console.error('Database Error');
@@ -225,13 +216,12 @@ async function editpersonDetails(
   return response;
 }
 
-async function getAvailabilityCalendar(
+async function getAvailability(
   email: string,
   token: string,
-  date: string
 ) {
   const response = await fetch(
-    `http://localhost:5230/api/calendar?date=${date}&email=${email}`,
+    `http://localhost:5230/api/availability?email=${email}`,
     {
       method: 'GET',
       headers: {
@@ -242,7 +232,12 @@ async function getAvailabilityCalendar(
   );
 
   if (!response.ok) {
-    if (response.status === 400) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return getAvailability(email,token);
+      } 
+    } else if (response.status === 400) {
       console.error('Invalid Email');
     } else if (response.status === 500) {
       console.error('Database Error');
@@ -255,30 +250,40 @@ async function getAvailabilityCalendar(
   return response.json();
 }
 
-async function CreateAndUpdateCalendarsByEmail(
-  calendars: EditAddCalendarProps[],
+async function CreateAndUpdateAvailabilityByEmail(
+  availabilities: EditAddAvailabilityProps[],
   email: string,
   token: string
 ) {
-  const formattedCalendars = calendars.map((calendar) => ({
-    startingDate: calendar.startingDate.toString(),
-    numberOfLessons: calendar.numberOfLessons,
-    breakTime: calendar.breakTime,
-  }));
-
-  console.log(JSON.stringify(formattedCalendars));
+  console.log(JSON.stringify(availabilities));
 
   const response = await fetch(
-    `http://localhost:5230/api/calendar?email=${email}`,
+    `http://localhost:5230/api/availability?email=${email}`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ calendars: formattedCalendars }), // Zwr�� uwag� na struktur� danych
+      body: JSON.stringify({ calendars: availabilities }), // Zwr�� uwag� na struktur� danych
     }
   );
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return CreateAndUpdateAvailabilityByEmail(availabilities,email,token);
+      } 
+    } else if (response.status === 400) {
+      console.error('Invalid Email');
+    } else if (response.status === 500) {
+      console.error('Database Error');
+    } else {
+      console.error('Unexpected Error');
+    }
+    return;
+  }
 
   return response;
 }
@@ -302,6 +307,8 @@ const refreshAccessToken = async (): Promise<string | null> => {
 
     if (!response.ok) {
       throw new Error('Failed to refresh token');
+      const handleLogOut = useHandleLogOut();
+      handleLogOut();
     }
 
     const data = await response.json();
@@ -324,7 +331,7 @@ export {
   setTeacherSalary,
   getPersonDetails,
   editpersonDetails,
-  getAvailabilityCalendar,
-  CreateAndUpdateCalendarsByEmail,
+  getAvailability,
+  CreateAndUpdateAvailabilityByEmail,
   refreshAccessToken,
 };

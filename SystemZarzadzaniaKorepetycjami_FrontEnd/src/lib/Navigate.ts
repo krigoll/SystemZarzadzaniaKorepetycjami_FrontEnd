@@ -37,8 +37,8 @@ function goToTeacherMenu(navigate: NavigateFunction) {
     navigate('/teacher');
 }
 
-function goToDeterminingAvailabilty(navigate: NavigateFunction, dateDay: string) {
-    navigate(`/teacher/determiningAvailabilty/${dateDay}`);
+function goToDeterminingAvailabilty(navigate: NavigateFunction) {
+    navigate(`/teacher/determiningAvailabilty`);
 }
 
 export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile, goToStudentMenu, goToTeacherMenu, goToDeterminingAvailabilty };

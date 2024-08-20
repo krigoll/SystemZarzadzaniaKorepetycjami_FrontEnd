@@ -3,27 +3,19 @@ import './App.css';
 import AppButton from '../components/AppButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deSetUser } from '../futures/login/loginSlice';
-import { goToMainPage, goToProfile, goToStudentMenu, goToTeacherMenu } from '../lib/Navigate';
-import Cookies from 'js-cookie';
+import { goToProfile, goToStudentMenu, goToTeacherMenu } from '../lib/Navigate';
+import { useHandleLogOut } from '../lib/LogOut';
 
 const App: React.FC = () => {
   const { isAdmin, isTeacher, isStudent } = useSelector(
     (state: RootState) => state.login
   );
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handleLogOut = useHandleLogOut();
 
-  const handleLogOut = () =>{
-    Cookies.remove('jwtToken');
-    Cookies.remove('refreshToken');
-    Cookies.remove('email');
-    dispatch(deSetUser());
-    goToMainPage(navigate)
-  }
+
 
   return (
     <div className="App">
