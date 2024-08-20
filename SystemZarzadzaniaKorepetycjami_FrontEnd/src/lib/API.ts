@@ -39,8 +39,8 @@ interface EditProfileProps {
 
 interface AvailabilityDTO {
   idDayOfTheWeek: number;
-  startTime: string;
-  endTime: string;
+  startTime: string | null;
+  endTime: string | null;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -165,8 +165,8 @@ async function getPersonDetails(email: string, token: string) {
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return getPersonDetails(email,token);
-      } 
+        return getPersonDetails(email, token);
+      }
     } else if (response.status === 400) {
       console.error('Invalid Email');
     } else if (response.status === 500) {
@@ -216,10 +216,7 @@ async function editpersonDetails(
   return response;
 }
 
-async function getAvailability(
-  email: string,
-  token: string,
-) {
+async function getAvailability(email: string, token: string) {
   const response = await fetch(
     `http://localhost:5230/api/availability?email=${email}`,
     {
@@ -235,8 +232,8 @@ async function getAvailability(
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return getAvailability(email,token);
-      } 
+        return getAvailability(email, token);
+      }
     } else if (response.status === 400) {
       console.error('Invalid Email');
     } else if (response.status === 500) {
@@ -255,7 +252,12 @@ async function CreateAndUpdateAvailabilityByEmail(
   email: string,
   token: string
 ) {
-  console.log(JSON.stringify(availabilities));
+  availabilities.forEach((availability) => {
+    if (availability.startTime === '') availability.startTime = null;
+    if (availability.endTime === '') availability.endTime = null;
+  });
+
+  //console.log(JSON.stringify(availabilities));
 
   const response = await fetch(
     `http://localhost:5230/api/availability?email=${email}`,
@@ -265,7 +267,7 @@ async function CreateAndUpdateAvailabilityByEmail(
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ availabilities }),
+      body: JSON.stringify(availabilities),
     }
   );
 
@@ -273,11 +275,17 @@ async function CreateAndUpdateAvailabilityByEmail(
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return CreateAndUpdateAvailabilityByEmail(availabilities,email,token);
-      } 
+        return CreateAndUpdateAvailabilityByEmail(availabilities, email, token);
+      }
     } else if (response.status === 400) {
-      if (response.statusText === 'Invalid User')
-        console.error('Email Error');
+      // const errorData = await response.json();
+      // console.error('Error Details:', errorData);
+      // if (errorData.errors) {
+      //   Object.keys(errorData.errors).forEach((key) => {
+      //     console.error(`${key}: ${errorData.errors[key].join(', ')}`);
+      //   });
+      // }
+      if (response.statusText === 'Invalid User') console.error('Email Error');
       else if (response.statusText === 'Invalid Time')
         console.error('Time Error');
       else alert('Zły Kuba');
