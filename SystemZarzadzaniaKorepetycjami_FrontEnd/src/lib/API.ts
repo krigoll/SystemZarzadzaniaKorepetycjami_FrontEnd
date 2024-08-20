@@ -37,10 +37,10 @@ interface EditProfileProps {
   isTeacher: boolean;
 }
 
-interface EditAddAvailabilityProps {
-  IdDayOfTheWeek: number;
-  StartTime: string;
-  EndTime: string;
+interface AvailabilityDTO {
+  idDayOfTheWeek: number;
+  startTime: string;
+  endTime: string;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -251,7 +251,7 @@ async function getAvailability(
 }
 
 async function CreateAndUpdateAvailabilityByEmail(
-  availabilities: EditAddAvailabilityProps[],
+  availabilities: AvailabilityDTO[],
   email: string,
   token: string
 ) {
@@ -265,7 +265,7 @@ async function CreateAndUpdateAvailabilityByEmail(
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ calendars: availabilities }), // Zwr�� uwag� na struktur� danych
+      body: JSON.stringify({ availabilities }),
     }
   );
 
@@ -276,7 +276,11 @@ async function CreateAndUpdateAvailabilityByEmail(
         return CreateAndUpdateAvailabilityByEmail(availabilities,email,token);
       } 
     } else if (response.status === 400) {
-      console.error('Invalid Email');
+      if (response.statusText === 'Invalid User')
+        console.error('Email Error');
+      else if (response.statusText === 'Invalid Time')
+        console.error('Time Error');
+      else alert('Zły Kuba');
     } else if (response.status === 500) {
       console.error('Database Error');
     } else {

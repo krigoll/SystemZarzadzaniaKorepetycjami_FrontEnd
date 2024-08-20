@@ -16,63 +16,69 @@ const daysOfWeek = [
     'Niedziela'
 ];
 
+interface EditAddAvailabilityProps {
+    idDayOfTheWeek: number;
+    startTime: string;
+    endTime: string;
+}
+
 const AvailabilityPage: React.FC = () => {
     const email = useSelector((state: RootState) => state.login.email);
     const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
     const navigate = useNavigate();
-    
-    // Initialize availability as an empty array
-    const [availability, setAvailability] = useState(
-        Array(7).fill({ startTime: '', endTime: '' })
+
+    const [availability, setAvailability] = useState<EditAddAvailabilityProps[]>(
+        daysOfWeek.map((_, index) => ({
+            idDayOfTheWeek: index + 1,
+            startTime: '',
+            endTime: ''
+        }))
     );
 
     const fetchAvailability = async (email: string, token: string) => {
         try {
             const response = await getAvailability(email, token);
-            return response; // assuming this returns the parsed JSON directly
+            return response.map((item: any, index: number) => ({
+                idDayOfTheWeek: index + 1,
+                startTime: item.startTime || '',
+                endTime: item.endTime || ''
+            }));
         } catch (error) {
             console.error('Error fetching availability calendar:', error);
-            return Array(7).fill({ startTime: '', endTime: '' }); // return an empty array on error
+            return [];
         }
     };
 
     const generateAvailabilityHTML = async (email: string, token: string) => {
         try {
             const availabilityData = await fetchAvailability(email, token);
-            if (availabilityData) {
-                const mappedAvailability = daysOfWeek.map((_, index) => {
-                    const dayAvailability = availabilityData.find((avail: { IdDayOfTheWeek: number; }) => avail.IdDayOfTheWeek === index + 1);
-                    return dayAvailability ? { startTime: dayAvailability.StartTime, endTime: dayAvailability.EndTime } : { startTime: '', endTime: '' };
-                });
-                setAvailability(mappedAvailability);
-            } else {
-                setAvailability(Array(7).fill({ startTime: '', endTime: '' }));
-            }
+            setAvailability(availabilityData);
         } catch (error) {
             console.error('Error generating availability calendar:', error);
-            setAvailability(Array(7).fill({ startTime: '', endTime: '' }));
+            setAvailability([]);
         }
     };
 
     useEffect(() => {
         if (email && jwtToken) {
             generateAvailabilityHTML(email, jwtToken);
+            console.log(availability);
         }
     }, [email, jwtToken]);
 
-    const handleInputChange = (index: number, field: 'startTime' | 'endTime', value: string) => {
+    const handleInputChange = (
+        index: number,
+        field: 'StartTime' | 'EndTime',
+        value: string
+    ) => {
         const newAvailability = [...availability];
-        newAvailability[index] = { ...newAvailability[index], [field]: value };
+        newAvailability[index][field] = value;
         setAvailability(newAvailability);
     };
 
     const handleSubmit = async () => {
-        const updatedAvailability = availability.map((avail, index) => ({
-            IdDayOfTheWeek: index + 1,
-            StartTime: avail.startTime,
-            EndTime: avail.endTime,
-        }));
-        await CreateAndUpdateAvailabilityByEmail(updatedAvailability, email, jwtToken);
+        console.log(availability);
+        await CreateAndUpdateAvailabilityByEmail(availability, email, jwtToken);
     };
 
     return (
@@ -84,13 +90,17 @@ const AvailabilityPage: React.FC = () => {
                         <span className="day-label">{day}</span>
                         <input
                             type="time"
-                            value={availability[index]?.startTime || ''}
-                            onChange={(e) => handleInputChange(index, 'startTime', e.target.value)}
+                            value={availability[index].StartTime}
+                            onChange={(e) =>
+                                handleInputChange(index, 'StartTime', e.target.value)
+                            }
                         />
                         <input
                             type="time"
-                            value={availability[index]?.endTime || ''}
-                            onChange={(e) => handleInputChange(index, 'endTime', e.target.value)}
+                            value={availability[index].EndTime}
+                            onChange={(e) =>
+                                handleInputChange(index, 'EndTime', e.target.value)
+                            }
                         />
                     </div>
                 ))}
