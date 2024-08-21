@@ -41,4 +41,12 @@ function goToDeterminingAvailabilty(navigate: NavigateFunction) {
     navigate(`/teacher/determiningAvailabilty`);
 }
 
-export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile, goToStudentMenu, goToTeacherMenu, goToDeterminingAvailabilty };
+function goToChooseSubjectPage(navigate: NavigateFunction) {
+  navigate(`/student/chooseSubject`);
+}
+
+function goToChooseTeacherPage(navigate: NavigateFunction, idSubjectLevel: number) {
+  navigate(`/student/chooseSubject/${idSubjectLevel}`);
+}
+
+export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile, goToStudentMenu, goToTeacherMenu, goToDeterminingAvailabilty, goToChooseSubjectPage, goToChooseTeacherPage };

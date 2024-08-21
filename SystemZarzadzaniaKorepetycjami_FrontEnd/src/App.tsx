@@ -15,6 +15,7 @@ import StudentMenu from './pages/StudentMenu';
 import TeacherMenu from './pages/TeacherMenu';
 import DeterminingAvailabilty from './pages/DeterminingAvailabilty';
 import NotFound from './pages/NotFound';
+import ChooseSubjectPage from './pages/ChooseSubjectPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,14 +45,13 @@ function App() {
         <Route path="/addSubjects" element={<AddSubjectsPage />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/teacher" element={<TeacherMenu />} />
-        <Route
-          path="/teacher/determiningAvailabilty/"
-          element={<DeterminingAvailabilty />}
-        />
+        <Route path="/teacher/determiningAvailabilty/" element={<DeterminingAvailabilty />} />
         <Route path="/student" element={<StudentMenu />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
+        <Route path="/student/chooseSubject/:id" element={<ChooseSubjectPage />} />
       </Routes>
     </Router>
   );

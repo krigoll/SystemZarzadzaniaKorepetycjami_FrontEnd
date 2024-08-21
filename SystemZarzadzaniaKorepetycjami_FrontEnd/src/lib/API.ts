@@ -138,6 +138,12 @@ async function getAllSubjects(token: string) {
   );
 
   if (!response.ok) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return getAllSubjects(newToken);
+      }
+    }
     throw new Error('Failed to fetch subjects');
   }
 
@@ -232,7 +238,7 @@ async function getAvailability(email: string, token: string) {
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return getAvailability(email, token);
+        return getAvailability(email, newToken);
       }
     } else if (response.status === 400) {
       console.error('Invalid Email');
@@ -275,7 +281,7 @@ async function CreateAndUpdateAvailabilityByEmail(
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return CreateAndUpdateAvailabilityByEmail(availabilities, email, token);
+        return CreateAndUpdateAvailabilityByEmail(availabilities, email, newToken);
       }
     } else if (response.status === 400) {
       // const errorData = await response.json();
