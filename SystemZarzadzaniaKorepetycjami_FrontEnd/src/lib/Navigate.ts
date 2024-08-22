@@ -49,4 +49,5 @@ function goToChooseTeacherPage(navigate: NavigateFunction, idSubjectLevel: numbe
   navigate(`/student/chooseSubject/${idSubjectLevel}`);
 }
 
+
 export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile, goToStudentMenu, goToTeacherMenu, goToDeterminingAvailabilty, goToChooseSubjectPage, goToChooseTeacherPage };

@@ -3,24 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Menu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Menu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseTeacherPage.tsx||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseTeacherPage.tsx||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TeacherMenu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TeacherMenu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Menu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Menu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\DeterminingAvailabilty.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
@@ -29,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\AddSubjectPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\AddSubjectPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TeacherMenu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TeacherMenu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\StudentMenu.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
@@ -126,7 +130,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -146,13 +150,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "ChooseTeacherPage.tsx",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseTeacherPage.tsx",
+              "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseTeacherPage.tsx",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseTeacherPage.tsx",
+              "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseTeacherPage.tsx",
+              "ViewState": "AQIAACwAAAAAAAAAAAAAAA8AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-08-22T10:00:59.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "ChooseSubjectPage.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx",
               "ToolTip": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx",
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ChooseSubjectPage.tsx",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAAAFcAAAAOAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJ0AAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "WhenOpened": "2024-08-21T10:34:15.305Z",
@@ -160,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "DeterminingAvailabilty.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\DeterminingAvailabilty.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\DeterminingAvailabilty.tsx",
@@ -169,18 +186,17 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
-              "WhenOpened": "2024-08-08T09:51:41.638Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-08T09:51:41.638Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "API.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts",
               "ToolTip": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts",
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\API.ts",
-              "ViewState": "AQIAABQBAAAAAAAAAAAIwI8AAAAoAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAI8AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
               "WhenOpened": "2024-07-24T09:49:58.416Z",
@@ -188,21 +204,21 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "App.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx",
-              "ToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/App.tsx",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAACUAAAAAAAAA",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx",
+              "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx",
+              "ViewState": "AQIAACwAAAAAAAAAAAAQwDYAAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src",
-              "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/App.tsx",
               "WhenOpened": "2024-07-24T12:20:36.224Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "TeacherMenu.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TeacherMenu.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TeacherMenu.tsx",
@@ -216,7 +232,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "EditProfile.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\EditProfile.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\EditProfile.tsx",
@@ -229,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Registration.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Registration.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Registration.tsx",
@@ -242,21 +258,21 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Navigate.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts",
-              "ToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/lib/Navigate.ts",
-              "ViewState": "AQIAABgAAAAAAAAAAAArwCsAAAA8AAAA",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts",
+              "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Navigate.ts",
+              "ViewState": "AQIAABsAAAAAAAAAAAArwDIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
-              "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/lib/Navigate.ts",
               "WhenOpened": "2024-07-24T09:50:02.98Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "StudentMenu.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\StudentMenu.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\StudentMenu.tsx",
@@ -265,12 +281,11 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/StudentMenu.tsx",
-              "WhenOpened": "2024-08-08T09:04:09.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-08T09:04:09.128Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "AddSubjectPage.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\AddSubjectPage.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\AddSubjectPage.tsx",
@@ -279,12 +294,11 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/AddSubjectPage.tsx",
-              "WhenOpened": "2024-07-27T08:56:48.311Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-27T08:56:48.311Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Menu.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Menu.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Menu.tsx",
@@ -293,12 +307,11 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/Menu.tsx",
-              "WhenOpened": "2024-08-02T10:53:44.207Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T10:53:44.207Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Profile.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Profile.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Profile.tsx",
@@ -311,7 +324,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MainPage.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\MainPage.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\MainPage.tsx",
@@ -324,7 +337,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "NotFound.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\NotFound.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\NotFound.tsx",
@@ -336,7 +349,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "LogOut.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\LogOut.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\LogOut.ts",
@@ -349,7 +362,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Login.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Login.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Login.tsx",
@@ -362,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "ConvertImage.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\ConvertImage.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\ConvertImage.ts",
@@ -375,7 +388,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "App.css",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\App.css",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\App.css",
@@ -387,7 +400,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Login.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Login.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\Login.ts",
@@ -400,7 +413,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "AppButton.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\components\\AppButton.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\components\\AppButton.tsx",
@@ -412,7 +425,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "AppInput.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\components\\AppInput.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\components\\AppInput.tsx",
@@ -425,7 +438,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "loginSlice.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures\\login\\loginSlice.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures\\login\\loginSlice.tsx",
@@ -438,7 +451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\urils\\README.md",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\urils\\README.md",
@@ -450,7 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "User.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\types\\User.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\types\\User.ts",
@@ -462,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "LoginState.ts",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\types\\LoginState.ts",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\types\\LoginState.ts",
@@ -475,7 +488,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "store.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures\\store.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\futures\\store.tsx",
@@ -488,7 +501,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "package.json",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\package.json",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\package.json",
@@ -501,7 +514,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "main.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\main.tsx",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\main.tsx",
@@ -513,7 +526,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\components\\README.md",
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\components\\README.md",
