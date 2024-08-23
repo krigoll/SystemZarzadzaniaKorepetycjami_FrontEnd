@@ -46,13 +46,19 @@ function App() {
         <Route path="/addSubjects" element={<AddSubjectsPage />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/teacher" element={<TeacherMenu />} />
-        <Route path="/teacher/determiningAvailabilty/" element={<DeterminingAvailabilty />} />
+        <Route
+          path="/teacher/determiningAvailabilty/"
+          element={<DeterminingAvailabilty />}
+        />
         <Route path="/student" element={<StudentMenu />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
+        <Route
+          path="/student/chooseSubject/:id"
+          element={<ChooseTeacherPage />}
+        />
         <Route path="*" element={<NotFound />} />
-              <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
-              <Route path="/student/chooseSubject/:id" element={<ChooseTeacherPage />} />
       </Routes>
     </Router>
   );

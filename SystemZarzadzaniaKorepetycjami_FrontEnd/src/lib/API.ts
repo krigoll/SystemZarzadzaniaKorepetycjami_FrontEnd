@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { useHandleLogOut } from '../lib/LogOut';
+import { base64ToFile } from './ConvertImage';
 
 interface LoginProps {
   email: string;
@@ -41,6 +42,21 @@ interface AvailabilityDTO {
   idDayOfTheWeek: number;
   startTime: string | null;
   endTime: string | null;
+}
+
+interface TeacherResponse {
+  idPerson: number;
+  name: string;
+  surname: string;
+  hourlyRate: number;
+  image: string;
+}
+
+interface Teacher {
+  id: number;
+  name: string;
+  price: number;
+  image: File;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -281,7 +297,11 @@ async function CreateAndUpdateAvailabilityByEmail(
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return CreateAndUpdateAvailabilityByEmail(availabilities, email, newToken);
+        return CreateAndUpdateAvailabilityByEmail(
+          availabilities,
+          email,
+          newToken
+        );
       }
     } else if (response.status === 400) {
       // const errorData = await response.json();
@@ -306,6 +326,50 @@ async function CreateAndUpdateAvailabilityByEmail(
   return response;
 }
 
+async function getTeachersForLevel(
+  id: number,
+  token: string
+): Promise<Teacher[]> {
+  try {
+    const response = await fetch(
+      `http://localhost:5230/api/teacher?subjectCategoryId=${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        const newToken = await refreshAccessToken();
+        if (newToken) {
+          return getTeachersForLevel(id, newToken);
+        }
+      } else if (response.status === 500) {
+        console.error('Database Error');
+      } else {
+        console.error('Unexpected Error');
+      }
+      return [];
+    }
+
+    const data: TeacherResponse[] = await response.json();
+
+    return data.map((teacher) => ({
+      id: teacher.idPerson,
+      name: `${teacher.name} ${teacher.surname}`,
+      price: teacher.hourlyRate,
+      image: base64ToFile(teacher.image, 'profileImage.jpg'),
+    }));
+  } catch (error) {
+    console.error('Error fetching teachers:', error);
+    return [];
+  }
+}
+
 const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const refreshToken = useSelector(
@@ -324,9 +388,9 @@ const refreshAccessToken = async (): Promise<string | null> => {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to refresh token');
       const handleLogOut = useHandleLogOut();
       handleLogOut();
+      throw new Error('Failed to refresh token');
     }
 
     const data = await response.json();
@@ -351,5 +415,6 @@ export {
   editpersonDetails,
   getAvailability,
   CreateAndUpdateAvailabilityByEmail,
+  getTeachersForLevel,
   refreshAccessToken,
 };

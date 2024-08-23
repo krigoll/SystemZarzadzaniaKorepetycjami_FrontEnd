@@ -26,28 +26,43 @@ function goToProfile(navigate: NavigateFunction) {
 }
 
 function goToEditProfile(navigate: NavigateFunction, dataToEdit: DataToEdit) {
-  navigate('/profile/edit', { state: { dataToEdit } })
+  navigate('/profile/edit', { state: { dataToEdit } });
 }
 
 function goToStudentMenu(navigate: NavigateFunction) {
-    navigate('/student');
+  navigate('/student');
 }
 
 function goToTeacherMenu(navigate: NavigateFunction) {
-    navigate('/teacher');
+  navigate('/teacher');
 }
 
 function goToDeterminingAvailabilty(navigate: NavigateFunction) {
-    navigate(`/teacher/determiningAvailabilty`);
+  navigate(`/teacher/determiningAvailabilty`);
 }
 
 function goToChooseSubjectPage(navigate: NavigateFunction) {
   navigate(`/student/chooseSubject`);
 }
 
-function goToChooseTeacherPage(navigate: NavigateFunction, idSubjectLevel: number) {
+function goToChooseTeacherPage(
+  navigate: NavigateFunction,
+  idSubjectLevel: string
+) {
   navigate(`/student/chooseSubject/${idSubjectLevel}`);
 }
 
-
-export { goToLogin, goToRegistration, goToMainPage, goToAddSubject, goToMenu, goToProfile, goToEditProfile, goToStudentMenu, goToTeacherMenu, goToDeterminingAvailabilty, goToChooseSubjectPage, goToChooseTeacherPage };
+export {
+  goToLogin,
+  goToRegistration,
+  goToMainPage,
+  goToAddSubject,
+  goToMenu,
+  goToProfile,
+  goToEditProfile,
+  goToStudentMenu,
+  goToTeacherMenu,
+  goToDeterminingAvailabilty,
+  goToChooseSubjectPage,
+  goToChooseTeacherPage,
+};
