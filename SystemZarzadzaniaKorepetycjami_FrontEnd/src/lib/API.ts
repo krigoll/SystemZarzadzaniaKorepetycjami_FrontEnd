@@ -56,7 +56,7 @@ interface Teacher {
   id: number;
   name: string;
   price: number;
-  image: File;
+  image: File | null;
 }
 
 async function loginToApp({ email, password }: LoginProps) {
@@ -362,7 +362,10 @@ async function getTeachersForLevel(
       id: teacher.idPerson,
       name: `${teacher.name} ${teacher.surname}`,
       price: teacher.hourlyRate,
-      image: base64ToFile(teacher.image, 'profileImage.jpg'),
+      image:
+        teacher.image == null
+          ? null
+          : base64ToFile(teacher.image, 'profileImage.jpg'),
     }));
   } catch (error) {
     console.error('Error fetching teachers:', error);

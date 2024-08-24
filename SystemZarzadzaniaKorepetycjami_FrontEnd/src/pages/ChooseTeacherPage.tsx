@@ -15,7 +15,7 @@ interface Teacher {
   id: number;
   name: string;
   price: number;
-  image: File;
+  image: File | null;
 }
 
 const ChooseTeacherPage: React.FC = () => {
@@ -55,7 +55,7 @@ const ChooseTeacherPage: React.FC = () => {
                   alt={`${teacher.name}`}
                 />
               ) : (
-                '[Zdjęcie]'
+                '[Brak Zdjęcia]'
               )}
             </div>
             <div className="teacher-actions">
