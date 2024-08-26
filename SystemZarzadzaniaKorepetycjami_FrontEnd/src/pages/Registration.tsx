@@ -172,9 +172,9 @@ const RegisterPage: React.FC = () => {
           refreshToken: personData.refreshToken,
         })
       );
-      Cookies.set('jwtToken', personData.token, { expires: 1 });
-      Cookies.set('refreshToken', personData.refreshToken, { expires: 1 });
-      Cookies.set('email', email, { expires: 1 });
+      Cookies.set('jwtToken', personData.token, { expires: 7 });
+      Cookies.set('refreshToken', personData.refreshToken, { expires: 7 });
+      Cookies.set('email', email, { expires: 7 });
       if (!isTeacher) goToMenu(navigate);
       goToAddSubject(navigate);
     }

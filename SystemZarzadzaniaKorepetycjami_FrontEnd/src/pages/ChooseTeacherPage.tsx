@@ -8,8 +8,9 @@ import {
   // goToStudentMenu,
   // goToFiltersPage,
   // goToTeacherDetailsPage,
-  goToChooseSubjectPage,
+  goToChooseSubjectPage, goToSignUpToLessonPage,
 } from '../lib/Navigate';
+import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
 
 interface Teacher {
   id: number;
@@ -34,6 +35,17 @@ const ChooseTeacherPage: React.FC = () => {
 
     fetchTeachers();
   }, [token, id]);
+
+const handleSingUpToLesson = (teacher: Teacher) =>{
+  const DataToSignUpToLesson: DataToSignUpToLesson = {
+    teacherId: teacher.id,
+    name: teacher.name,
+    price: teacher.price,
+    image: teacher.image,
+    subjectInfo: id
+  }
+  goToSignUpToLessonPage(navigate, DataToSignUpToLesson);
+}  
 
   return (
     <div className="teacher-list-page">
@@ -61,7 +73,7 @@ const ChooseTeacherPage: React.FC = () => {
             <div className="teacher-actions">
               <AppButton
                 label="Dalej"
-                // onClick={() => goToTeacherDetailsPage(navigate, teacher.id)}
+                onClick={() => handleSingUpToLesson(teacher)}
               />
             </div>
           </div>

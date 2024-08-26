@@ -1,5 +1,6 @@
 import { NavigateFunction } from 'react-router-dom';
 import { DataToEdit } from '../types/DataToEdit';
+import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
 
 function goToLogin(navigate: NavigateFunction) {
   navigate('/login');
@@ -52,6 +53,13 @@ function goToChooseTeacherPage(
   navigate(`/student/chooseSubject/${idSubjectLevel}`);
 }
 
+function goToSignUpToLessonPage(
+  navigate: NavigateFunction,
+  DataToSignUpToLesson: DataToSignUpToLesson
+) {
+  navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -65,4 +73,5 @@ export {
   goToDeterminingAvailabilty,
   goToChooseSubjectPage,
   goToChooseTeacherPage,
+  goToSignUpToLessonPage,
 };

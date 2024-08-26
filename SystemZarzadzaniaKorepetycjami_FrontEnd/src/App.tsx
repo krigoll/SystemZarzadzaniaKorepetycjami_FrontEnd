@@ -17,6 +17,7 @@ import DeterminingAvailabilty from './pages/DeterminingAvailabilty';
 import NotFound from './pages/NotFound';
 import ChooseSubjectPage from './pages/ChooseSubjectPage';
 import ChooseTeacherPage from './pages/ChooseTeacherPage';
+import SignUpToLesson from './pages/SignUpToLessonPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App() {
           path="/student/chooseSubject/:id"
           element={<ChooseTeacherPage />}
         />
+        <Route path="/student/signUpToLesson" element={<SignUpToLesson />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
