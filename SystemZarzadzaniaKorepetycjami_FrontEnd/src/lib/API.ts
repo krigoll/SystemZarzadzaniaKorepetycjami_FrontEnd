@@ -138,6 +138,18 @@ async function setTeacherSalary(
       body: JSON.stringify(teacherSalaries),
     }
   );
+  if (!response.ok) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return setTeacherSalary(
+          teacherSalaries,
+          token
+        );
+      }
+    }
+    return;
+  }
   return response;
 }
 
@@ -235,6 +247,28 @@ async function editpersonDetails(
     }
   );
 
+  if (!response.ok) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return editpersonDetails(
+          {
+            idPerson,
+            name,
+            surname,
+            email,
+            phoneNumber,
+            image,
+            isStudent,
+            isTeacher,
+          },
+          token
+        );
+      }
+    }
+    return;
+  }
+
   return response;
 }
 
@@ -322,7 +356,7 @@ async function CreateAndUpdateAvailabilityByEmail(
     }
     return;
   }
-
+  alert("Dostępność została zapisana");
   return response;
 }
 
@@ -408,6 +442,37 @@ const refreshAccessToken = async (): Promise<string | null> => {
   }
 };
 
+async function getAvailabilityById(id: number, token: string) {
+    const response = await fetch(
+        `http://localhost:5230/api/availability/byId?teacherId=${id}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        if (response.status === 401) {
+            const newToken = await refreshAccessToken();
+            if (newToken) {
+                return getAvailabilityById(id, newToken);
+            }
+        } else if (response.status === 400) {
+            console.error('Invalid Email');
+        } else if (response.status === 500) {
+            console.error('Database Error');
+        } else {
+            console.error('Unexpected Error');
+        }
+        return;
+    }
+
+    return response.json();
+}
+
 export {
   loginToApp,
   getOne,
@@ -419,5 +484,6 @@ export {
   getAvailability,
   CreateAndUpdateAvailabilityByEmail,
   getTeachersForLevel,
-  refreshAccessToken,
+    refreshAccessToken,
+    getAvailabilityById
 };
