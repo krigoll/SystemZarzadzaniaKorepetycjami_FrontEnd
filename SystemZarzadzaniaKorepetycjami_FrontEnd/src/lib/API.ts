@@ -39,12 +39,12 @@ interface EditProfileProps {
 }
 
 interface SignUpToLessonProps {
-    email: string;
-    teacherId: number;
-    subjectLevelId: number;
-    startDate: string;
-    startTime: string;
-    durationInMinutes: number;
+  email: string;
+  teacherId: number;
+  subjectLevelId: number;
+  startDate: string;
+  startTime: string;
+  durationInMinutes: number;
 }
 
 interface AvailabilityDTO {
@@ -151,10 +151,7 @@ async function setTeacherSalary(
     if (response.status === 401) {
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return setTeacherSalary(
-          teacherSalaries,
-          token
-        );
+        return setTeacherSalary(teacherSalaries, token);
       }
     }
     return;
@@ -365,7 +362,7 @@ async function CreateAndUpdateAvailabilityByEmail(
     }
     return;
   }
-  alert("Dostępność została zapisana");
+  alert('Dostępność została zapisana');
   return response;
 }
 
@@ -416,7 +413,8 @@ async function getTeachersForLevel(
   }
 }
 
-const refreshAccessToken = async (): Promise<string | null> => { //TODO
+const refreshAccessToken = async (): Promise<string | null> => {
+  //TODO
   try {
     const refreshToken = useSelector(
       (state: RootState) => state.login.refreshToken
@@ -452,65 +450,66 @@ const refreshAccessToken = async (): Promise<string | null> => { //TODO
 };
 
 async function getAvailabilityById(id: number, token: string) {
-    const response = await fetch(
-        `http://localhost:5230/api/availability/byId?teacherId=${id}`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
-
-    if (!response.ok) {
-        if (response.status === 401) {
-            const newToken = await refreshAccessToken();
-            if (newToken) {
-                return getAvailabilityById(id, newToken);
-            }
-        } else if (response.status === 400) {
-            console.error('Invalid Email');
-        } else if (response.status === 500) {
-            console.error('Database Error');
-        } else {
-            console.error('Unexpected Error');
-        }
-        return;
+  const response = await fetch(
+    `http://localhost:5230/api/availability/byId?teacherId=${id}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
+  );
 
-    return response.json();
+  if (!response.ok) {
+    if (response.status === 401) {
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return getAvailabilityById(id, newToken);
+      }
+    } else if (response.status === 400) {
+      console.error('Invalid Email');
+    } else if (response.status === 500) {
+      console.error('Database Error');
+    } else {
+      console.error('Unexpected Error');
+    }
+    return;
+  }
+
+  return response.json();
 }
 
-async function singUpToLesson({
-  teacherId,
-  email,
-  subjectLevelId,
-  startDate,
-  startTime,
-  durationInMinutes,
-}: SignUpToLessonProps, token: string) {
+async function singUpToLesson(
+  {
+    teacherId,
+    email,
+    subjectLevelId,
+    startDate,
+    startTime,
+    durationInMinutes,
+  }: SignUpToLessonProps,
+  token: string
+) {
   // var newStartDate: string = startDate.toString();
   // var newStartTime: string = startTime.toString();
   const requestData = {
     studentEmail: email,
     teacherId: teacherId,
     subjectLevelId: subjectLevelId,
-    startDate: startDate, 
-    startTime: startTime, 
-    durationInMinutes: durationInMinutes
+    startDate: startDate,
+    startTime: startTime,
+    durationInMinutes: durationInMinutes,
   };
-  const response = await fetch(
-    'http://localhost:5230/api/singUpToLesson',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(requestData),
-    }
-  );
+  console.log(requestData);
+  const response = await fetch('http://localhost:5230/api/singUpToLesson', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(requestData),
+  });
 
   return response;
 }
@@ -528,5 +527,5 @@ export {
   getTeachersForLevel,
   refreshAccessToken,
   getAvailabilityById,
-  singUpToLesson
+  singUpToLesson,
 };
