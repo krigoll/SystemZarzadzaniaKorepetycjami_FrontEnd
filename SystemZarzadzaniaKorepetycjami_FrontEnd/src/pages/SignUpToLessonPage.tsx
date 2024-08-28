@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { goToChooseTeacherPage } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { getAvailabilityById } from '../lib/API';
+import { getAvailabilityById, singUpToLesson } from '../lib/API';
 import { AppDateInput } from '../components/AppInput';
 
 interface EditAddAvailabilityProps {
@@ -43,6 +43,7 @@ const TeacherDetailsPage: React.FC = () => {
         DataToSignUpToLesson.subjectInfo?.split(' ')[2]
     );
     const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
+    const email = useSelector((state: RootState) => state.login.email);
 
     const [availability, setAvailability] = useState<EditAddAvailabilityProps[]>(
         daysOfWeek.map((_, index) => ({
@@ -87,9 +88,12 @@ const TeacherDetailsPage: React.FC = () => {
         }
     }, [location.state?.DataToSignUpToLesson.idTeacher, jwtToken]);
 
-    const handleAcceptClick = () => {
-        // Logika do przesy³ania danych o lekcji
-        console.log("siema to lekcja");
+    const handleAcceptClick = async () => {
+        const teacherId = teacher.idTeacher;
+        const startDate = selectedDate;
+        const startTime = lessonTime;
+        const durationInMinutes = duration;
+        await singUpToLesson({ teacherId, email, subjectLevelId, startDate, startTime, durationInMinutes }, jwtToken);
     };
 
     return (

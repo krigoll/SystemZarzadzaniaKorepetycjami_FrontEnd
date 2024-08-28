@@ -38,6 +38,15 @@ interface EditProfileProps {
   isTeacher: boolean;
 }
 
+interface SignUpToLessonProps {
+    email: string;
+    teacherId: number;
+    subjectLevelId: number;
+    startDate: string;
+    startTime: string;
+    durationInMinutes: number;
+}
+
 interface AvailabilityDTO {
   idDayOfTheWeek: number;
   startTime: string | null;
@@ -407,7 +416,7 @@ async function getTeachersForLevel(
   }
 }
 
-const refreshAccessToken = async (): Promise<string | null> => {
+const refreshAccessToken = async (): Promise<string | null> => { //TODO
   try {
     const refreshToken = useSelector(
       (state: RootState) => state.login.refreshToken
@@ -473,6 +482,39 @@ async function getAvailabilityById(id: number, token: string) {
     return response.json();
 }
 
+async function singUpToLesson({
+  teacherId,
+  email,
+  subjectLevelId,
+  startDate,
+  startTime,
+  durationInMinutes,
+}: SignUpToLessonProps, token: string) {
+  // var newStartDate: string = startDate.toString();
+  // var newStartTime: string = startTime.toString();
+  const requestData = {
+    studentEmail: email,
+    teacherId: teacherId,
+    subjectLevelId: subjectLevelId,
+    startDate: startDate, 
+    startTime: startTime, 
+    durationInMinutes: durationInMinutes
+  };
+  const response = await fetch(
+    'http://localhost:5230/api/singUpToLesson',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(requestData),
+    }
+  );
+
+  return response;
+}
+
 export {
   loginToApp,
   getOne,
@@ -484,6 +526,7 @@ export {
   getAvailability,
   CreateAndUpdateAvailabilityByEmail,
   getTeachersForLevel,
-    refreshAccessToken,
-    getAvailabilityById
+  refreshAccessToken,
+  getAvailabilityById,
+  singUpToLesson
 };
