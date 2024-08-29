@@ -7,5 +7,5 @@ export interface DataToEdit {
     isStudent: boolean;
     isTeacher: boolean;
     isAdmin: boolean;
-    selectedFile: File | null;         
-  }
+    selectedFile: File | null;
+}

@@ -5,18 +5,18 @@ import { goToMainPage } from '../lib/Navigate';
 import Cookies from 'js-cookie';
 
 function useHandleLogOut() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    Cookies.remove('jwtToken');
-    Cookies.remove('refreshToken');
-    Cookies.remove('email');
-    dispatch(deSetUser());
-    goToMainPage(navigate);
-  };
+    const handleLogOut = () => {
+        Cookies.remove('jwtToken');
+        Cookies.remove('refreshToken');
+        Cookies.remove('email');
+        dispatch(deSetUser());
+        goToMainPage(navigate);
+    };
 
-  return handleLogOut;
+    return handleLogOut;
 }
 
 export { useHandleLogOut };

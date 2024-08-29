@@ -3,75 +3,80 @@ import { DataToEdit } from '../types/DataToEdit';
 import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
 
 function goToLogin(navigate: NavigateFunction) {
-  navigate('/login');
+    navigate('/login');
 }
 
 function goToRegistration(navigate: NavigateFunction) {
-  navigate('/registration');
+    navigate('/registration');
 }
 
 function goToMainPage(navigate: NavigateFunction) {
-  navigate('/');
+    navigate('/');
 }
 
 function goToAddSubject(navigate: NavigateFunction) {
-  navigate('/addSubjects');
+    navigate('/addSubjects');
 }
 
 function goToMenu(navigate: NavigateFunction) {
-  navigate('/menu');
+    navigate('/menu');
 }
 
 function goToProfile(navigate: NavigateFunction) {
-  navigate('/profile');
+    navigate('/profile');
 }
 
 function goToEditProfile(navigate: NavigateFunction, dataToEdit: DataToEdit) {
-  navigate('/profile/edit', { state: { dataToEdit } });
+    navigate('/profile/edit', { state: { dataToEdit } });
 }
 
 function goToStudentMenu(navigate: NavigateFunction) {
-  navigate('/student');
+    navigate('/student');
 }
 
 function goToTeacherMenu(navigate: NavigateFunction) {
-  navigate('/teacher');
+    navigate('/teacher');
 }
 
 function goToDeterminingAvailabilty(navigate: NavigateFunction) {
-  navigate(`/teacher/determiningAvailabilty`);
+    navigate(`/teacher/determiningAvailabilty`);
 }
 
 function goToChooseSubjectPage(navigate: NavigateFunction) {
-  navigate(`/student/chooseSubject`);
+    navigate(`/student/chooseSubject`);
 }
 
 function goToChooseTeacherPage(
-  navigate: NavigateFunction,
-  idSubjectLevel: string
+    navigate: NavigateFunction,
+    idSubjectLevel: string
 ) {
-  navigate(`/student/chooseSubject/${idSubjectLevel}`);
+    navigate(`/student/chooseSubject/${idSubjectLevel}`);
 }
 
 function goToSignUpToLessonPage(
-  navigate: NavigateFunction,
-  DataToSignUpToLesson: DataToSignUpToLesson
+    navigate: NavigateFunction,
+    DataToSignUpToLesson: DataToSignUpToLesson
 ) {
-  navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
+    navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
+}
+
+function goToRequestsPage(navigate: NavigateFunction) {
+    navigate(`/teacher/requests`);
 }
 
 export {
-  goToLogin,
-  goToRegistration,
-  goToMainPage,
-  goToAddSubject,
-  goToMenu,
-  goToProfile,
-  goToEditProfile,
-  goToStudentMenu,
-  goToTeacherMenu,
-  goToDeterminingAvailabilty,
-  goToChooseSubjectPage,
-  goToChooseTeacherPage,
-  goToSignUpToLessonPage,
+    goToLogin,
+    goToRegistration,
+    goToMainPage,
+    goToAddSubject,
+    goToMenu,
+    goToProfile,
+    goToEditProfile,
+    goToStudentMenu,
+    goToTeacherMenu,
+    goToDeterminingAvailabilty,
+    goToChooseSubjectPage,
+    goToChooseTeacherPage,
+    goToSignUpToLessonPage,
+    goToRequestsPage
 };

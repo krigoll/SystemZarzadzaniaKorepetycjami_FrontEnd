@@ -20,7 +20,7 @@ const AddSubjectsPage: React.FC = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const subjects = await getAllSubjects(token);  
+                const subjects = await getAllSubjects(token);
                 setSubjectsList(subjects);
             } catch (error) {
                 console.error('Error fetching subjects:', error);
@@ -49,7 +49,6 @@ const AddSubjectsPage: React.FC = () => {
     };
 
     const handleSubmit = async () => {
-        // Prepare the data for submission, excluding those with hourlyRate <= 0
         const teacherSalaries = Object.entries(selectedSubjects)
             .filter(([, hourlyRate]) => Number(hourlyRate) > 0)
             .map(([subjectLevelId, hourlyRate]) => ({
@@ -60,7 +59,7 @@ const AddSubjectsPage: React.FC = () => {
 
         try {
             const response = await setTeacherSalary(teacherSalaries, token);
-            if (response.ok) {
+            if (response && response.ok) {
                 alert('Subjects and costs submitted successfully');
                 goToMenu(navigate);
             } else {

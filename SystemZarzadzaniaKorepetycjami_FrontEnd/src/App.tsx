@@ -18,52 +18,54 @@ import NotFound from './pages/NotFound';
 import ChooseSubjectPage from './pages/ChooseSubjectPage';
 import ChooseTeacherPage from './pages/ChooseTeacherPage';
 import SignUpToLesson from './pages/SignUpToLessonPage';
+import RequestsPage from './pages/RequestsPage';
 
 function App() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    const jwtToken = Cookies.get('jwtToken');
-    const refreshToken = Cookies.get('refreshToken');
-    const email = Cookies.get('email');
+    useEffect(() => {
+        const jwtToken = Cookies.get('jwtToken');
+        const refreshToken = Cookies.get('refreshToken');
+        const email = Cookies.get('email');
 
-    if (jwtToken && refreshToken && email) {
-      dispatch(
-        setUser({
-          email: email,
-          jwtToken: jwtToken,
-          refreshToken: refreshToken,
-        })
-      );
-    }
-  }, [dispatch]);
+        if (jwtToken && refreshToken && email) {
+            dispatch(
+                setUser({
+                    email: email,
+                    jwtToken: jwtToken,
+                    refreshToken: refreshToken,
+                })
+            );
+        }
+    }, [dispatch]);
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Registration />} />
-        <Route path="/addSubjects" element={<AddSubjectsPage />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/teacher" element={<TeacherMenu />} />
-        <Route
-          path="/teacher/determiningAvailabilty/"
-          element={<DeterminingAvailabilty />}
-        />
-        <Route path="/student" element={<StudentMenu />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/edit" element={<EditProfile />} />
-        <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
-        <Route
-          path="/student/chooseSubject/:id"
-          element={<ChooseTeacherPage />}
-        />
-        <Route path="/student/signUpToLesson" element={<SignUpToLesson />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<Registration />} />
+                <Route path="/addSubjects" element={<AddSubjectsPage />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/teacher" element={<TeacherMenu />} />
+                <Route
+                    path="/teacher/determiningAvailabilty/"
+                    element={<DeterminingAvailabilty />}
+                />
+                <Route path="/student" element={<StudentMenu />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/edit" element={<EditProfile />} />
+                <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
+                <Route
+                    path="/student/chooseSubject/:id"
+                    element={<ChooseTeacherPage />}
+                />
+                <Route path="/student/signUpToLesson" element={<SignUpToLesson />} />
+                <Route path="teacher/requests" element={<RequestsPage />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
