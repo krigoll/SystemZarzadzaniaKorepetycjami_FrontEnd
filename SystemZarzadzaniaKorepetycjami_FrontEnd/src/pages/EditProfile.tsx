@@ -112,16 +112,18 @@ const EditProfilePage: React.FC = () => {
         jwtToken
       );
       if (response && !response.ok) {
+        const data = await response.text();
         if (response.status === 409) {
-          console.log(response.statusText);
-          if (response.statusText === 'Not unique email')
+          console.log(data);
+          if (data === 'Not unique email') {
             alert('Podany email już istnieje');
-          else alert('Podany numer telefonu już istnieje');
-          return false;
+          } else if (data === 'Not unique phone number') {
+            alert('Podany numer telefonu już istnieje');
+          }
         } else {
           alert('Błąd bazy danych');
-          return false;
         }
+        return false;
       }
       if (response && response.ok) {
         dispatch(updateEmail(profile.email));
