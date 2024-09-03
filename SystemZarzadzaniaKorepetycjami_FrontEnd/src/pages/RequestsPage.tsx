@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { goToTeacherMenu } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { GetReservedLessons } from '../lib/API';
+import { AcceptLesson, GetReservedLessons, RejectLesson } from '../lib/API';
 
 interface Request {
   lessonId: number;
@@ -20,6 +20,7 @@ const TeacherRequestsPage: React.FC = () => {
   const email = useSelector((state: RootState) => state.login.email);
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const [requests, setRequests] = useState<Request[]>([]);
+  const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
 
   const fetchRequests = async (
     email: string,
@@ -53,14 +54,16 @@ const TeacherRequestsPage: React.FC = () => {
     if (email && jwtToken) {
       generateRequestsHTML(email, jwtToken);
     }
-  }, [email, jwtToken]);
+  }, [email, jwtToken, refreshFlag]);
 
-  const handleAccept = (requestId: number) => {
-    console.log(`Accepted request ${requestId}`);
+    const handleAccept = (requestId: number) => {
+        AcceptLesson(requestId, jwtToken);
+        setRefreshFlag(prev => !prev);
   };
 
   const handleReject = (requestId: number) => {
-    console.log(`Rejected request ${requestId}`);
+      RejectLesson(requestId, jwtToken);
+      setRefreshFlag(prev => !prev);
   };
 
   return (
