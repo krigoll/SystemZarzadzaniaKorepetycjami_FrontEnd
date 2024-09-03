@@ -253,27 +253,27 @@ async function editpersonDetails(
     }
   );
 
-  if (!response.ok) {
-    if (response.status === 401) {
-      const newToken = await refreshAccessToken();
-      if (newToken) {
-        return editpersonDetails(
-          {
-            idPerson,
-            name,
-            surname,
-            email,
-            phoneNumber,
-            image,
-            isStudent,
-            isTeacher,
-          },
-          token
-        );
-      }
-    }
-    return;
-  }
+  // if (!response.ok) {
+  //   if (response.status === 401) {
+  //     const newToken = await refreshAccessToken();
+  //     if (newToken) {
+  //       return editpersonDetails(
+  //         {
+  //           idPerson,
+  //           name,
+  //           surname,
+  //           email,
+  //           phoneNumber,
+  //           image,
+  //           isStudent,
+  //           isTeacher,
+  //         },
+  //         token
+  //       );
+  //     }
+  //   }
+  //   return;
+  // }
 
   return response;
 }
@@ -345,7 +345,7 @@ async function CreateAndUpdateAvailabilityByEmail(
       if (response.statusText === 'Invalid User') console.error('Email Error');
       else if (response.statusText === 'Invalid Time')
         console.error('Time Error');
-      else alert('Zły Kuba');
+      else alert('Zły czas podałeś!');
     } else if (response.status === 500) {
       console.error('Database Error');
     } else {

@@ -95,7 +95,7 @@ const TeacherRequestsPage: React.FC = () => {
             </div>
           ))
         ) : (
-          <p>No requests found.</p>
+          <p>Nie znaleziono zgłoszeń.</p>
         )}
       </div>
     </div>
