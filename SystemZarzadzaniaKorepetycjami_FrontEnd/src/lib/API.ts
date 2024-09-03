@@ -539,14 +539,13 @@ async function GetReservedLessons(email: string, token: string) {
 
 async function AcceptLesson(lessonId: number, token: string) {
     const response = await fetch(
-        `http://localhost:5230/api/lesson?lessonId=${lessonId}/accept`,
+        `http://localhost:5230/api/lesson/${lessonId}/accept`,
         {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-            
         }
     );
 
@@ -555,7 +554,7 @@ async function AcceptLesson(lessonId: number, token: string) {
 
 async function RejectLesson(lessonId: number, token: string) {
     const response = await fetch(
-        `http://localhost:5230/api/lesson?lessonId=${lessonId}/reject`,
+        `http://localhost:5230/api/lesson/${lessonId}/reject`,
         {
             method: 'PUT',
             headers: {
