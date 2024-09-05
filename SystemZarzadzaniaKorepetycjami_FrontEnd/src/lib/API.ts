@@ -21,17 +21,6 @@ interface RegisterProps {
   jpegFile: string | null;
 }
 
-interface EditProfileProps {
-  idPerson: number;
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-  image: string | null;
-  isStudent: boolean;
-  isTeacher: boolean;
-}
-
 interface SignUpToLessonProps {
   email: string;
   teacherId: number;
@@ -117,42 +106,6 @@ async function RegisterToApp({
         password: password,
         phoneNumber: phoneNumber,
         image: jpegFile,
-        isStudent: isStudent,
-        isTeacher: isTeacher,
-      }),
-    }
-  );
-
-  return response;
-}
-
-async function editpersonDetails(
-  {
-    idPerson,
-    name,
-    surname,
-    email,
-    phoneNumber,
-    image,
-    isStudent,
-    isTeacher,
-  }: EditProfileProps,
-  token: string
-) {
-  const response = await fetch(
-    `http://localhost:5230/api/person/${idPerson}/update`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        name: name,
-        surname: surname,
-        email: email,
-        phoneNumber: phoneNumber,
-        image: image,
         isStudent: isStudent,
         isTeacher: isTeacher,
       }),
@@ -454,7 +407,6 @@ async function RejectLesson(lessonId: number, token: string) {
 export {
   loginToApp,
   RegisterToApp,
-  editpersonDetails,
   getAvailability,
   CreateAndUpdateAvailabilityByEmail,
   getTeachersForLevel,
