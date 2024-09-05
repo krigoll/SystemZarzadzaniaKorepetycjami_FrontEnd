@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import { goToProfile } from '../lib/Navigate';
-import { editpersonDetails } from '../lib/API';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../futures/store';
-import {
-  updateEmail,
-  updateStudent,
-  updateTeacher,
-} from '../futures/login/loginSlice';
+import { useEditPersonDetails } from '../lib/useEditPersonDetails';
+import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import {
   convertImageToBase64,
@@ -17,6 +11,11 @@ import {
   isImageFile,
   resizeImageTo400x400,
 } from '../lib/ConvertImage';
+import {
+  updateEmail,
+  updateStudent,
+  updateTeacher,
+} from '../futures/login/loginSlice';
 
 const EditProfilePage: React.FC = () => {
   const location = useLocation();
@@ -35,7 +34,20 @@ const EditProfilePage: React.FC = () => {
     image: dataToEdit.selectedFile,
   });
   const dispatch = useDispatch();
-  const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
+  const { editPersonDetails, loading, error, responseStatus } =
+    useEditPersonDetails();
+
+  useEffect(() => {
+    if (responseStatus === 200) {
+      dispatch(updateEmail(profile.email));
+      dispatch(updateStudent(profile.isStudent));
+      dispatch(updateTeacher(profile.isTeacher));
+      Cookies.set('email', profile.email, { expires: 1 });
+      goToProfile(navigate);
+    } else if (error) {
+      alert(`Error: ${error}`);
+    }
+  }, [responseStatus, error, profile, dispatch, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -67,22 +79,22 @@ const EditProfilePage: React.FC = () => {
 
     if (!isValidEmail(profile.email)) {
       alert('Nieprawidłowy email.');
-      return false;
+      return;
     }
 
     if (!profile.firstName || !profile.lastName) {
       alert('Imię i nazwisko nie mogą być puste.');
-      return false;
+      return;
     }
 
     if (!isValidPhoneNumber(profile.phoneNumber)) {
       alert('Nieprawidłowy numer telefonu.');
-      return false;
+      return;
     }
 
     if (!profile.isStudent && !profile.isTeacher && !profile.isAdmin) {
       alert('Musisz być nauczycielem lub uczniem');
-      return false;
+      return;
     }
 
     let jpegFile: string | null = null;
@@ -97,45 +109,17 @@ const EditProfilePage: React.FC = () => {
     } else if (profile.image != null) {
       jpegFile = await convertImageToBase64(profile.image);
     }
-    try {
-      const response = await editpersonDetails(
-        {
-          idPerson: profile.idPerson,
-          name: profile.firstName,
-          surname: profile.lastName,
-          email: profile.email,
-          phoneNumber: profile.phoneNumber,
-          image: jpegFile,
-          isStudent: profile.isStudent,
-          isTeacher: profile.isTeacher,
-        },
-        jwtToken
-      );
-      if (response && !response.ok) {
-        const data = await response.text();
-        if (response.status === 409) {
-          console.log(data);
-          if (data === 'Not unique email') {
-            alert('Podany email już istnieje');
-          } else if (data === 'Not unique phone number') {
-            alert('Podany numer telefonu już istnieje');
-          }
-        } else {
-          alert('Błąd bazy danych');
-        }
-        return false;
-      }
-      if (response && response.ok) {
-        dispatch(updateEmail(profile.email));
-        dispatch(updateStudent(profile.isStudent));
-        dispatch(updateTeacher(profile.isTeacher));
-        Cookies.set('email', profile.email, { expires: 1 });
-        goToProfile(navigate);
-      }
-    } catch (error) {
-      console.error('Login failed', error);
-      alert('Login failed');
-    }
+
+    await editPersonDetails({
+      idPerson: profile.idPerson,
+      name: profile.firstName,
+      surname: profile.lastName,
+      email: profile.email,
+      phoneNumber: profile.phoneNumber,
+      image: jpegFile,
+      isStudent: profile.isStudent,
+      isTeacher: profile.isTeacher,
+    });
   };
 
   return (
@@ -209,7 +193,9 @@ const EditProfilePage: React.FC = () => {
       )}
       <div className="button-container">
         <AppButton label="Powrót" onClick={() => goToProfile(navigate)} />
-        <button onClick={handleSubmit}>Akceptuj</button>
+        <button onClick={handleSubmit} disabled={loading}>
+          {loading ? 'Trwa aktualizacja...' : 'Akceptuj'}
+        </button>
       </div>
     </div>
   );
