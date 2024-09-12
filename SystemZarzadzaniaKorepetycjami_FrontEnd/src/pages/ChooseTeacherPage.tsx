@@ -1,7 +1,5 @@
 import React from 'react';
 import AppButton from '../components/AppButton';
-import { useSelector } from 'react-redux';
-import { RootState } from '../futures/store';
 import { useNavigate, useParams } from 'react-router-dom';
 import { goToChooseSubjectPage, goToSignUpToLessonPage } from '../lib/Navigate';
 import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
@@ -17,15 +15,10 @@ interface Teacher {
 const ChooseTeacherPage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const token = useSelector((state: RootState) => state.login.jwtToken);
 
   const subjectCategoryId = Number(id?.split(' ')[2]);
 
-  // Use the useTeachersForLevel hook to fetch teachers
-  const { teachers, loading, error } = useTeachersForLevel(
-    subjectCategoryId,
-    token
-  );
+  const { teachers, loading, error } = useTeachersForLevel(subjectCategoryId);
 
   const handleSignUpToLesson = (teacher: Teacher) => {
     const dataToSignUpToLesson: DataToSignUpToLesson = {

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { base64ToFile } from './ConvertImage';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../futures/store';
+import { updateToken } from '../futures/login/loginSlice';
 
 interface Teacher {
   id: number;
@@ -17,14 +20,13 @@ interface TeacherResponse {
   image: string | null;
 }
 
-export const useTeachersForLevel = (
-  subjectCategoryId: number,
-  token: string
-) => {
+export const useTeachersForLevel = (subjectCategoryId: number) => {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const refreshAccessToken = useRefreshAccessToken();
+  const dispatch = useDispatch();
+  const token = useSelector((state: RootState) => state.login.jwtToken);
 
   const fetchTeachersForLevel = async (
     id: number,
@@ -46,6 +48,7 @@ export const useTeachersForLevel = (
         if (response.status === 401) {
           const newToken = await refreshAccessToken(); // Refresh token if 401 error
           if (newToken) {
+            dispatch(updateToken(newToken));
             return fetchTeachersForLevel(id, newToken);
           } else {
             throw new Error('Unable to refresh access token');

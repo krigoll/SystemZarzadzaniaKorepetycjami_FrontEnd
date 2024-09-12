@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { goToChooseTeacherPage, goToStudentMenu } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { getAvailabilityById, singUpToLesson } from '../lib/API';
+import { singUpToLesson } from '../lib/API';
 import { AppDateInput } from '../components/AppInput';
-
-interface EditAddAvailabilityProps {
-  idDayOfTheWeek: number;
-  startTime: string;
-  endTime: string;
-}
+import { useTeacherAvailabilityById } from '../lib/useTeacherAvailabilityById';
 
 const daysOfWeek = [
   'Poniedziałek',
@@ -30,65 +25,31 @@ const TeacherDetailsPage: React.FC = () => {
   const [lessonTime, setLessonTime] = useState('');
   const location = useLocation();
   const DataToSignUpToLesson = location.state?.DataToSignUpToLesson;
+
   const [teacher] = useState({
     idTeacher: DataToSignUpToLesson.teacherId,
     name: DataToSignUpToLesson.name,
     price: DataToSignUpToLesson.price,
     image: DataToSignUpToLesson.image,
   });
+
   const [subjectInfo] = useState(
     DataToSignUpToLesson.subjectInfo?.split(' ')[0] +
       ' ' +
       DataToSignUpToLesson.subjectInfo?.split(' ')[1]
   );
+
   const [subjectLevelId] = useState(
     DataToSignUpToLesson.subjectInfo?.split(' ')[2]
   );
+
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const email = useSelector((state: RootState) => state.login.email);
 
-  const [availability, setAvailability] = useState<EditAddAvailabilityProps[]>(
-    daysOfWeek.map((_, index) => ({
-      idDayOfTheWeek: index + 1,
-      startTime: 'Brak',
-      endTime: 'Dostęności',
-    }))
+  // Use the custom hook to fetch teacher availability
+  const { availability, loading, error } = useTeacherAvailabilityById(
+    teacher.idTeacher
   );
-
-  const fetchAvailabilityById = async (idTeacher: number, token: string) => {
-    try {
-      const response = await getAvailabilityById(idTeacher, token);
-      console.log('response' + response);
-      return response.map((item: any, index: number) => ({
-        idDayOfTheWeek: index + 1,
-        startTime: item.startTime || 'Brak',
-        endTime: item.endTime || 'Dostęności',
-      }));
-    } catch (error) {
-      console.error('Error fetching availability calendar:', error);
-      return [];
-    }
-  };
-
-  const generateAvailabilityHTML = async (idTeacher: number, token: string) => {
-    try {
-      const availabilityData = await fetchAvailabilityById(idTeacher, token);
-      console.log('data' + availabilityData);
-      setAvailability(availabilityData);
-    } catch (error) {
-      console.error('Error generating availability calendar:', error);
-      setAvailability([]);
-    }
-  };
-
-  useEffect(() => {
-    console.log('przed efektem');
-    console.log(location.state?.DataToSignUpToLesson);
-    if (teacher.idTeacher && jwtToken) {
-      console.log('w efekcie');
-      generateAvailabilityHTML(teacher.idTeacher, jwtToken);
-    }
-  }, [location.state?.DataToSignUpToLesson.idTeacher, jwtToken]);
 
   const handleAcceptClick = async () => {
     const teacherId = teacher.idTeacher;
@@ -108,21 +69,20 @@ const TeacherDetailsPage: React.FC = () => {
     );
     if (!response.ok) {
       if (response.status === 401) {
+        // Handle unauthorized case
       } else if (response.status === 400) {
-        console.error('Invalid Data');
-        alert('Data z przeszłości nie wolno tak'!);
+        alert('Data z przeszłości nie wolno tak!');
       } else if (response.status === 500) {
         console.error('Server Error');
       } else if (response.status === 409) {
-        console.error('Conflict with another lesson');
         alert(
-          'W podanym czasie ty lub nauczyciel macie już nakładające się lakcię'
+          'W podanym czasie ty lub nauczyciel macie już nakładające się lekcje'
         );
       } else {
         console.error('Unexpected Error');
       }
     } else {
-      alert('Udało się napisać na korepetycię');
+      alert('Udało się zapisać na korepetycje');
       goToStudentMenu(navigate);
     }
   };
@@ -145,21 +105,29 @@ const TeacherDetailsPage: React.FC = () => {
           <div className="teacher-name">{teacher.name}</div>
           <div className="teacher-subject">Przedmiot: {subjectInfo}</div>
           <div className="teacher-price">
-            Cena za godziny: {teacher.price} zł
+            Cena za godzinę: {teacher.price} zł
           </div>
         </div>
       </div>
+
       <div className="availability-form">
         <h2>Dostępność Nauczyciela</h2>
-        {daysOfWeek.map((day, index) => (
-          <div key={index} className="day-row">
-            <p>
-              {day}: {availability[index].startTime}-
-              {availability[index].endTime}
-            </p>
+        {loading && <p>Loading availability...</p>}
+        {error && <p>Error loading availability: {error}</p>}
+        {!loading && !error && availability && (
+          <div>
+            {daysOfWeek.map((day, index) => (
+              <div key={index} className="day-row">
+                <p>
+                  {day}: {availability[index]?.startTime || 'Brak'} -{' '}
+                  {availability[index]?.endTime || 'Dostępność'}
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
+
       <div className="lesson-form">
         <h2>Formularz do zapisu</h2>
         <div className="form-field">
@@ -189,6 +157,7 @@ const TeacherDetailsPage: React.FC = () => {
           />
         </div>
       </div>
+
       <div className="button-container">
         <AppButton
           label="Powrót"
