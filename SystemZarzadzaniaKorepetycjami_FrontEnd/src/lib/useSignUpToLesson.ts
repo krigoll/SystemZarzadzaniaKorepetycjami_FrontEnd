@@ -1,100 +1,87 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRefreshAccessToken } from './useRefreshAccessToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateToken } from '../futures/login/loginSlice';
-import { useRefreshAccessToken } from './useRefreshAccessToken';
 import { RootState } from '../futures/store';
 
-interface SignUpToLessonProps {
-  email: string;
-  teacherId: number;
-  subjectLevelId: number;
-  startDate: string;
-  startTime: string;
-  durationInMinutes: number;
-}
-
-export const useSignUpToLesson = (signUpData: SignUpToLessonProps | null) => {
-  const [responseStatus, setResponseStatus] = useState<string | null>(null);
+export const useSignUpToLesson = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const refreshAccessToken = useRefreshAccessToken();
   const dispatch = useDispatch();
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
 
-  useEffect(() => {
-    const signUpToLesson = async () => {
-      if (!signUpData || !jwtToken) return;
+  const signUp = async ({
+    teacherId,
+    email,
+    subjectLevelId,
+    startDate,
+    startTime,
+    durationInMinutes,
+  }: {
+    teacherId: string;
+    email: string;
+    subjectLevelId: string;
+    startDate: string;
+    startTime: string;
+    durationInMinutes: number;
+  }) => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        setLoading(true);
-        let token = jwtToken;
+    try {
+      const requestData = {
+        studentEmail: email,
+        teacherId: teacherId,
+        subjectLevelId: subjectLevelId,
+        startDate: startDate,
+        startTime: startTime,
+        durationInMinutes: durationInMinutes,
+      };
+      let token = jwtToken;
+      let response = await fetch('http://localhost:5230/api/singUpToLesson', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestData),
+      });
 
-        const requestData = {
-          studentEmail: signUpData.email,
-          teacherId: signUpData.teacherId,
-          subjectLevelId: signUpData.subjectLevelId,
-          startDate: signUpData.startDate,
-          startTime: signUpData.startTime,
-          durationInMinutes: signUpData.durationInMinutes,
-        };
-
-        let response = await fetch('http://localhost:5230/api/singUpToLesson', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(requestData),
-        });
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            const newToken = await refreshAccessToken();
-            if (newToken) {
-              token = newToken;
-              dispatch(updateToken(token));
-              response = await fetch(
-                'http://localhost:5230/api/singUpToLesson',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                  },
-                  body: JSON.stringify(requestData),
-                }
-              );
-            } else {
-              throw new Error('Failed to refresh token');
-            }
-          }
-
-          if (response.status === 400) {
-            throw new Error('Invalid data provided');
-          } else if (response.status === 409) {
-            throw new Error('Conflict: overlapping lesson time');
-          } else if (response.status === 500) {
-            throw new Error('Server error');
+      if (!response.ok) {
+        if (response.status === 401) {
+          const newToken = await refreshAccessToken();
+          if (newToken) {
+            token = newToken;
+            dispatch(updateToken(token));
+            response = await fetch('http://localhost:5230/api/singUpToLesson', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(requestData),
+            });
           } else {
-            throw new Error('Unexpected error occurred');
+            throw new Error('Failed to refresh token');
           }
+        } else if (response.status === 409) {
+          throw new Error(
+            'Ty albo nauczyciel macie nakładające się zajęcia w danym czasie!'
+          );
+        } else {
+          throw new Error('Error during lesson signup');
         }
-
-        const responseData = await response.json();
-        setResponseStatus(responseData);
-        setError(null);
-      } catch (err: any) {
-        setError(err.message || 'An unexpected error occurred');
-        setResponseStatus(null);
-      } finally {
-        setLoading(false);
       }
-    };
 
-    if (signUpData && jwtToken) {
-      signUpToLesson();
+      setResponseStatus(response.status);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
     }
-  }, [signUpData]);
+  };
 
-  return { responseStatus, loading, error };
+  return { signUp, loading, error, responseStatus };
 };

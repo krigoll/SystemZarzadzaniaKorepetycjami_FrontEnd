@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { goToChooseTeacherPage, goToStudentMenu } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { singUpToLesson } from '../lib/API';
 import { AppDateInput } from '../components/AppInput';
 import { useTeacherAvailabilityById } from '../lib/useTeacherAvailabilityById';
+import { useSignUpToLesson } from '../lib/useSignUpToLesson'; // Importujemy hook
 
 const daysOfWeek = [
   'Poniedziałek',
@@ -43,49 +43,35 @@ const TeacherDetailsPage: React.FC = () => {
     DataToSignUpToLesson.subjectInfo?.split(' ')[2]
   );
 
-  const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const email = useSelector((state: RootState) => state.login.email);
 
-  // Use the custom hook to fetch teacher availability
-  const { availability, loading, error } = useTeacherAvailabilityById(
-    teacher.idTeacher
-  );
+  const { signUp, loading, error, responseStatus } = useSignUpToLesson();
+
+  const {
+    availability,
+    loading: availabilityLoading,
+    error: availabilityError,
+  } = useTeacherAvailabilityById(teacher.idTeacher);
 
   const handleAcceptClick = async () => {
-    const teacherId = teacher.idTeacher;
-    const startDate = selectedDate;
-    const startTime = lessonTime;
-    const durationInMinutes = duration;
-    const response = await singUpToLesson(
-      {
-        teacherId,
-        email,
-        subjectLevelId,
-        startDate,
-        startTime,
-        durationInMinutes,
-      },
-      jwtToken
-    );
-    if (!response.ok) {
-      if (response.status === 401) {
-        // Handle unauthorized case
-      } else if (response.status === 400) {
-        alert('Data z przeszłości nie wolno tak!');
-      } else if (response.status === 500) {
-        console.error('Server Error');
-      } else if (response.status === 409) {
-        alert(
-          'W podanym czasie ty lub nauczyciel macie już nakładające się lekcje'
-        );
-      } else {
-        console.error('Unexpected Error');
-      }
-    } else {
+    await signUp({
+      teacherId: teacher.idTeacher,
+      email,
+      subjectLevelId,
+      startDate: selectedDate,
+      startTime: lessonTime,
+      durationInMinutes: duration,
+    });
+  };
+
+  useEffect(() => {
+    if (responseStatus === 200) {
       alert('Udało się zapisać na korepetycje');
       goToStudentMenu(navigate);
+    } else if (error) {
+      alert(`Błąd: ${error}`);
     }
-  };
+  }, [responseStatus, error, navigate]);
 
   return (
     <div className="teacher-details-page">
@@ -112,9 +98,11 @@ const TeacherDetailsPage: React.FC = () => {
 
       <div className="availability-form">
         <h2>Dostępność Nauczyciela</h2>
-        {loading && <p>Loading availability...</p>}
-        {error && <p>Error loading availability: {error}</p>}
-        {!loading && !error && availability && (
+        {availabilityLoading && <p>Loading availability...</p>}
+        {availabilityError && (
+          <p>Error loading availability: {availabilityError}</p>
+        )}
+        {!availabilityLoading && !availabilityError && availability && (
           <div>
             {daysOfWeek.map((day, index) => (
               <div key={index} className="day-row">
@@ -165,8 +153,13 @@ const TeacherDetailsPage: React.FC = () => {
             goToChooseTeacherPage(navigate, DataToSignUpToLesson.subjectInfo)
           }
         />
-        <AppButton label="Zapisz się!" onClick={handleAcceptClick} />
+        <button onClick={handleAcceptClick} disabled={loading}>
+          Zapisz się!
+        </button>
       </div>
+
+      {loading && <p>Trwa zapisywanie na lekcję...</p>}
+      {error && <p>Błąd: {error}</p>}
     </div>
   );
 };

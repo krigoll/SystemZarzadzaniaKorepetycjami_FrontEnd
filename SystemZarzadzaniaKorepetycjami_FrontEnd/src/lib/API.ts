@@ -20,15 +20,6 @@ interface RegisterProps {
   jpegFile: string | null;
 }
 
-interface SignUpToLessonProps {
-  email: string;
-  teacherId: number;
-  subjectLevelId: number;
-  startDate: string;
-  startTime: string;
-  durationInMinutes: number;
-}
-
 async function loginToApp({ email, password }: LoginProps) {
   const response = await fetch('http://localhost:5230/api/login/login', {
     method: 'POST',
@@ -129,38 +120,6 @@ const refreshAccessToken = async (): Promise<string | null> => {
   }
 };
 
-async function singUpToLesson(
-  {
-    teacherId,
-    email,
-    subjectLevelId,
-    startDate,
-    startTime,
-    durationInMinutes,
-  }: SignUpToLessonProps,
-  token: string
-) {
-  const requestData = {
-    studentEmail: email,
-    teacherId: teacherId,
-    subjectLevelId: subjectLevelId,
-    startDate: startDate,
-    startTime: startTime,
-    durationInMinutes: durationInMinutes,
-  };
-  console.log(requestData);
-  const response = await fetch('http://localhost:5230/api/singUpToLesson', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(requestData),
-  });
-
-  return response;
-}
-
 async function GetReservedLessons(email: string, token: string) {
   try {
     const response = await fetch(
@@ -229,7 +188,6 @@ export {
   loginToApp,
   RegisterToApp,
   refreshAccessToken,
-  singUpToLesson,
   GetReservedLessons,
   AcceptLesson,
   RejectLesson,
