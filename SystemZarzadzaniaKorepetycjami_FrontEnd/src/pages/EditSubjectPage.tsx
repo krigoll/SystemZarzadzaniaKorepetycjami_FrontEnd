@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import { RootState } from '../futures/store';
 import AppButton from '../components/AppButton';
-import { goToMenu } from '../lib/Navigate';
+import { goToMenu, goToTeacherMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import { useSetTeacherSalary } from '../lib/useSetTeacherSalary';
-import { useAllSubjectsEdit } from '../lib/useAllSubjectsEdit'; 
+import { useAllSubjectsEdit } from '../lib/useAllSubjectsEdit';
 
 const AddSubjectsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -15,28 +15,40 @@ const AddSubjectsPage: React.FC = () => {
     [subjectLevelId: number]: string;
   }>({});
 
- 
   const email = useSelector((state: RootState) => state.login.email);
   const { subjects, loading, error } = useAllSubjectsEdit(email);
   const { setTeacherSalary } = useSetTeacherSalary();
 
   useEffect(() => {
+    // Ustawianie listy przedmiotÃ³w
     setSubjectsList(subjects);
+    // Ustawianie stanu przedmiotÃ³w na podstawie pobranych danych
+    const initialSelectedSubjects = subjects.reduce(
+      (acc: { [key: number]: string }, subject: any) => {
+        if (subject.price) {
+          // ZakÅ‚adamy, Å¼e 'price' jest przypisane w obiekcie przedmiotu
+          acc[subject.subjectLevelId] = subject.price;
+        }
+        return acc;
+      },
+      {}
+    );
+    setSelectedSubjects(initialSelectedSubjects);
   }, [subjects]);
-
 
   const handleSubjectChange = (subjectLevelId: number, checked: boolean) => {
     setSelectedSubjects((prev) => {
       if (checked) {
-        return { ...prev, [subjectLevelId]: '0' }; 
+        // Ustawiamy domyÅ›lnÄ… wartoÅ›Ä‡ '0' dla kosztÃ³w, jeÅ›li zaznaczymy przedmiot
+        return { ...prev, [subjectLevelId]: prev[subjectLevelId] || '0' };
       } else {
+        // Usuwamy przedmiot z listy zaznaczonych, jeÅ›li odznaczony
         const { [subjectLevelId]: _, ...rest } = prev;
         return rest;
       }
     });
   };
 
-  
   const handleCostChange = (subjectLevelId: number, cost: string) => {
     setSelectedSubjects((prev) => ({
       ...prev,
@@ -44,7 +56,6 @@ const AddSubjectsPage: React.FC = () => {
     }));
   };
 
- 
   const handleSubmit = async () => {
     const teacherSalaries = Object.entries(selectedSubjects)
       .filter(([, hourlyRate]) => Number(hourlyRate) > 0)
@@ -55,41 +66,40 @@ const AddSubjectsPage: React.FC = () => {
       }));
 
     if (teacherSalaries.length === 0) {
-      alert('Nie wybrano przedmiotów.');
+      alert('Nie wybrano przedmiotÃ³w.');
       return;
     }
 
     const responseStatus = await setTeacherSalary(teacherSalaries);
 
     if (responseStatus === 200) {
-      alert('Przedmioty i koszty zosta³y pomyœlnie zapisane');
+      alert('Przedmioty i koszty zostaÅ‚y pomyÅ›lnie zapisane');
       goToMenu(navigate);
     } else {
-      alert('Nie uda³o siê zapisaæ przedmiotów i kosztów');
+      alert('Nie udaÅ‚o siÄ™ zapisaÄ‡ przedmiotÃ³w i kosztÃ³w');
     }
   };
 
-  
   if (loading) {
-    return <div>£adowanie...</div>;
+    return <div>Åadowanie...</div>;
   }
 
   if (error) {
-    return <div>B³¹d: {error}</div>;
+    return <div>BÅ‚Ä…d: {error}</div>;
   }
 
   return (
     <div className="subjects-container">
       <h1>Dodaj Przedmioty i Koszty</h1>
       {subjectsList.length === 0 ? (
-        <p>Brak dostêpnych przedmiotów</p>
+        <p>Brak dostÄ™pnych przedmiotÃ³w</p>
       ) : (
         subjectsList.map((subjectDTO) => (
           <div key={subjectDTO.subjectLevelId} className="subject-item">
             <label>
               <input
                 type="checkbox"
-                checked={!!selectedSubjects[subjectDTO.subjectLevelId]} 
+                checked={!!selectedSubjects[subjectDTO.subjectLevelId]} // Sprawdzamy, czy przedmiot jest zaznaczony
                 onChange={(e) =>
                   handleSubjectChange(
                     subjectDTO.subjectLevelId,
@@ -113,7 +123,7 @@ const AddSubjectsPage: React.FC = () => {
         ))
       )}
       <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+        <AppButton label="PowrÃ³t" onClick={() => goToTeacherMenu(navigate)} />
         <button onClick={handleSubmit}>Akceptuj</button>
       </div>
     </div>

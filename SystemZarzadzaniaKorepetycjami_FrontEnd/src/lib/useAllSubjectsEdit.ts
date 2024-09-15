@@ -17,7 +17,7 @@ export const useAllSubjectsEdit = (email: string) => {
     const fetchSubjects = async (token: string) => {
       try {
         const response = await fetch(
-          `http://localhost:5230/api/subject/getAllSubjectsByEmail/${encodeURIComponent(email)}`,
+          `http://localhost:5230/api/subject/getAllSubjectsByEmail?email=${email}`,
           {
             method: 'GET',
             headers: {
@@ -32,7 +32,7 @@ export const useAllSubjectsEdit = (email: string) => {
             const newToken = await refreshAccessToken();
             if (newToken) {
               dispatch(updateToken(newToken));
-              return fetchSubjects(newToken); 
+              return fetchSubjects(newToken);
             } else {
               throw new Error('Failed to refresh token');
             }
