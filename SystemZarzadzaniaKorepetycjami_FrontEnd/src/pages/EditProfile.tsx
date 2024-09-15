@@ -71,8 +71,8 @@ const EditProfilePage: React.FC = () => {
 
     const isValidPhoneNumber = (phoneNumber: string) => {
       return (
-        phoneNumber.length >= 8 &&
-        phoneNumber.length <= 50 &&
+        phoneNumber.length >= 7 &&
+        phoneNumber.length <= 15 &&
         /^\d+$/.test(phoneNumber)
       );
     };

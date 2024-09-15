@@ -64,6 +64,10 @@ function goToRequestsPage(navigate: NavigateFunction) {
     navigate(`/teacher/requests`);
 }
 
+function goToEditSubjectPage(navigate: NavigateFunction) {
+    navigate(`/teacher/editSubject`);
+}
+
 export {
     goToLogin,
     goToRegistration,
@@ -78,5 +82,6 @@ export {
     goToChooseSubjectPage,
     goToChooseTeacherPage,
     goToSignUpToLessonPage,
-    goToRequestsPage
+    goToRequestsPage,
+    goToEditSubjectPage
 };

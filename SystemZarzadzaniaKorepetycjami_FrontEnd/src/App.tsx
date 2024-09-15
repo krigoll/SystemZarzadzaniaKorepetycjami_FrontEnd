@@ -19,6 +19,7 @@ import ChooseSubjectPage from './pages/ChooseSubjectPage';
 import ChooseTeacherPage from './pages/ChooseTeacherPage';
 import SignUpToLesson from './pages/SignUpToLessonPage';
 import RequestsPage from './pages/RequestsPage';
+import EditSubjectPage from './pages/EditSubjectPage';
 
 function App() {
     const dispatch = useDispatch();
@@ -61,7 +62,8 @@ function App() {
                     element={<ChooseTeacherPage />}
                 />
                 <Route path="/student/signUpToLesson" element={<SignUpToLesson />} />
-                <Route path="teacher/requests" element={<RequestsPage />} />
+                <Route path="/teacher/requests" element={<RequestsPage />} />
+                <Route path="/teacher/editSubject" element={<EditSubjectPage />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Router>

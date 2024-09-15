@@ -2,7 +2,7 @@ import React from 'react';
 import AppButton from '../components/AppButton';
 import Menu from './Menu';
 import { useNavigate } from 'react-router-dom';
-import { goToDeterminingAvailabilty, goToRequestsPage } from '../lib/Navigate';
+import { goToDeterminingAvailabilty, goToEditSubjectPage, goToRequestsPage } from '../lib/Navigate';
 
 const TeacherOptionsPage: React.FC = () => {
     const navigate = useNavigate();
@@ -11,6 +11,7 @@ const TeacherOptionsPage: React.FC = () => {
         <div className="options-container">
             <Menu />
             <AppButton label="Zgłoszenia" onClick={() => goToRequestsPage(navigate)} />
+            <AppButton label="Przedmioty" onClick={() => goToEditSubjectPage(navigate)} />
             <AppButton
                 label="Określenie dostepności"
                 onClick={() => goToDeterminingAvailabilty(navigate)}
