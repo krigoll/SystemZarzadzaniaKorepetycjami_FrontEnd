@@ -174,36 +174,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EditSubjectPage.tsx",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\EditSubjectPage.tsx",
-              "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\EditSubjectPage.tsx",
-              "ToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/EditSubjectPage.tsx",
-              "ViewState": "AQIAACIAAAAAAAAAAAAAAFAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
-              "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/EditSubjectPage.tsx",
-              "WhenOpened": "2024-09-15T08:39:54.665Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "useAllSubjectsEdit.ts",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\useAllSubjectsEdit.ts",
-              "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\useAllSubjectsEdit.ts",
-              "ToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/lib/useAllSubjectsEdit.ts",
-              "ViewState": "AQIAABAAAAAAAAAAAAAAABAAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
-              "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/lib/useAllSubjectsEdit.ts",
-              "WhenOpened": "2024-09-15T08:31:35.53Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{7f40df72-066b-4810-a08b-c0fbed76c948}"
@@ -222,6 +194,33 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EditSubjectPage.tsx",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\EditSubjectPage.tsx",
+              "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\EditSubjectPage.tsx",
+              "ToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/EditSubjectPage.tsx",
+              "ViewState": "AQIAACIAAAAAAAAAAAAAAFAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
+              "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/EditSubjectPage.tsx",
+              "WhenOpened": "2024-09-15T08:39:54.665Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "useAllSubjectsEdit.ts",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\useAllSubjectsEdit.ts",
+              "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib\\useAllSubjectsEdit.ts",
+              "ToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/lib/useAllSubjectsEdit.ts",
+              "ViewState": "AQIAABAAAAAAAAAAAAAAABAAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
+              "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/lib/useAllSubjectsEdit.ts",
+              "WhenOpened": "2024-09-15T08:31:35.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Profile.tsx",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\Profile.tsx",
@@ -231,8 +230,7 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/Profile.tsx",
-              "WhenOpened": "2024-08-05T10:50:19.825Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-05T10:50:19.825Z"
             },
             {
               "$type": "Document",
@@ -258,8 +256,7 @@
               "ViewState": "AQIAADAAAAAAAAAAAAAowFUAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\lib",
-              "WhenOpened": "2024-07-24T09:50:02.98Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T09:50:02.98Z"
             },
             {
               "$type": "Document",
@@ -272,8 +269,7 @@
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAA0AAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
-              "WhenOpened": "2024-08-08T09:04:42.684Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-08T09:04:42.684Z"
             },
             {
               "$type": "Document",
@@ -299,8 +295,7 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/EditProfile.tsx",
-              "WhenOpened": "2024-08-05T10:56:47.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-05T10:56:47.806Z"
             },
             {
               "$type": "Document",
@@ -313,8 +308,7 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/Registration.tsx",
-              "WhenOpened": "2024-07-27T09:13:47.625Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-27T09:13:47.625Z"
             },
             {
               "$type": "Document",
@@ -327,8 +321,7 @@
               "ViewState": "AQIAADUAAAAAAAAAAAAQwEEAAABMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src",
-              "WhenOpened": "2024-07-24T12:20:36.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-24T12:20:36.224Z"
             },
             {
               "$type": "Document",
@@ -341,8 +334,7 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/AddSubjectPage.tsx",
-              "WhenOpened": "2024-07-27T08:56:48.311Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-27T08:56:48.311Z"
             },
             {
               "$type": "Document",
@@ -368,8 +360,7 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "OverriddenGroupName": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages",
               "OverriddenToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd/src/pages/ChooseSubjectPage.tsx",
-              "WhenOpened": "2024-08-21T10:34:15.305Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-21T10:34:15.305Z"
             },
             {
               "$type": "Document",

@@ -57,18 +57,13 @@ const AddSubjectsPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    console.log(selectedSubjects);
     const teacherSalaries = Object.entries(selectedSubjects)
-      .filter(([, hourlyRate]) => Number(hourlyRate) > 0)
       .map(([subjectLevelId, hourlyRate]) => ({
         subject_LevelId: Number(subjectLevelId),
         personEmail: email,
         hourlyRate: Number(hourlyRate),
       }));
-
-    if (teacherSalaries.length === 0) {
-      alert('Nie wybrano przedmiotów.');
-      return;
-    }
 
     const responseStatus = await setTeacherSalary(teacherSalaries);
 
