@@ -16,7 +16,7 @@ const AddSubjectsPage: React.FC = () => {
   }>({});
 
   const email = useSelector((state: RootState) => state.login.email);
-  const { subjects, loading, error } = useAllSubjectsEdit(email); 
+  const { subjects, loading, error } = useAllSubjects();
 
   const { setTeacherSalary } = useSetTeacherSalary();
 

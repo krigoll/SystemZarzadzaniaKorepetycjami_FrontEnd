@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import { RootState } from '../futures/store';
 import AppButton from '../components/AppButton';
-import { goToMenu, goToTeacherMenu } from '../lib/Navigate';
+import { goToTeacherMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import { useSetTeacherSalary } from '../lib/useSetTeacherSalary';
 import { useAllSubjectsEdit } from '../lib/useAllSubjectsEdit';
@@ -26,7 +26,6 @@ const AddSubjectsPage: React.FC = () => {
     const initialSelectedSubjects = subjects.reduce(
       (acc: { [key: number]: string }, subject: any) => {
         if (subject.price) {
-          // Zakładamy, że 'price' jest przypisane w obiekcie przedmiotu
           acc[subject.subjectLevelId] = subject.price;
         }
         return acc;
@@ -42,7 +41,13 @@ const AddSubjectsPage: React.FC = () => {
         // Ustawiamy domyślną wartość '0' dla kosztów, jeśli zaznaczymy przedmiot
         return { ...prev, [subjectLevelId]: prev[subjectLevelId] || '0' };
       } else {
-        // Usuwamy przedmiot z listy zaznaczonych, jeśli odznaczony
+        setSubjectsList((prevList) =>
+          prevList.map((subject) =>
+            subject.subjectLevelId === subjectLevelId
+              ? { ...subject, price: 0 }
+              : subject
+          )
+        );
         const { [subjectLevelId]: _, ...rest } = prev;
         return rest;
       }
@@ -54,22 +59,28 @@ const AddSubjectsPage: React.FC = () => {
       ...prev,
       [subjectLevelId]: cost,
     }));
+    setSubjectsList((prevList) =>
+      prevList.map((subject) =>
+        subject.subjectLevelId === subjectLevelId
+          ? { ...subject, price: Number(cost) }
+          : subject
+      )
+    );
   };
 
   const handleSubmit = async () => {
-    console.log(selectedSubjects);
-    const teacherSalaries = Object.entries(selectedSubjects)
-      .map(([subjectLevelId, hourlyRate]) => ({
-        subject_LevelId: Number(subjectLevelId),
-        personEmail: email,
-        hourlyRate: Number(hourlyRate),
-      }));
-
+    console.log('lol', subjectsList);
+    const teacherSalaries = subjectsList.map((subject) => ({
+      subject_LevelId: Number(subject.subjectLevelId),
+      personEmail: email,
+      hourlyRate: Number(subject.price),
+    }));
+    console.log(teacherSalaries);
     const responseStatus = await setTeacherSalary(teacherSalaries);
 
     if (responseStatus === 200) {
       alert('Przedmioty i koszty zostały pomyślnie zapisane');
-      goToMenu(navigate);
+      goToTeacherMenu(navigate);
     } else {
       alert('Nie udało się zapisać przedmiotów i kosztów');
     }
@@ -108,7 +119,7 @@ const AddSubjectsPage: React.FC = () => {
               <input
                 type="text"
                 placeholder="Koszt"
-                value={selectedSubjects[subjectDTO.subjectLevelId]}
+                value={selectedSubjects[subjectDTO.subjectLevelId] || ''} // Add default empty string for controlled component
                 onChange={(e) =>
                   handleCostChange(subjectDTO.subjectLevelId, e.target.value)
                 }
