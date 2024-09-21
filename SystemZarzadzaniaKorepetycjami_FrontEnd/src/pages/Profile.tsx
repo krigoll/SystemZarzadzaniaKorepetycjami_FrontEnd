@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
-import { goToEditProfile, goToMenu } from '../lib/Navigate';
+import { goToDeleteAccountPage, goToEditProfile, goToMenu } from '../lib/Navigate';
 import { DataToEdit } from '../types/DataToEdit';
 import AppButton from '../components/AppButton';
 import { base64ToFile } from '../lib/ConvertImage';
@@ -49,7 +49,7 @@ const ProfilePage: React.FC = () => {
         <div className="profile-container">
             <button
                 className="delete-account"
-                onClick={() => navigate('/delete-account')}
+                onClick={() => goToDeleteAccountPage(navigate)}
             >
                 Usuń konto
             </button>

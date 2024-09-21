@@ -68,6 +68,10 @@ function goToEditSubjectPage(navigate: NavigateFunction) {
     navigate(`/teacher/editSubject`);
 }
 
+function goToDeleteAccountPage(navigate: NavigateFunction) {
+    navigate(`/profile/deleteAccount`);
+}
+
 export {
     goToLogin,
     goToRegistration,
@@ -83,5 +87,6 @@ export {
     goToChooseTeacherPage,
     goToSignUpToLessonPage,
     goToRequestsPage,
-    goToEditSubjectPage
+    goToEditSubjectPage,
+    goToDeleteAccountPage
 };
