@@ -20,7 +20,7 @@ interface TeacherResponse {
   image: string | null;
 }
 
-export const useTeachersForLevel = (subjectCategoryId: number) => {
+export const useTeachersForLevel = (subjectLevelId: number, email: string) => {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,12 +29,12 @@ export const useTeachersForLevel = (subjectCategoryId: number) => {
   const token = useSelector((state: RootState) => state.login.jwtToken);
 
   const fetchTeachersForLevel = async (
-    id: number,
+      id: number,
     currentToken: string
   ): Promise<Teacher[]> => {
     try {
       const response = await fetch(
-        `http://localhost:5230/api/teacher?subjectCategoryId=${id}`, //TODO zmień category na level
+          `http://localhost:5230/api/teacher?subjectLevelId=${id}&email=${email}`,
         {
           method: 'GET',
           headers: {
@@ -81,8 +81,8 @@ export const useTeachersForLevel = (subjectCategoryId: number) => {
       setError(null);
 
       try {
-        const teacherData = await fetchTeachersForLevel(
-          subjectCategoryId,
+          const teacherData = await fetchTeachersForLevel(
+          subjectLevelId,
           token
         );
         setTeachers(teacherData);
@@ -93,10 +93,10 @@ export const useTeachersForLevel = (subjectCategoryId: number) => {
       }
     };
 
-    if (subjectCategoryId && token) {
+    if (subjectLevelId && token) {
       loadTeachers();
     }
-  }, [subjectCategoryId]);
+  }, [subjectLevelId]);
 
   return { teachers, loading, error };
 };

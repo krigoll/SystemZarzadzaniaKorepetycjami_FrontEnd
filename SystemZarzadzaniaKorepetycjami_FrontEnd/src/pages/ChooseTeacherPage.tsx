@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { goToChooseSubjectPage, goToSignUpToLessonPage } from '../lib/Navigate';
 import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
 import { useTeachersForLevel } from '../lib/useTeachersForLevel'; // The hook to fetch teachers
+import { useSelector } from 'react-redux';
+import { RootState } from '../futures/store';
 
 interface Teacher {
   id: number;
@@ -16,9 +18,10 @@ const ChooseTeacherPage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  const subjectCategoryId = Number(id?.split(' ')[2]);
+  const subjectLevelId = Number(id?.split(' ')[2]);
+  const email = useSelector((state: RootState) => state.login.email);
 
-  const { teachers, loading, error } = useTeachersForLevel(subjectCategoryId);
+  const { teachers, loading, error } = useTeachersForLevel(subjectLevelId, email);
 
   const handleSignUpToLesson = (teacher: Teacher) => {
     const dataToSignUpToLesson: DataToSignUpToLesson = {
@@ -45,31 +48,35 @@ const ChooseTeacherPage: React.FC = () => {
         Lista Nauczycieli dla: {id?.split(' ')[0] + ' ' + id?.split(' ')[1]}
       </h1>
       <div className="teacher-list">
-        {teachers.map((teacher) => (
-          <div key={teacher.id} className="teacher-item">
-            <div className="teacher-info">
-              <div className="teacher-name">
-                {teacher.name}, {teacher.price} zł
+        {teachers.length === 0 ? (
+          <div className="no-teachers">Brak nauczycieli</div>
+        ) : (
+          teachers.map((teacher) => (
+            <div key={teacher.id} className="teacher-item">
+              <div className="teacher-info">
+                <div className="teacher-name">
+                  {teacher.name}, {teacher.price} zł
+                </div>
+              </div>
+              <div className="teacher-photo">
+                {teacher.image ? (
+                  <img
+                    src={URL.createObjectURL(teacher.image)}
+                    alt={`${teacher.name}`}
+                  />
+                ) : (
+                  '[Brak Zdjęcia]'
+                )}
+              </div>
+              <div className="teacher-actions">
+                <AppButton
+                  label="Dalej"
+                  onClick={() => handleSignUpToLesson(teacher)}
+                />
               </div>
             </div>
-            <div className="teacher-photo">
-              {teacher.image ? (
-                <img
-                  src={URL.createObjectURL(teacher.image)}
-                  alt={`${teacher.name}`}
-                />
-              ) : (
-                '[Brak Zdjęcia]'
-              )}
-            </div>
-            <div className="teacher-actions">
-              <AppButton
-                label="Dalej"
-                onClick={() => handleSignUpToLesson(teacher)}
-              />
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
       <div className="button-container">
         <AppButton
