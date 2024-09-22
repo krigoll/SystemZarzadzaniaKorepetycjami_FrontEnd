@@ -5,8 +5,9 @@ import { goToProfile} from '../lib/Navigate';
 import { usePersonDelete } from '../lib/usePersonDelete';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
+import { useHandleLogOut } from '../lib/LogOut';
 
-const DeleteAccountPage: React.FC = () => { // dodanie wylogowania sie oraz przejscia do stony glownej
+const DeleteAccountPage: React.FC = () => {
     const navigate = useNavigate();
     const email = useSelector((state: RootState) => state.login.email);
     const { deletePerson } = usePersonDelete();
@@ -16,6 +17,7 @@ const DeleteAccountPage: React.FC = () => { // dodanie wylogowania sie oraz prze
 
         if (status === 200) {
             alert('Person deleted successfully');
+            useHandleLogOut();
         } else {
             alert('Failed to delete person');
         }
