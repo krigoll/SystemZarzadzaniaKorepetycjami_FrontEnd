@@ -34,7 +34,7 @@ export const useTeachersForLevel = (subjectCategoryId: number) => {
   ): Promise<Teacher[]> => {
     try {
       const response = await fetch(
-        `http://localhost:5230/api/teacher?subjectCategoryId=${id}`,
+        `http://localhost:5230/api/teacher?subjectCategoryId=${id}`, //TODO zmień category na level
         {
           method: 'GET',
           headers: {
@@ -46,7 +46,7 @@ export const useTeachersForLevel = (subjectCategoryId: number) => {
 
       if (!response.ok) {
         if (response.status === 401) {
-          const newToken = await refreshAccessToken(); // Refresh token if 401 error
+          const newToken = await refreshAccessToken();
           if (newToken) {
             dispatch(updateToken(newToken));
             return fetchTeachersForLevel(id, newToken);
