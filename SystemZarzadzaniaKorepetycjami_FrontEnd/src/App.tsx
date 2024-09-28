@@ -21,6 +21,7 @@ import SignUpToLesson from './pages/SignUpToLessonPage';
 import RequestsPage from './pages/RequestsPage';
 import EditSubjectPage from './pages/EditSubjectPage';
 import DeleteAccountPage from './pages/DeleteAccountPage';
+import CalendarPage from './pages/CalendarPage';
 
 function App() {
     const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function App() {
                 <Route path="/teacher/requests" element={<RequestsPage />} />
                 <Route path="/teacher/editSubject" element={<EditSubjectPage />} />
                 <Route path="/profile/deleteAccount" element={<DeleteAccountPage />} />
+                <Route path="/calendar/:startDay" element={<CalendarPage />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Router>

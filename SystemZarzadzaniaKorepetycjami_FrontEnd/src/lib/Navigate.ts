@@ -72,6 +72,10 @@ function goToDeleteAccountPage(navigate: NavigateFunction) {
     navigate(`/profile/deleteAccount`);
 }
 
+function goToCalendarPage(navigate: NavigateFunction, dateDay: string) {
+    navigate(`/calendar/${dateDay}`);
+}
+
 export {
     goToLogin,
     goToRegistration,
@@ -88,5 +92,6 @@ export {
     goToSignUpToLessonPage,
     goToRequestsPage,
     goToEditSubjectPage,
-    goToDeleteAccountPage
+    goToDeleteAccountPage,
+    goToCalendarPage
 };

@@ -4,7 +4,7 @@ import AppButton from '../components/AppButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useNavigate } from 'react-router-dom';
-import { goToProfile, goToStudentMenu, goToTeacherMenu } from '../lib/Navigate';
+import { goToProfile, goToStudentMenu, goToTeacherMenu, goToCalendarPage } from '../lib/Navigate';
 import { useHandleLogOut } from '../lib/LogOut';
 
 const App: React.FC = () => {
@@ -15,13 +15,18 @@ const App: React.FC = () => {
     const navigate = useNavigate();
     const handleLogOut = useHandleLogOut();
 
+    const getDay = (): string => {
+        const currentDate = new Date();
+        return currentDate.toISOString().split('T')[0];
+    }
+
 
 
     return (
         <div className="App">
             <div className="sidebar">
                 <AppButton label="Profil" onClick={() => goToProfile(navigate)} />
-                <AppButton label="Kalendarz" onClick={() => console.log('Kalendarz')} />
+                <AppButton label="Kalendarz" onClick={() => goToCalendarPage(navigate, getDay())} />
                 {isStudent && (
                     <AppButton label="Uczeń" onClick={() => goToStudentMenu(navigate)} />
                 )}
