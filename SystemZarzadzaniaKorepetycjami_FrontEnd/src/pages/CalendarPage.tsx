@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate, useParams } from 'react-router-dom';
-import { goToCalendarPage, goToMenu } from '../lib/Navigate';
+import { goToCalendarPage, goToLessonDetailsPage, goToMenu } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useCalendar } from '../lib/useCalendar';
 import { getWeekRange } from '../lib/WeekRange';
 import { Calendar } from '../types/Calendar';
-
 
 const CalendarPage: React.FC = () => {
     const navigate = useNavigate();
@@ -18,8 +17,7 @@ const CalendarPage: React.FC = () => {
 
     const [weekDates, setWeekDates] = useState<string[]>([]);
 
-    const {startOfWeek, endOfWeek} = getWeekRange(startDay); 
-  
+    const { startOfWeek, endOfWeek } = getWeekRange(startDay);
 
     // Calculate the start and end dates for the current week
     const getWeekDates = (startDateString: string) => {
@@ -32,9 +30,10 @@ const CalendarPage: React.FC = () => {
         }
         return week;
     };
+    
 
     useEffect(() => {
-        if (email &&  startDay) {
+        if (email && startDay) {
             const dates = getWeekDates(startOfWeek);
             setWeekDates(dates);
         }
@@ -52,10 +51,7 @@ const CalendarPage: React.FC = () => {
         return currentDate.toISOString().split('T')[0];
     };
 
-    
-
-
- return (
+    return (
         <div className="availability-container">
             <h2>Kalendarzyk</h2>
             <div className="date-picker">
@@ -78,6 +74,8 @@ const CalendarPage: React.FC = () => {
                                     <p>Przedmiot: {lesson.subjectName}</p>
                                     <p>Godzina: {lesson.dateTime.substring(11, 16)}</p>
                                     <p>Status: {lesson.statusName}</p>
+                                    {/* Dodanie przycisku Szczegó³y */}
+                                    <AppButton label="Szczegó³y" onClick={() => goToLessonDetailsPage(navigate, lesson.lessonId)} />
                                 </div>
                             ))
                         ) : (

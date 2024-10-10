@@ -76,6 +76,10 @@ function goToCalendarPage(navigate: NavigateFunction, dateDay: string) {
     navigate(`/calendar/${dateDay}`);
 }
 
+function goToLessonDetailsPage(navigate: NavigateFunction, lessonId: number) {
+    navigate(`/lessonDetails/${lessonId}`);
+}
+
 export {
     goToLogin,
     goToRegistration,
@@ -93,5 +97,6 @@ export {
     goToRequestsPage,
     goToEditSubjectPage,
     goToDeleteAccountPage,
-    goToCalendarPage
+    goToCalendarPage,
+    goToLessonDetailsPage
 };
