@@ -5,40 +5,64 @@ import AppButton from '../components/AppButton';
 import { goToCalendarPage } from '../lib/Navigate';
 
 const LessonDetailsPage: React.FC = () => {
-    const { lessonId } = useParams<{ lessonId: string }>();
-    const navigate = useNavigate();
+  const { lessonId } = useParams<{ lessonId: string }>();
+  const navigate = useNavigate();
 
-    const numericLessonId = lessonId ? parseInt(lessonId) : null;
+  const numericLessonId = lessonId ? parseInt(lessonId) : null;
 
-    const lessonData = useLessonDetails(numericLessonId!);
+  const lessonData = useLessonDetails(numericLessonId!);
 
-    const getDay = (): string => {
-        const currentDate = new Date();
-        return currentDate.toISOString().split('T')[0];
-    }
+  const getDay = (): string => {
+    console.log(lessonData);
+    const currentDate = new Date();
+    return currentDate.toISOString().split('T')[0];
+  };
 
-    return (
-        <div className="lesson-details-container">
-            <h2>Szczeg蟪y lekcji</h2>
+  return (
+    <div className="lesson-details-container">
+      <h2>Szczeg贸艂y lekcji</h2>
 
-            {lessonData ? (
-                <div className="lesson-details">
-                    <p><strong>Przedmiot:</strong> {lessonData.subjectName}</p>
-                    <p><strong>Nauczyciel:</strong> {lessonData.teacherName}</p>
-                    <p><strong>Data:</strong> {lessonData.dateTime.split('T')[0]}</p>
-                    <p><strong>Godzina:</strong> {lessonData.dateTime.substring(11, 16)}</p>
-                    <p><strong>Status:</strong> {lessonData.statusName}</p>
-                    <p><strong>Opis:</strong> {lessonData.description || 'Brak opisu'}</p>
-                </div>
-            ) : (
-                <p>dowanie szczeg蟪體 lekcji...</p>
-            )}
-
-            <div className="button-container">
-                <AppButton label="Powr髏" onClick={() => goToCalendarPage(navigate, getDay())} />
-            </div>
+      {lessonData ? (
+        <div className="lesson-details">
+          <p>
+            <strong>Przedmiot:</strong> {lessonData.subjectName}
+          </p>
+          <p>
+            <strong>Nauczyciel:</strong> {lessonData.teacherName}
+          </p>
+          {/* Upewnij si臋, 偶e lessonData.dateTime istnieje przed wykonaniem split */}
+          {lessonData.startDate ? (
+            <>
+              <p>
+                <strong>Data:</strong> {lessonData.startDate.split('T')[0]}
+              </p>
+              <p>
+                <strong>Godzina:</strong>{' '}
+                {lessonData.startDate.substring(11, 16)}
+              </p>
+            </>
+          ) : (
+            <p>Data nie jest dost臋pna</p>
+          )}
+          <p>
+            <strong>Status:</strong> {lessonData.statusName}
+          </p>
+          <p>
+            <strong>Opis:</strong> {lessonData.description || 'Brak opisu'}
+          </p>
         </div>
-    );
+      ) : (
+        <p>艁adowanie szczeg贸艂贸w lekcji...</p>
+      )}
+
+      <div className="button-container">
+        <AppButton
+          label="Powr贸t"
+          onClick={() => goToCalendarPage(navigate, getDay())}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default LessonDetailsPage;
