@@ -23,6 +23,7 @@ import EditSubjectPage from './pages/EditSubjectPage';
 import DeleteAccountPage from './pages/DeleteAccountPage';
 import CalendarPage from './pages/CalendarPage';
 import LessonDetailsPage from './pages/LessonDetailsPage';
+import ChatPage from './pages/ChatPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -72,7 +73,8 @@ function App() {
         <Route
           path="/lessonDetails/:lessonId"
           element={<LessonDetailsPage />}
-        />
+              />
+              <Route path="/chat" element={<ChatPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
