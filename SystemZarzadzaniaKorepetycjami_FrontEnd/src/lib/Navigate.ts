@@ -80,6 +80,10 @@ function goToLessonDetailsPage(navigate: NavigateFunction, lessonId: number) {
     navigate(`/lessonDetails/${lessonId}`);
 }
 
+function goToChat(navigate: NavigateFunction) {
+    navigate(`/chat`);
+}
+
 export {
     goToLogin,
     goToRegistration,
@@ -98,5 +102,6 @@ export {
     goToEditSubjectPage,
     goToDeleteAccountPage,
     goToCalendarPage,
-    goToLessonDetailsPage
+    goToLessonDetailsPage,
+    goToChat
 };

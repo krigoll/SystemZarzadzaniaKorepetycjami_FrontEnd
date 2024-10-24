@@ -21,7 +21,7 @@ export const useSendMessage = () => {
       let response = await fetch(
         `http://localhost:5230/api/message/createMessage`,
         {
-          method: 'PUT',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ export const useSendMessage = () => {
             const retryResponse = await fetch(
               `http://localhost:5230/api/message/createMessage`,
               {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                   Authorization: `Bearer ${token}`,

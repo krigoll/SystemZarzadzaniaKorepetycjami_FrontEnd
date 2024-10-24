@@ -5,7 +5,7 @@ import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { MessageDTO } from '../types/MessageDTO';
 
-export const useGetMessages = (userId: number, corespondentId: number): MessageDTO[] | null => {
+export const useGetMessages = (userId: number, corespondentId: number, shouldRefresh: boolean): MessageDTO[] | null => {
   const [messages, setMessages] = useState<any>(null);
   const refreshAccessToken = useRefreshAccessToken();
   const dispatch = useDispatch();
@@ -60,6 +60,6 @@ export const useGetMessages = (userId: number, corespondentId: number): MessageD
       if (userId && jwtToken) {
       fetchData();
       }
-  }, [userId]);
+  }, [userId, shouldRefresh]);
   return messages;
 };
