@@ -64,6 +64,7 @@ const ChatPage: React.FC = () => {
     }, [shouldRefresh, userId, corespondentId]);
 
     return (
+        //dodaj tu wyszukiwarkê 
         <div className="chat-container">
             <div className="conversations-list">
                 <h2>Conversations</h2>

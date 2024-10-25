@@ -5,4 +5,5 @@ export interface LoginState {
     isAdmin: boolean;
     isTeacher: boolean;
     isStudent: boolean;
+    idPerson: number;
 }

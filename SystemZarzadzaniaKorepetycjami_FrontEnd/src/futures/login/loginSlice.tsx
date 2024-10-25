@@ -6,6 +6,7 @@ interface DecodedToken {
     isAdmin: string;
     isTeacher: string;
     isStudent: string;
+    idPerson: number;
 }
 
 const initialState: LoginState = {
@@ -15,6 +16,7 @@ const initialState: LoginState = {
     isAdmin: false,
     isTeacher: false,
     isStudent: false,
+    idPerson: -1,
 };
 
 export const loginSlice = createSlice({
@@ -35,6 +37,7 @@ export const loginSlice = createSlice({
                 isAdmin: 'false',
                 isTeacher: 'false',
                 isStudent: 'false',
+                idPerson: -1,
             };
 
             try {
@@ -49,6 +52,7 @@ export const loginSlice = createSlice({
             state.isAdmin = decoded.isAdmin === 'True';
             state.isTeacher = decoded.isTeacher === 'True';
             state.isStudent = decoded.isStudent === 'True';
+            state.idPerson = Number(decoded.idPerson);
         },
         updateEmail: (state, action: PayloadAction<string>) => {
             state.email = action.payload;
@@ -69,6 +73,7 @@ export const loginSlice = createSlice({
             state.isAdmin = false;
             state.isTeacher = false;
             state.isStudent = false;
+            state.idPerson = -1;
         },
     },
 });
