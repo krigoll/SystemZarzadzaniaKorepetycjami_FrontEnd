@@ -1,4 +1,4 @@
 export interface PersonDTO {
-    personId: number;
+    idPerson: number;
     fullName: string;
 }

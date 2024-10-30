@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useGetConversations } from '../lib/useGetConversations';
 import { useGetMessages } from '../lib/useGetMessages';
 import { useSendMessage } from '../lib/useSendMessage';
@@ -31,22 +31,23 @@ const ChatPage: React.FC = () => {
 
   const conversations = useGetConversations(email);
 
-  const [shouldRefresh, setShouldRefresh] = useState(false);
-
-  const userId = selectedConversation ? selectedConversation.userId : 0;
-  const corespondentId = selectedConversation
-    ? selectedConversation.corespondentId
-    : 0;
-  const messages = useGetMessages(userId, corespondentId, shouldRefresh);
+  // Initialize useGetMessages hook
+  const { getMessages, messages, loading, errorM } = useGetMessages();
 
   const { sendMessage } = useSendMessage();
 
   // Integrate useSearchPersons for finding new contacts
-  const { searchPersons, persons, loading, error } = useSearchPersons();
+  const {
+    searchPersons,
+    persons,
+    loading: searchLoading,
+    error: searchError,
+  } = useSearchPersons();
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const handleConversationClick = (conversation: Conversation) => {
+  const handleConversationClick = async (conversation: Conversation) => {
     setSelectedConversation(conversation);
+    await getMessages(conversation.userId, conversation.corespondentId);
   };
 
   const handleSendMessage = async () => {
@@ -59,15 +60,12 @@ const ChatPage: React.FC = () => {
       };
       await sendMessage(messageDTO);
       setNewMessage('');
-      setShouldRefresh(true);
+      await getMessages(
+        selectedConversation.userId,
+        selectedConversation.corespondentId
+      );
     }
   };
-
-  useEffect(() => {
-    if (shouldRefresh) {
-      setShouldRefresh(false);
-    }
-  }, [shouldRefresh, userId, corespondentId]);
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -104,17 +102,17 @@ const ChatPage: React.FC = () => {
           value={searchQuery}
           onChange={handleSearch}
         />
-        {loading && <p>Searching...</p>}
-        {error && <p>Error: {error}</p>}
+        {searchLoading && <p>Searching...</p>}
+        {searchError && <p>Error: {searchError}</p>}
         {persons && (
           <ul>
             {persons.map((person) => (
               <li
-                key={person.personId}
+                key={person.idPerson}
                 onClick={() =>
                   handleConversationClick({
                     userId: uId,
-                    corespondentId: person.personId,
+                    corespondentId: person.idPerson,
                     corespondentName: person.fullName,
                   })
                 }
@@ -129,7 +127,11 @@ const ChatPage: React.FC = () => {
       {selectedConversation && (
         <div className="messages-section">
           <h2>Messages with {selectedConversation.corespondentName}</h2>
-          {messages ? (
+          {loading ? (
+            <p>Loading messages...</p>
+          ) : errorM ? (
+            <p>Error: {errorM}</p>
+          ) : messages && messages.length > 0 ? (
             <ul className="messages-list">
               {messages.map((msg: MessageDTO, index: number) => (
                 <li key={index}>
@@ -143,9 +145,8 @@ const ChatPage: React.FC = () => {
               ))}
             </ul>
           ) : (
-            <p>Loading messages...</p>
+            <p>Brak wiadomości</p>
           )}
-
           <div className="message-input">
             <input
               type="text"
