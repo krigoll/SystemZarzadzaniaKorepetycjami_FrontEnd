@@ -45,10 +45,7 @@ const LessonDetailsPage: React.FC = () => {
             <p>Data nie jest dostępna</p>
           )}
           <p>
-            <strong>Status:</strong> {lessonData.statusName}
-          </p>
-          <p>
-            <strong>Opis:</strong> {lessonData.description || 'Brak opisu'}
+            <strong>Status:</strong> {lessonData.status}
           </p>
         </div>
       ) : (

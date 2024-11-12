@@ -47,19 +47,6 @@ async function RegisterToApp({
   jpegFile,
 }: RegisterProps) {
   var newBirthDate: string = birthDate.toString();
-  console.log(
-    JSON.stringify({
-      name: firstName,
-      surname: lastName,
-      birthDate: newBirthDate,
-      email: email,
-      password: password,
-      phoneNumber: phoneNumber,
-      image: jpegFile,
-      isStudent: isStudent,
-      isTeacher: isTeacher,
-    })
-  );
   const response = await fetch(
     'http://localhost:5230/api/person/registration',
     {
@@ -156,7 +143,7 @@ async function GetReservedLessons(email: string, token: string) {
 
 async function AcceptLesson(lessonId: number, token: string) {
   const response = await fetch(
-    `http://localhost:5230/api/lesson?lessonId=${lessonId}/accept`,
+    `http://localhost:5230/api/lesson/${lessonId}/accept`,
     {
       method: 'PUT',
       headers: {
@@ -171,7 +158,7 @@ async function AcceptLesson(lessonId: number, token: string) {
 
 async function RejectLesson(lessonId: number, token: string) {
   const response = await fetch(
-    `http://localhost:5230/api/lesson?lessonId=${lessonId}/reject`,
+    `http://localhost:5230/api/lesson/${lessonId}/reject`,
     {
       method: 'PUT',
       headers: {

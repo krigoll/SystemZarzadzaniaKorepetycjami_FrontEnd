@@ -56,14 +56,14 @@ const TeacherRequestsPage: React.FC = () => {
     }
   }, [email, jwtToken, refreshFlag]);
 
-    const handleAccept = (requestId: number) => {
-        AcceptLesson(requestId, jwtToken);
-        setRefreshFlag(prev => !prev);
+  const handleAccept = (requestId: number) => {
+    AcceptLesson(requestId, jwtToken);
+    setRefreshFlag((prev) => !prev);
   };
 
   const handleReject = (requestId: number) => {
-      RejectLesson(requestId, jwtToken);
-      setRefreshFlag(prev => !prev);
+    RejectLesson(requestId, jwtToken);
+    setRefreshFlag((prev) => !prev);
   };
 
   return (

@@ -137,7 +137,7 @@ const ChatPage: React.FC = () => {
                 <li key={index}>
                   <strong>
                     {msg.senderId === selectedConversation.userId
-                      ? 'You'
+                      ? 'Ty'
                       : selectedConversation.corespondentName}
                   </strong>
                   : {msg.content} <em>({msg.date})</em>
