@@ -3,105 +3,115 @@ import { DataToEdit } from '../types/DataToEdit';
 import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
 
 function goToLogin(navigate: NavigateFunction) {
-    navigate('/login');
+  navigate('/login');
 }
 
 function goToRegistration(navigate: NavigateFunction) {
-    navigate('/registration');
+  navigate('/registration');
 }
 
 function goToMainPage(navigate: NavigateFunction) {
-    navigate('/');
+  navigate('/');
 }
 
 function goToAddSubject(navigate: NavigateFunction) {
-    navigate('/addSubjects');
+  navigate('/addSubjects');
 }
 
 function goToMenu(navigate: NavigateFunction) {
-    navigate('/menu');
+  navigate('/menu');
 }
 
 function goToProfile(navigate: NavigateFunction) {
-    navigate('/profile');
+  navigate('/profile');
 }
 
 function goToEditProfile(navigate: NavigateFunction, dataToEdit: DataToEdit) {
-    navigate('/profile/edit', { state: { dataToEdit } });
+  navigate('/profile/edit', { state: { dataToEdit } });
 }
 
 function goToStudentMenu(navigate: NavigateFunction) {
-    navigate('/student');
+  navigate('/student');
 }
 
 function goToTeacherMenu(navigate: NavigateFunction) {
-    navigate('/teacher');
+  navigate('/teacher');
 }
 
 function goToDeterminingAvailabilty(navigate: NavigateFunction) {
-    navigate(`/teacher/determiningAvailabilty`);
+  navigate(`/teacher/determiningAvailabilty`);
 }
 
 function goToChooseSubjectPage(navigate: NavigateFunction) {
-    navigate(`/student/chooseSubject`);
+  navigate(`/student/chooseSubject`);
 }
 
 function goToChooseTeacherPage(
-    navigate: NavigateFunction,
-    idSubjectLevel: string
+  navigate: NavigateFunction,
+  idSubjectLevel: string
 ) {
-    navigate(`/student/chooseSubject/${idSubjectLevel}`);
+  navigate(`/student/chooseSubject/${idSubjectLevel}`);
 }
 
 function goToSignUpToLessonPage(
-    navigate: NavigateFunction,
-    DataToSignUpToLesson: DataToSignUpToLesson
+  navigate: NavigateFunction,
+  DataToSignUpToLesson: DataToSignUpToLesson
 ) {
-    navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
+  navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
 }
 
 function goToRequestsPage(navigate: NavigateFunction) {
-    navigate(`/teacher/requests`);
+  navigate(`/teacher/requests`);
 }
 
 function goToEditSubjectPage(navigate: NavigateFunction) {
-    navigate(`/teacher/editSubject`);
+  navigate(`/teacher/editSubject`);
 }
 
 function goToDeleteAccountPage(navigate: NavigateFunction) {
-    navigate(`/profile/deleteAccount`);
+  navigate(`/profile/deleteAccount`);
 }
 
 function goToCalendarPage(navigate: NavigateFunction, dateDay: string) {
-    navigate(`/calendar/${dateDay}`);
+  navigate(`/calendar/${dateDay}`);
 }
 
 function goToLessonDetailsPage(navigate: NavigateFunction, lessonId: number) {
-    navigate(`/lessonDetails/${lessonId}`);
+  navigate(`/lessonDetails/${lessonId}`);
 }
 
 function goToChat(navigate: NavigateFunction) {
-    navigate(`/chat`);
+  navigate(`/chat`);
+}
+
+function goToTeachersReviewsListPage(navigate: NavigateFunction) {
+  navigate(`/teachersReviewsList`);
+}
+
+function goToAddReviewPage(navigate: NavigateFunction, teacherId: number) {
+  navigate(`/addReview/${teacherId}`);
 }
 
 export {
-    goToLogin,
-    goToRegistration,
-    goToMainPage,
-    goToAddSubject,
-    goToMenu,
-    goToProfile,
-    goToEditProfile,
-    goToStudentMenu,
-    goToTeacherMenu,
-    goToDeterminingAvailabilty,
-    goToChooseSubjectPage,
-    goToChooseTeacherPage,
-    goToSignUpToLessonPage,
-    goToRequestsPage,
-    goToEditSubjectPage,
-    goToDeleteAccountPage,
-    goToCalendarPage,
-    goToLessonDetailsPage,
-    goToChat
+  goToLogin,
+  goToRegistration,
+  goToMainPage,
+  goToAddSubject,
+  goToMenu,
+  goToProfile,
+  goToEditProfile,
+  goToStudentMenu,
+  goToTeacherMenu,
+  goToDeterminingAvailabilty,
+  goToChooseSubjectPage,
+  goToChooseTeacherPage,
+  goToSignUpToLessonPage,
+  goToRequestsPage,
+  goToEditSubjectPage,
+  goToDeleteAccountPage,
+  goToCalendarPage,
+  goToLessonDetailsPage,
+  goToChat,
+  goToTeachersReviewsListPage,
+  goToAddReviewPage,
 };

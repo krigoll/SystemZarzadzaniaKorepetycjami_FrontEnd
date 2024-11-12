@@ -24,6 +24,8 @@ import DeleteAccountPage from './pages/DeleteAccountPage';
 import CalendarPage from './pages/CalendarPage';
 import LessonDetailsPage from './pages/LessonDetailsPage';
 import ChatPage from './pages/ChatPage';
+import TeachersReviewsListPage from './pages/TeachersReviewsListPage';
+import AddReviewPage from './pages/AddReviewPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -73,8 +75,13 @@ function App() {
         <Route
           path="/lessonDetails/:lessonId"
           element={<LessonDetailsPage />}
-              />
-              <Route path="/chat" element={<ChatPage />} />
+        />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route
+          path="/teachersReviewsList"
+          element={<TeachersReviewsListPage />}
+        />
+        <Route path="/addReview/:idTeacher" element={<AddReviewPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
