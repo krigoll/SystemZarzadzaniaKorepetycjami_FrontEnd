@@ -88,8 +88,8 @@ function goToTeachersReviewsListPage(navigate: NavigateFunction) {
   navigate(`/teachersReviewsList`);
 }
 
-function goToAddReviewPage(navigate: NavigateFunction, teacherId: number) {
-  navigate(`/addReview/${teacherId}`);
+function goToAddReviewPage(navigate: NavigateFunction, teacherInfo: string) {
+  navigate(`/addReview/${teacherInfo}`);
 }
 
 export {

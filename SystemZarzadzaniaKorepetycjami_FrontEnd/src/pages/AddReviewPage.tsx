@@ -25,7 +25,9 @@ const fetchReviews = async (teacherId: number): Promise<Review[]> => {
 };
 
 const TeacherReviewsPage: React.FC = () => {
-  const { teacherId } = useParams<{ teacherId: string }>();
+  const { teacherInfo } = useParams<{ teacherInfo: string }>();
+  const teacherId = Number(teacherInfo?.split(' ')[0]);
+  const teacherName = Number(teacherInfo?.split(' ')[1]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newReview, setNewReview] = useState<string>('');
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ const TeacherReviewsPage: React.FC = () => {
       className="teacher-reviews-page"
       style={{ padding: '20px', textAlign: 'center' }}
     >
-      <h1>Opinie o Nauczycielu</h1>
+      <h1>Opinie o Nauczycielu {teacherName}</h1>
 
       <div className="reviews-list" style={{ marginBottom: '20px' }}>
         {reviews.map((review) => (

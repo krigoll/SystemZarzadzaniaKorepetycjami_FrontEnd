@@ -81,7 +81,7 @@ function App() {
           path="/teachersReviewsList"
           element={<TeachersReviewsListPage />}
         />
-        <Route path="/addReview/:idTeacher" element={<AddReviewPage />} />
+        <Route path="/addReview/:teacherInfo" element={<AddReviewPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
