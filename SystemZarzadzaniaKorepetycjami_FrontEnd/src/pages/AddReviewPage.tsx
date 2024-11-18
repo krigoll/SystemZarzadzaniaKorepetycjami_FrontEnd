@@ -1,110 +1,158 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import AppButton from '../components/AppButton'; // Zakładając, że masz komponent AppButton
+import { useGetTeacherReviews } from '../lib/useGetTeacherOpinionById';
+import { useSelector } from 'react-redux';
+import { RootState } from '../futures/store';
+import { useCreateOpinion } from '../lib/useCreateOpinion';
+import { OpinionDTO } from '../types/OpinionDTO';
+import { useDeleteOpinion } from '../lib/useDeleteOpinion';
 
-// Typ dla danych opinii
-interface Review {
-  id: number;
-  content: string;
-}
-
-// Typ dla danych nauczyciela (na wypadek potrzeby wyświetlenia imienia i nazwiska nauczyciela)
-interface Teacher {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
-
-// Mockowa funkcja do pobrania opinii (zastąp API)
-const fetchReviews = async (teacherId: number): Promise<Review[]> => {
-  // Przykładowe dane
-  return [
-    { id: 1, content: 'Świetny nauczyciel, polecam!' },
-    { id: 2, content: 'Bardzo pomocny i cierpliwy.' },
-  ];
-};
-
-const TeacherReviewsPage: React.FC = () => {
+const AddReviewsPage: React.FC = () => {
   const { teacherInfo } = useParams<{ teacherInfo: string }>();
-  const teacherId = Number(teacherInfo?.split(' ')[0]);
-  const teacherName = Number(teacherInfo?.split(' ')[1]);
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const teacherId = Number(teacherInfo?.split(' ')[0]) || 0;
+  const teacherName =
+    teacherInfo?.split(' ')[1] + ' ' + teacherInfo?.split(' ')[2] ||
+    'Unknown Teacher';
+
+  const { reviews, loading, error, refetch } = useGetTeacherReviews(teacherId);
+  const [rating, setRating] = useState<number>();
   const [newReview, setNewReview] = useState<string>('');
+  const uId = useSelector((state: RootState) => state.login.idPerson);
+  const email = useSelector((state: RootState) => state.login.email);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Pobierz opinie na temat nauczyciela
-    const loadReviews = async () => {
-      if (teacherId) {
-        const fetchedReviews = await fetchReviews(Number(teacherId));
-        setReviews(fetchedReviews);
-      }
-    };
-    loadReviews();
-  }, [teacherId]);
+  const {
+    createOpinion,
+    responseStatus,
+    loading: creating,
+    error: createError,
+  } = useCreateOpinion();
 
-  const handleAddReview = () => {
-    if (newReview.trim()) {
-      const newReviewObj: Review = {
-        id: reviews.length + 1,
-        content: newReview.trim(),
-      };
-      setReviews([...reviews, newReviewObj]);
-      setNewReview(''); // Wyczyść pole tekstowe po dodaniu opinii
+  const {
+    deleteOpinion,
+    loading: deleting,
+    error: deleteError,
+  } = useDeleteOpinion();
+
+  const handleAddReview = async () => {
+    if (!newReview.trim()) {
+      alert('Podaj ocenę opisową');
+      return;
+    }
+
+    if (!rating || rating < 1 || rating > 5) {
+      alert('Ocena ma się mieścić od 1 do 5');
+      return;
+    }
+
+    const opinionDTO: OpinionDTO = {
+      IdTeacher: teacherId,
+      StudentEmail: email,
+      Rating: rating,
+      Content: newReview,
+    };
+
+    await createOpinion(opinionDTO);
+
+    if (responseStatus === 200) {
+      alert('Opinia została dodana!');
+      setNewReview('');
+      setRating(undefined);
+      refetch();
+    }
+  };
+
+  const handleDeleteReview = async (idOpinion: number) => {
+    const status = await deleteOpinion(idOpinion);
+
+    if (status === 200) {
+      alert('Opinia została usunięta!');
+      refetch();
     }
   };
 
   const handleGoBack = () => {
-    navigate(-1); // Przechodzi do poprzedniej strony
+    navigate(-1);
   };
 
+  const filteredReviews = reviews?.filter((review) => review.idPerson !== uId);
+
   return (
-    <div
-      className="teacher-reviews-page"
-      style={{ padding: '20px', textAlign: 'center' }}
-    >
+    <div className="teacher-reviews-page">
       <h1>Opinie o Nauczycielu {teacherName}</h1>
 
-      <div className="reviews-list" style={{ marginBottom: '20px' }}>
-        {reviews.map((review) => (
-          <div
-            key={review.id}
-            style={{
-              marginBottom: '10px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-            }}
-          >
-            {review.content}
+      {error ? (
+        <p>Błąd podczas ładowania opinii.</p>
+      ) : loading ? (
+        <p>Ładowanie...</p>
+      ) : (
+        <>
+          {reviews?.some((review) => review.idPerson === uId) ? (
+            <div>
+              <p>Twoja opinia:</p>
+              <p>
+                <strong>Ocena:</strong>{' '}
+                {reviews.find((review) => review.idPerson === uId)?.rating}/5
+              </p>
+              <p>
+                {reviews.find((review) => review.idPerson === uId)?.content}
+              </p>
+              <button
+                onClick={() =>
+                  handleDeleteReview(
+                    reviews.find((review) => review.idPerson === uId)?.idOpinion
+                  )
+                }
+                disabled={deleting}
+              >
+                {deleting ? 'Usuwanie...' : 'Usuń'}
+              </button>
+              {deleteError && (
+                <p style={{ color: 'red' }}>Błąd: {deleteError}</p>
+              )}
+            </div>
+          ) : (
+            <div>
+              <textarea
+                value={newReview}
+                onChange={(e) => setNewReview(e.target.value)}
+                placeholder="Napisz swoją opinię..."
+                disabled={creating}
+              />
+              <input
+                type="range"
+                min="1"
+                max="5"
+                value={rating || 1}
+                onChange={(e) => setRating(Number(e.target.value))}
+                disabled={creating}
+              />
+              <p>Ocena: {rating || 1}/5</p>
+              <div>
+                <button onClick={handleAddReview} disabled={creating}>
+                  {creating ? 'Dodawanie...' : 'Akceptuj'}
+                </button>
+              </div>
+            </div>
+          )}
+          {createError && <p style={{ color: 'red' }}>Błąd: {createError}</p>}
+        </>
+      )}
+
+      <button onClick={handleGoBack}>Powrót</button>
+
+      <div className="reviews-list">
+        {filteredReviews?.map((review) => (
+          <div key={review.idPerson}>
+            <p>
+              <strong>Ocena:</strong> {review.rating}/5
+            </p>
+            <p>{review.content}</p>
           </div>
         ))}
-      </div>
-
-      <textarea
-        value={newReview}
-        onChange={(e) => setNewReview(e.target.value)}
-        placeholder="Napisz swoją opinię..."
-        style={{
-          width: '100%',
-          height: '80px',
-          marginBottom: '10px',
-          padding: '10px',
-        }}
-      />
-
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '10px',
-        }}
-      >
-        <AppButton label="Powrót" onClick={handleGoBack} />
-        <AppButton label="Akceptuj" onClick={handleAddReview} />
       </div>
     </div>
   );
 };
 
-export default TeacherReviewsPage;
+export default AddReviewsPage;

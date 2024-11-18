@@ -1,31 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
+import { OpinionDTO } from '../types/OpinionDTO.ts';
 
-export const useGetTeacherReviews = (teacherId: number) => {
-  const [reviews, setReviews] = useState<any[] | null>(null);
+export const useCreateOpinion = () => {
+  const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useDispatch();
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const fetchReviews = async () => {
+  const createOpinion = async (opinionDTO: OpinionDTO) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
-
     try {
       let response = await fetch(
-        `http://localhost:5230/api/opinion/getOpinionsByTeacherId?teacherId=${teacherId}`,
+        `http://localhost:5230/api/opinion/createOpinion`,
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
+          body: JSON.stringify(opinionDTO),
         }
       );
 
@@ -35,28 +36,29 @@ export const useGetTeacherReviews = (teacherId: number) => {
           if (newToken) {
             dispatch(updateToken(newToken));
             token = newToken;
-            response = await fetch(
-              `http://localhost:5230/api/opinion/getOpinionsByTeacherId?teacherId=${teacherId}`,
+            const retryResponse = await fetch(
+              `http://localhost:5230/api/opinion/createOpinion`,
               {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                   Authorization: `Bearer ${token}`,
                 },
+                body: JSON.stringify(opinionDTO),
               }
             );
+            setResponseStatus(retryResponse.status);
           } else {
             throw new Error('Failed to refresh token');
           }
         } else {
           throw new Error(
-            `Failed to fetch reviews, status: ${response.status}`
+            `Failed to edit person details, status: ${response.status}`
           );
         }
+      } else {
+        setResponseStatus(response.status);
       }
-
-      const data = await response.json();
-      setReviews(data);
     } catch (error) {
       setError(
         error instanceof Error ? error.message : 'Unknown error occurred'
@@ -66,15 +68,5 @@ export const useGetTeacherReviews = (teacherId: number) => {
     }
   };
 
-  const refetch = () => {
-    fetchReviews();
-  };
-
-  useEffect(() => {
-    if (teacherId && jwtToken) {
-      fetchReviews();
-    }
-  }, [teacherId, jwtToken]);
-
-  return { reviews, loading, error, refetch };
+  return { createOpinion, responseStatus, loading, error };
 };
