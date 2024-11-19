@@ -56,8 +56,6 @@ const AddReviewsPage: React.FC = () => {
 
     if (responseStatus === 200) {
       alert('Opinia została dodana!');
-      setNewReview('');
-      setRating(undefined);
       refetch();
     }
   };

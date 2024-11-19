@@ -191,7 +191,7 @@ const EditProfilePage: React.FC = () => {
           </label>
         </div>
       )}
-      <div className="button-container">
+      <div>
         <AppButton label="Powrót" onClick={() => goToProfile(navigate)} />
         <button onClick={handleSubmit} disabled={loading}>
           {loading ? 'Trwa aktualizacja...' : 'Akceptuj'}
