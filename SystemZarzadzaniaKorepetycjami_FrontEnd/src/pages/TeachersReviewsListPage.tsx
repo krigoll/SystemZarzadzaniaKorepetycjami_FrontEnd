@@ -19,10 +19,6 @@ const TeachersListPage: React.FC = () => {
 
   const teachers = useTeachers(email);
 
-  const handleLeaveReview = (teacherId: number) => {
-    console.log(`Leaving a review for teacher with id: ${teacherId}`);
-  };
-
   const handleGoBack = () => {
     navigate(-1); // Goes back to the previous page
   };
@@ -36,36 +32,43 @@ const TeachersListPage: React.FC = () => {
 
       <div className="teachers-list">
         {teachers ? (
-          teachers.teachers.map((teacher: Teacher) => (
-            <div
-              key={teacher.id}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                margin: '10px 0',
-                padding: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-              }}
-            >
-              <span>{teacher.name}</span>
-              <div className="teacher-photo">
-                {teacher.image ? (
-                  <img
-                    src={URL.createObjectURL(teacher.image)}
-                    alt={`${teacher.name}`}
-                  />
-                ) : (
-                  '[Brak Zdjęcia]'
-                )}
+          teachers.teachers.length > 0 ? (
+            teachers.teachers.map((teacher: Teacher) => (
+              <div
+                key={teacher.id}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  margin: '10px 0',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '5px',
+                }}
+              >
+                <span>{teacher.name}</span>
+                <div className="teacher-photo">
+                  {teacher.image ? (
+                    <img
+                      src={URL.createObjectURL(teacher.image)}
+                      alt={`${teacher.name}`}
+                      style={{ maxWidth: '50px', maxHeight: '50px' }}
+                    />
+                  ) : (
+                    '[Brak Zdjęcia]'
+                  )}
+                </div>
+                <AppButton
+                  label="Wystaw opinię"
+                  onClick={() =>
+                    goToAddReviewPage(navigate, `${teacher.id} ${teacher.name}`)
+                  }
+                />
               </div>
-              <AppButton
-                      label="Wystaw opinię"
-                      onClick={() => goToAddReviewPage(navigate, teacher.id + ' ' + teacher.name)}
-              />
-            </div>
-          ))
+            ))
+          ) : (
+            <p>Brak nauczycieli</p>
+          )
         ) : (
           <p>Loading teachers...</p> // Loading message while data is being fetched
         )}

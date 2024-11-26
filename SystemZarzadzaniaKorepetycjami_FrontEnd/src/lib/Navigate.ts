@@ -92,6 +92,10 @@ function goToAddReviewPage(navigate: NavigateFunction, teacherInfo: string) {
   navigate(`/addReview/${teacherInfo}`);
 }
 
+function goToTeacherOpinionPage(navigate: NavigateFunction) {
+  navigate(`/teacher/myOpinion`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -114,4 +118,5 @@ export {
   goToChat,
   goToTeachersReviewsListPage,
   goToAddReviewPage,
+  goToTeacherOpinionPage,
 };
