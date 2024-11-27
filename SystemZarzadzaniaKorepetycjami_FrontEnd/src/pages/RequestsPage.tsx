@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { goToTeacherMenu } from '../lib/Navigate';
-import { useSelector } from 'react-redux';
-import { RootState } from '../futures/store';
-import { AcceptLesson, GetReservedLessons, RejectLesson } from '../lib/API';
+import { useGetReservedLessons } from '../lib/useGetReservedLessons';
+import { AcceptLesson, RejectLesson } from '../lib/useHandleLesson';
 
 interface Request {
   lessonId: number;
@@ -17,53 +16,42 @@ interface Request {
 
 const TeacherRequestsPage: React.FC = () => {
   const navigate = useNavigate();
-  const email = useSelector((state: RootState) => state.login.email);
-  const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
-  const [requests, setRequests] = useState<Request[]>([]);
   const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
+  const requests = useGetReservedLessons(refreshFlag);
+  const acceptLesson = AcceptLesson();
+  const rejectLesson = RejectLesson();
+  
+  useEffect(() => {
+    
+  }, [refreshFlag]);
 
-  const fetchRequests = async (
-    email: string,
-    token: string
-  ): Promise<Request[]> => {
+  const handleAccept = async (requestId: number) => {
     try {
-      const response = await GetReservedLessons(email, token);
-      if (Array.isArray(response)) {
-        return response as Request[];
+      const response = await acceptLesson(requestId);
+      if (response.ok) {
+        alert(`Lekcja została zaakceptowana!`);
+        setRefreshFlag((prev) => !prev);
       } else {
-        console.error('Unexpected response format:', response);
-        return [];
+          alert(`Nie udało się zaakceptować lekcji.`);
       }
     } catch (error) {
-      console.error('Error fetching availability calendar:', error);
-      return [];
+        alert(`Błąd`);
     }
   };
 
-  const generateRequestsHTML = async (email: string, token: string) => {
+
+  const handleReject = async (requestId: number) => {
     try {
-      const requestsData = await fetchRequests(email, token);
-      setRequests(requestsData);
+      const response = await rejectLesson(requestId);
+      if (response.ok) {
+          alert(`Lekcja została odrzucona!`);
+        setRefreshFlag((prev) => !prev);
+      } else {
+          alert(`Nie udało się odrzucić lekcji.`);
+      }
     } catch (error) {
-      console.error('Error generating availability calendar:', error);
-      setRequests([]);
-    }
-  };
-
-  useEffect(() => {
-    if (email && jwtToken) {
-      generateRequestsHTML(email, jwtToken);
-    }
-  }, [email, jwtToken, refreshFlag]);
-
-  const handleAccept = (requestId: number) => {
-    AcceptLesson(requestId, jwtToken);
-    setRefreshFlag((prev) => !prev);
-  };
-
-  const handleReject = (requestId: number) => {
-    RejectLesson(requestId, jwtToken);
-    setRefreshFlag((prev) => !prev);
+        alert(`Błąd`);
+    }  
   };
 
   return (

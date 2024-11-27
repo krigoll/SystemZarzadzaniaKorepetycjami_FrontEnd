@@ -4,7 +4,7 @@ import AppButton from '../components/AppButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useNavigate } from 'react-router-dom';
-import { goToProfile, goToStudentMenu, goToTeacherMenu, goToCalendarPage, goToChat } from '../lib/Navigate';
+import { goToProfile, goToStudentMenu, goToTeacherMenu, goToCalendarPage, goToChat, goToAdminMenuPage } from '../lib/Navigate';
 import { useHandleLogOut } from '../lib/LogOut';
 
 const App: React.FC = () => {
@@ -37,8 +37,11 @@ const App: React.FC = () => {
                     />
                 )}
                 {isAdmin && (
-                    <AppButton label="Admin" onClick={() => console.log('Nauczyciel')} />
-                )}
+          <AppButton
+            label="Admin"
+            onClick={() => goToAdminMenuPage(navigate)}
+          />
+        )}
                 <AppButton
                     label="Wiadomości"
                     onClick={() => goToChat(navigate)}

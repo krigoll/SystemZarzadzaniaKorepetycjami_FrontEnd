@@ -1,66 +1,66 @@
-import { useCallback, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../futures/store';
-import { useRefreshAccessToken } from './useRefreshAccessToken';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateToken } from '../futures/login/loginSlice';
+import { useRefreshAccessToken } from './useRefreshAccessToken';
+import { RootState } from '../futures/store';
 
-export const GetReservedLessons = () => {
+export const useGetReservedLessons = (refreshFlag: boolean) => {
   const [lessons, setLessons] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
   const dispatch = useDispatch();
+  const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
+  const email = useSelector((state: RootState) => state.login.email);
 
-  const getReservedLessons = useCallback(
-    async (email: string) => {
-      setLoading(true);
-      setError(null);
+  useEffect(() => {
+    const fetchData = async () => {
       try {
         let token = jwtToken;
-
-        const fetchLessons = async (currentToken: string) => {
-          const response = await fetch(
-            `http://localhost:5230/api/lesson?email=${email}`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentToken}`,
-              },
-            }
-          );
-
-          if (!response.ok) {
-            if (response.status === 401) {
-              const newToken = await refreshAccessToken();
-              if (newToken) {
-                dispatch(updateToken(newToken));
-                return fetchLessons(newToken);
-              } else {
-                throw new Error('Failed to refresh token');
-              }
-            } else if (response.status === 500) {
-              throw new Error('Database Error');
-            } else {
-              throw new Error('Unexpected Error');
-            }
+        let response = await fetch(
+          `http://localhost:5230/api/lesson?email=${email}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
           }
+        );
 
-          return response.json();
-        };
+        if (!response.ok) {
+          if (response.status === 401) {
+            const newToken = await refreshAccessToken();
+            if (newToken) {
+              token = newToken;
+              dispatch(updateToken(token));
+              response = await fetch(
+                `http://localhost:5230/api/lesson?email=${email}`,
+                {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+            } else {
+              throw new Error('Failed to refresh token');
+            }
+          } else {
+            throw new Error('Error fetching lessons');
+          }
+        }
 
-        const data = await fetchLessons(token);
+        const data = await response.json();
         setLessons(data);
-      } catch (err: any) {
-        console.error('Error fetching reserved lessons:', err);
-        setError(err.message || 'Unknown error');
-      } finally {
-        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
       }
-    },
-    [jwtToken, refreshAccessToken, dispatch]
-  );
+    };
 
-  return { lessons, loading, error, getReservedLessons };
+    if (email && jwtToken) {
+      fetchData();
+    }
+  }, [refreshFlag]);
+
+  return lessons;
 };

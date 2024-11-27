@@ -4,8 +4,8 @@ import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 import { RootState } from '../futures/store';
 
-export const useAllSubjects = () => {
-  const [subjects, setSubjects] = useState<any[]>([]);
+export const useGetUsers = () => {
+  const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -14,10 +14,10 @@ export const useAllSubjects = () => {
   const refreshAccessToken = useRefreshAccessToken();
 
   useEffect(() => {
-    const fetchSubjects = async (token: string) => {
+    const fetchUsers = async (token: string) => {
       try {
         const response = await fetch(
-          'http://localhost:5230/api/subject/getAllSubjects',
+          'http://localhost:5230/api/persont/',
           {
             method: 'GET',
             headers: {
@@ -32,7 +32,7 @@ export const useAllSubjects = () => {
             const newToken = await refreshAccessToken();
             if (newToken) {
               dispatch(updateToken(newToken));
-              return fetchSubjects(newToken); 
+              return fetchUsers(newToken); 
             } else {
               throw new Error('Failed to refresh token');
             }
@@ -40,8 +40,8 @@ export const useAllSubjects = () => {
           throw new Error('Failed to fetch subjects');
         }
 
-        const subjectsData = await response.json();
-        setSubjects(subjectsData);
+        const usersData = await response.json();
+        setUsers(usersData);
       } catch (error) {
         console.error('Error fetching subjects:', error);
         setError(error instanceof Error ? error.message : 'Unknown error');
@@ -51,11 +51,11 @@ export const useAllSubjects = () => {
     };
 
     if (token) {
-      fetchSubjects(token);
+        fetchUsers(token);
     } else {
       setLoading(false);
     }
   }, [token]);
 
-  return { subjects, loading, error };
+  return { users, loading, error };
 };

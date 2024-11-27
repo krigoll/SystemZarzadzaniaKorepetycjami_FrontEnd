@@ -96,6 +96,10 @@ function goToTeacherOpinionPage(navigate: NavigateFunction) {
   navigate(`/teacher/myOpinion`);
 }
 
+function goToAdminMenuPage(navigate: NavigateFunction) {
+  navigate(`/admin`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -119,4 +123,5 @@ export {
   goToTeachersReviewsListPage,
   goToAddReviewPage,
   goToTeacherOpinionPage,
+  goToAdminMenuPage,
 };

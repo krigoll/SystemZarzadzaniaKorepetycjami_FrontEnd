@@ -31,12 +31,10 @@ const ChatPage: React.FC = () => {
 
   const conversations = useGetConversations(email);
 
-  // Initialize useGetMessages hook
   const { getMessages, messages, loading, errorM } = useGetMessages();
 
   const { sendMessage } = useSendMessage();
 
-  // Integrate useSearchPersons for finding new contacts
   const {
     searchPersons,
     persons,
