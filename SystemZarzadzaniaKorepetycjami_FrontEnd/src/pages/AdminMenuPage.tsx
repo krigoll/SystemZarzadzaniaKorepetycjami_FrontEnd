@@ -3,28 +3,30 @@ import AppButton from '../components/AppButton';
 import Menu from './Menu';
 import { useNavigate } from 'react-router-dom';
 import {
-    goToChooseSubjectPage,
-    goToTeachersReviewsListPage,
+  goToUserListPage,
+  goToTeachersReviewsListPage,
+  goToSubjectListPage,
 } from '../lib/Navigate';
 
 const AdminMenuPage: React.FC = () => {
-    const navigate = useNavigate();
-    return (
-        <div className="options-container">
-            <Menu />
-            <AppButton
-                label="Lista u¿ytkowników"
-                onClick={() => goToChooseSubjectPage(navigate)}
-            />
-            <AppButton
-                label="Zg³oszenia"
-                onClick={() => goToTeachersReviewsListPage(navigate)}
-            />
-            <AppButton label="Przedmioty"
-                onClick={() => console.log('Moje testy')}
-            />
-        </div>
-    );
+  const navigate = useNavigate();
+  return (
+    <div className="options-container">
+      <Menu />
+      <AppButton
+        label="Lista uÅ¼ytkownikÃ³w"
+        onClick={() => goToUserListPage(navigate)}
+      />
+      <AppButton
+        label="ZgÅ‚oszenia(NI)"
+        onClick={() => goToTeachersReviewsListPage(navigate)}
+      />
+      <AppButton
+        label="Przedmioty"
+        onClick={() => goToSubjectListPage(navigate)}
+      />
+    </div>
+  );
 };
 
 export default AdminMenuPage;

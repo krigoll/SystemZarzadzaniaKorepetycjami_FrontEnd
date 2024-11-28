@@ -28,6 +28,8 @@ import TeachersReviewsListPage from './pages/TeachersReviewsListPage';
 import AddReviewPage from './pages/AddReviewPage';
 import TeacherOpinionPage from './pages/TeacherOpinionPage';
 import AdminMenuPage from './pages/AdminMenuPage';
+import UserListPage from './pages/UsersListPage';
+import SubjectListPage from './pages/SubjectListPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +88,8 @@ function App() {
         <Route path="/addReview/:teacherInfo" element={<AddReviewPage />} />
         <Route path="/teacher/myOpinion" element={<TeacherOpinionPage />} />
         <Route path="/admin" element={<AdminMenuPage />} />
+        <Route path="/admin/userList" element={<UserListPage />} />
+        <Route path="/admin/subjectList" element={<SubjectListPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

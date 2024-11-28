@@ -100,6 +100,14 @@ function goToAdminMenuPage(navigate: NavigateFunction) {
   navigate(`/admin`);
 }
 
+function goToUserListPage(navigate: NavigateFunction) {
+  navigate(`/admin/userList`);
+}
+
+function goToSubjectListPage(navigate: NavigateFunction) {
+  navigate(`/admin/subjectList`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -124,4 +132,6 @@ export {
   goToAddReviewPage,
   goToTeacherOpinionPage,
   goToAdminMenuPage,
+  goToUserListPage,
+  goToSubjectListPage,
 };
