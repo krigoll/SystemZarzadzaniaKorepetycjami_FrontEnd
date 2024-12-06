@@ -3,6 +3,14 @@ import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { goToAdminMenuPage } from '../lib/Navigate';
 import { useAllSubjects } from '../lib/useAllSubjects';
+import {
+  useAddSubject,
+  useAddSubjectCategory,
+  useAddSubjectLevel,
+  useSubjectCategoryDelete,
+  useSubjectDelete,
+  useSubjectLevelDelete,
+} from '../lib/useSubjects';
 
 interface LevelData {
   level: string;
@@ -29,16 +37,22 @@ const SubjectListPage: React.FC = () => {
   );
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [addSubject, setAddSubject] = useState<boolean>(false);
-    const [addCategory, setAddCategory] = useState<boolean>(false);
-    const [addLevel, setAddLevel] = useState<boolean>(false);
-    const [deleteSubject, setDeleteSubject] = useState<boolean>(false);
-    const [deleteCategory, setDeleteCategory] = useState<boolean>(false);
-    const [deleteLevel, setDeleteLevel] = useState<boolean>(false);
-    const [subjectName, setSubjectName] = useState<string>("");
-    const [subjectCategoryName, setSubjectCategoryName] = useState<string>("");
-    const [subjectLevelName, setSubjectLevelName] = useState<string>("");
+  const [addCategory, setAddCategory] = useState<boolean>(false);
+  const [addLevel, setAddLevel] = useState<boolean>(false);
+  const [deleteSingleSubject, setDeleteSubject] = useState<boolean>(false);
+  const [deleteCategory, setDeleteCategory] = useState<boolean>(false);
+  const [deleteLevel, setDeleteLevel] = useState<boolean>(false);
+  const [subjectName, setSubjectName] = useState<string>('');
+  const [subjectCategoryName, setSubjectCategoryName] = useState<string>('');
+  const [subjectLevelName, setSubjectLevelName] = useState<string>('');
 
   const { subjects, loading, error } = useAllSubjects();
+  const { addSubject: addSubjectAPI } = useAddSubject();
+  const { addSubjectCategory } = useAddSubjectCategory();
+  const { addSubjectCategory: addSubjectLevel } = useAddSubjectLevel();
+  const { deleteSubject } = useSubjectDelete();
+  const { deleteSubjectCategory } = useSubjectCategoryDelete();
+  const { deleteLevelCategory } = useSubjectLevelDelete();
 
   const processSubjectsData = (
     data: { subjectFullName: string; subjectLevelId: number }[]
@@ -77,9 +91,9 @@ const SubjectListPage: React.FC = () => {
     setAddSubject(false);
     setAddCategory(false);
     setAddLevel(false);
+    setDeleteSubject(false);
     setDeleteCategory(false);
     setDeleteLevel(false);
-    setDeleteSubject(false);
   };
 
   const handleCategoryClick = (category: Category) => {
@@ -88,9 +102,9 @@ const SubjectListPage: React.FC = () => {
     setAddSubject(false);
     setAddCategory(false);
     setAddLevel(false);
+    setDeleteSubject(false);
     setDeleteCategory(false);
     setDeleteLevel(false);
-    setDeleteSubject(false);
   };
 
   const handleLevelClick = (selectedCategory: string, levelData: LevelData) => {
@@ -98,74 +112,98 @@ const SubjectListPage: React.FC = () => {
     setAddSubject(false);
     setAddCategory(false);
     setAddLevel(false);
+    setDeleteSubject(false);
     setDeleteCategory(false);
     setDeleteLevel(false);
-    setDeleteSubject(false);
   };
 
-  const handleAddNewSubject = () => {
-    console.log(`Add new subject functionality ${subjectName}`);
-  };
-
-  const handleAddNewCategory = () => {
-    if (!selectedSubject) {
-      console.error('No subject selected. Cannot add a new category.');
-      return;
+  const handleAddNewSubject = async () => {
+    try {
+      await addSubjectAPI(subjectName);
+      console.log(`Added new subject: ${subjectName}`);
+      setAddSubject(false);
+    } catch (err) {
+      console.error('Error adding subject:', err);
     }
-    console.log(`Adding a new category to subject: ${selectedSubject}`);
-    // Implement logic to add a new category for the selected subject
-    setAddCategory(true);
   };
 
-  const handleDeleteSubject = () => {
-    if (!selectedSubject) {
-      console.error('No subject selected');
-      return;
-    }
-    console.log(`Deleting a subject: ${selectedSubject}`);
-    // Implement logic to add a new category for the selected subject
-    setDeleteSubject(true);
-  };
-
-  const handleAddNewLevel = () => {
-    if (!selectedSubject || !selectedCategory) {
-      console.error(
-        'Subject or category not selected. Cannot add a new level.'
+  const handleAddNewCategory = async () => {
+    if (!selectedSubject || !subjectLevelName) return;
+    try {
+      await addSubjectCategory({
+        subjectName: selectedSubject,
+        subjectCategoryName,
+        subjectLevelName,
+      });
+      console.log(
+        `Added new category "${subjectCategoryName}" to subject: ${selectedSubject}`
       );
-      return;
+      setAddCategory(false);
+    } catch (err) {
+      console.error('Error adding category:', err);
     }
-    console.log(
-      `Adding a new level to subject: ${selectedSubject}, category: ${selectedCategory}`
-    );
-    // Implement logic to add a new level for the selected subject and category
-    setAddLevel(true);
   };
 
-  const handleDeletingCategory = () => {
-    if (!selectedSubject || !selectedCategory) {
-      console.error(
-        'Subject or category not selected.'
+  const handleAddNewLevel = async () => {
+    if (!selectedSubject || !selectedCategory) return;
+    try {
+      await addSubjectLevel({
+        subjectName: selectedSubject,
+        subjectCategoryName: selectedCategory,
+        subjectLevelName: subjectLevelName,
+      });
+      console.log(
+        `Added new level "${subjectLevelName}" to category: ${selectedCategory}`
       );
-      return;
+      setAddLevel(false);
+    } catch (err) {
+      console.error('Error adding level:', err);
     }
-    console.log(
-      `Deleting subject: ${selectedSubject}, category: ${selectedCategory}`
-    );
-    // Implement logic to add a new level for the selected subject and category
-    setDeleteCategory(true);
   };
 
-  const handleDeletingLevel = () => {
-    if (!selectedSubject || !selectedCategory || !selectedLevel) {
-      console.error(
-        'Subject or category not selected.'
-      );
-      return;
+  const handleDeleteSubject = async () => {
+    if (!selectedSubject) return;
+    try {
+      await deleteSubject(selectedSubject);
+      console.log(`Deleted subject: ${selectedSubject}`);
+      setDeleteSubject(false);
+    } catch (err) {
+      console.error('Error deleting subject:', err);
     }
-    console.log(
-      `Deleting subject: ${selectedSubject}, category: ${selectedCategory}, level ${selectedLevel}`
-    );
-    setDeleteLevel(true);
+  };
+
+  const handleDeletingCategory = async () => {
+    if (!selectedSubject || !selectedCategory || !subjectLevelName) return;
+    try {
+      await deleteSubjectCategory({
+        subjectName: selectedSubject,
+        subjectCategoryName: selectedCategory,
+        subjectLevelName,
+      });
+      console.log(
+        `Deleted category "${selectedCategory}" from subject: ${selectedSubject}`
+      );
+      setDeleteCategory(false);
+    } catch (err) {
+      console.error('Error deleting category:', err);
+    }
+  };
+
+  const handleDeletingLevel = async () => {
+    if (!selectedSubject || !selectedCategory || !selectedLevel) return;
+    try {
+      await deleteLevelCategory({
+        subjectName: selectedSubject,
+        subjectCategoryName: selectedCategory,
+        subjectLevelName: selectedLevel,
+      });
+      console.log(
+        `Deleted level "${selectedLevel}" from category: ${selectedCategory}`
+      );
+      setDeleteLevel(false);
+    } catch (err) {
+      console.error('Error deleting level:', err);
+    }
   };
 
   const getCategories = (): string[] => {
@@ -248,78 +286,100 @@ const SubjectListPage: React.FC = () => {
               <button className="add-button" onClick={() => setAddLevel(true)}>
                 Dodaj nowy poziom
               </button>
-              <button className="add-button" onClick={() => setDeleteCategory(true)}>
+              <button
+                className="add-button"
+                onClick={() => setDeleteCategory(true)}
+              >
                 Usuń kategorię
               </button>
             </div>
           )}
           {selectedLevel && (
             <button className="add-button" onClick={() => setDeleteLevel(true)}>
-            Usuń poziom
-          </button>
+              Usuń poziom
+            </button>
           )}
           {addSubject && (
-           <div>
-            Dodaj przedmiot
-            <input 
-            type="text" 
-            value={subjectName}
-            onChange={(e) => setSubjectName(e.target.value)}
-          />
-          <button className="add-button" onClick={() => handleAddNewSubject()}>
-            akceptuj
-          </button>
-           </div>
+            <div>
+              Dodaj przedmiot
+              <input
+                type="text"
+                value={subjectName}
+                onChange={(e) => setSubjectName(e.target.value)}
+              />
+              <button
+                className="add-button"
+                onClick={() => handleAddNewSubject()}
+              >
+                akceptuj
+              </button>
+            </div>
           )}
           {addCategory && (
-           <div>
-            Dodaj kategorię
-            <input 
-            type="text" 
-            value={subjectCategoryName}
-            onChange={(e) => setSubjectCategoryName(e.target.value)}
-          />
-          <button className="add-button" onClick={() => handleAddNewCategory()}>
-            akceptuj
-          </button>
-           </div>
+            <div>
+              Dodaj kategorię
+              <input
+                type="text"
+                value={subjectCategoryName}
+                onChange={(e) => setSubjectCategoryName(e.target.value)}
+              />
+              <button
+                className="add-button"
+                onClick={() => handleAddNewCategory()}
+              >
+                akceptuj
+              </button>
+            </div>
           )}
           {addLevel && (
-           <div>
-            Dodaj poziom
-            <input 
-            type="text" 
-            value={subjectLevelName}
-            onChange={(e) => setSubjectLevelName(e.target.value)}
-          />
-          <button className="add-button" onClick={() => handleAddNewLevel()}>
-            akceptuj
-          </button>
-           </div>
+            <div>
+              Dodaj poziom
+              <input
+                type="text"
+                value={subjectLevelName}
+                onChange={(e) => setSubjectLevelName(e.target.value)}
+              />
+              <button
+                className="add-button"
+                onClick={() => handleAddNewLevel()}
+              >
+                akceptuj
+              </button>
+            </div>
           )}
-          {deleteSubject && (
-           <div>
-            Usuń przedmiot {selectedSubject} 
-            <button className="add-button" onClick={() => handleDeleteSubject()}>
-            akceptuj
-          </button>
-           </div>
+          {deleteSingleSubject && (
+            <div>
+              Usuń przedmiot {selectedSubject}
+              <button
+                className="add-button"
+                onClick={() => handleDeleteSubject()}
+              >
+                akceptuj
+              </button>
+            </div>
           )}
           {deleteCategory && (
-           <div>
-            Usuń kategorię {selectedCategory} przedmotu {selectedSubject}
-            <button className="add-button" onClick={() => handleDeletingCategory()}>
-            akceptuj
-          </button>
-           </div>
+            <div>
+              Usuń kategorię {selectedCategory} przedmotu {selectedSubject}
+              <button
+                className="add-button"
+                onClick={() => handleDeletingCategory()}
+              >
+                akceptuj
+              </button>
+            </div>
           )}
           {deleteLevel && (
-           <div>
-            Usuń poziom {selectedLevel} kategorji {selectedCategory} poziomu {selectedSubject}
-            <button className="add-button" onClick={() => handleDeletingLevel()}>
-            akceptuj
-          </button>
-           </div>
+            <div>
+              Usuń poziom {selectedLevel} kategorji {selectedCategory} poziomu{' '}
+              {selectedSubject}
+              <button
+                className="add-button"
+                onClick={() => handleDeletingLevel()}
+              >
+                akceptuj
+              </button>
+            </div>
           )}
         </div>
       )}
