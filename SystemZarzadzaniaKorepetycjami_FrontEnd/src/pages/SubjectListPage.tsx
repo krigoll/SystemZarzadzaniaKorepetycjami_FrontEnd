@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { goToAdminMenuPage } from '../lib/Navigate';
-import { useAllSubjects } from '../lib/useAllSubjects';
+import { useAllSubjectsAdmin } from '../lib/useAllSubjectsAdmin';
 import {
   useAddSubject,
   useAddSubjectCategory,
@@ -46,10 +46,10 @@ const SubjectListPage: React.FC = () => {
   const [subjectCategoryName, setSubjectCategoryName] = useState<string>('');
   const [subjectLevelName, setSubjectLevelName] = useState<string>('');
 
-  const { subjects, loading, error } = useAllSubjects();
+  const { subjects, loading, error } = useAllSubjectsAdmin();
   const { addSubject: addSubjectAPI } = useAddSubject();
   const { addSubjectCategory } = useAddSubjectCategory();
-  const { addSubjectCategory: addSubjectLevel } = useAddSubjectLevel();
+  const { addSubjectLevel: addSubjectLevel } = useAddSubjectLevel();
   const { deleteSubject } = useSubjectDelete();
   const { deleteSubjectCategory } = useSubjectCategoryDelete();
   const { deleteLevelCategory } = useSubjectLevelDelete();
@@ -107,7 +107,7 @@ const SubjectListPage: React.FC = () => {
     setDeleteLevel(false);
   };
 
-  const handleLevelClick = (selectedCategory: string, levelData: LevelData) => {
+  const handleLevelClick = (levelData: LevelData) => {
     setSelectedLevel(levelData.level);
     setAddSubject(false);
     setAddCategory(false);
@@ -128,12 +128,11 @@ const SubjectListPage: React.FC = () => {
   };
 
   const handleAddNewCategory = async () => {
-    if (!selectedSubject || !subjectLevelName) return;
+    if (!selectedSubject) return;
     try {
       await addSubjectCategory({
         subjectName: selectedSubject,
         subjectCategoryName,
-        subjectLevelName,
       });
       console.log(
         `Added new category "${subjectCategoryName}" to subject: ${selectedSubject}`
@@ -173,12 +172,11 @@ const SubjectListPage: React.FC = () => {
   };
 
   const handleDeletingCategory = async () => {
-    if (!selectedSubject || !selectedCategory || !subjectLevelName) return;
+    if (!selectedSubject || !selectedCategory) return;
     try {
       await deleteSubjectCategory({
         subjectName: selectedSubject,
         subjectCategoryName: selectedCategory,
-        subjectLevelName,
       });
       console.log(
         `Deleted category "${selectedCategory}" from subject: ${selectedSubject}`
@@ -248,15 +246,17 @@ const SubjectListPage: React.FC = () => {
           {selectedSubject && (
             <div className="category-selection">
               <div className="title">Kategoria</div>
-              {getCategories().map((category) => (
-                <button
-                  key={category}
-                  className={`option-button ${selectedCategory === category ? 'selected' : ''}`}
-                  onClick={() => handleCategoryClick(category)}
-                >
-                  {category}
-                </button>
-              ))}
+              {getCategories()
+                .filter((category) => category !== 'Brak Kategorii')
+                .map((category) => (
+                  <button
+                    key={category}
+                    className={`option-button ${selectedCategory === category ? 'selected' : ''}`}
+                    onClick={() => handleCategoryClick(category)}
+                  >
+                    {category}
+                  </button>
+                ))}
               <button
                 className="add-button"
                 onClick={() => setAddCategory(true)}
@@ -265,7 +265,7 @@ const SubjectListPage: React.FC = () => {
               </button>
               <button
                 className="add-button"
-                onClick={() => setDeleteCategory(true)}
+                onClick={() => setDeleteSubject(true)}
               >
                 Usuń przedmiot
               </button>
@@ -274,15 +274,17 @@ const SubjectListPage: React.FC = () => {
           {selectedCategory && (
             <div className="level-selection">
               <div className="title">Poziom</div>
-              {getLevels().map((levelData) => (
-                <button
-                  key={levelData.id}
-                  className={`option-button ${selectedLevel === levelData.level ? 'selected' : ''}`}
-                  onClick={() => handleLevelClick(selectedCategory, levelData)}
-                >
-                  {selectedCategory} {levelData.level}
-                </button>
-              ))}
+              {getLevels()
+                .filter((levelData) => levelData.level !== 'Brak Poziomu')
+                .map((levelData) => (
+                  <button
+                    key={levelData.id}
+                    className={`option-button ${selectedLevel === levelData.level ? 'selected' : ''}`}
+                    onClick={() => handleLevelClick(levelData)}
+                  >
+                    {selectedCategory} {levelData.level}
+                  </button>
+                ))}
               <button className="add-button" onClick={() => setAddLevel(true)}>
                 Dodaj nowy poziom
               </button>
@@ -317,7 +319,7 @@ const SubjectListPage: React.FC = () => {
           )}
           {addCategory && (
             <div>
-              Dodaj kategorię
+              Dodaj kategorię do przedmiotu {selectedSubject}
               <input
                 type="text"
                 value={subjectCategoryName}
@@ -333,7 +335,8 @@ const SubjectListPage: React.FC = () => {
           )}
           {addLevel && (
             <div>
-              Dodaj poziom
+              Dodaj poziom do kategorji {selectedCategory} w przedmiocie{' '}
+              {selectedSubject}
               <input
                 type="text"
                 value={subjectLevelName}

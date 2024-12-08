@@ -4,6 +4,7 @@ import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 import { SubjectLevelDTO } from '../types/SubjectLevelDTO';
+import { SubjectCategoryDTO } from '../types/SubjectCategoryDTO';
 
 export const useAddSubject = () => {
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
@@ -13,7 +14,7 @@ export const useAddSubject = () => {
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const addSubject = async (name: string) => {
+  const addSubject = async (subjectName: string) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
@@ -26,7 +27,7 @@ export const useAddSubject = () => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(name),
+          body: JSON.stringify(subjectName),
         }
       );
 
@@ -44,7 +45,7 @@ export const useAddSubject = () => {
                   'Content-Type': 'application/json',
                   Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(name),
+                body: JSON.stringify(subjectName),
               }
             );
             setResponseStatus(retryResponse.status);
@@ -77,7 +78,7 @@ export const useAddSubjectCategory = () => {
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const addSubjectCategory = async (subjectCategoryDTO: SubjectLevelDTO) => {
+  const addSubjectCategory = async (subjectCategoryDTO: SubjectCategoryDTO) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
@@ -141,7 +142,7 @@ export const useAddSubjectLevel = () => {
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const addSubjectCategory = async (subjectLevelDTO: SubjectLevelDTO) => {
+  const addSubjectLevel = async (subjectLevelDTO: SubjectLevelDTO) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
@@ -194,7 +195,7 @@ export const useAddSubjectLevel = () => {
     }
   };
 
-  return { addSubjectCategory, responseStatus, loading, error };
+  return { addSubjectLevel, responseStatus, loading, error };
 };
 
 export const useSubjectDelete = () => {
@@ -260,7 +261,9 @@ export const useSubjectCategoryDelete = () => {
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const deleteSubjectCategory = async (subjectCategoryDTO: SubjectLevelDTO) => {
+  const deleteSubjectCategory = async (
+    subjectCategoryDTO: SubjectCategoryDTO
+  ) => {
     setLoading(true);
     setError(null);
 
@@ -323,7 +326,7 @@ export const useSubjectLevelDelete = () => {
     try {
       let token = jwtToken;
       let response = await fetch(
-        `http://localhost:5230/api/subjectCategory/${subjectLevelDTO.subjectName}/${subjectLevelDTO.subjectCategoryName}/${subjectLevelDTO.subjectLevelName}/delete`,
+        `http://localhost:5230/api/subjectLevel/${subjectLevelDTO.subjectName}/${subjectLevelDTO.subjectCategoryName}/${subjectLevelDTO.subjectLevelName}/delete`,
         {
           method: 'DELETE',
           headers: {
@@ -339,7 +342,7 @@ export const useSubjectLevelDelete = () => {
           token = newToken;
           dispatch(updateToken(token));
           response = await fetch(
-            `http://localhost:5230/api/subjectCategory/${subjectLevelDTO.subjectName}/${subjectLevelDTO.subjectCategoryName}/${subjectLevelDTO.subjectLevelName}/delete`,
+            `http://localhost:5230/api/subjectLevel/${subjectLevelDTO.subjectName}/${subjectLevelDTO.subjectCategoryName}/${subjectLevelDTO.subjectLevelName}/delete`,
             {
               method: 'DELETE',
               headers: {

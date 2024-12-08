@@ -1,4 +1,4 @@
-export interface SubjectLevelDTO {
-    subjectName: string;
-    subjectCategoryName: string;
+export interface SubjectCategoryDTO {
+  subjectName: string;
+  subjectCategoryName: string;
 }
