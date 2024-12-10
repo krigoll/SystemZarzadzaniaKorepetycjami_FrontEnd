@@ -46,7 +46,7 @@ const SubjectListPage: React.FC = () => {
   const [subjectCategoryName, setSubjectCategoryName] = useState<string>('');
   const [subjectLevelName, setSubjectLevelName] = useState<string>('');
 
-  const { subjects, loading, error } = useAllSubjectsAdmin();
+  const { subjects, loading, error, refresh } = useAllSubjectsAdmin();
   const { addSubject: addSubjectAPI } = useAddSubject();
   const { addSubjectCategory } = useAddSubjectCategory();
   const { addSubjectLevel: addSubjectLevel } = useAddSubjectLevel();
@@ -122,6 +122,7 @@ const SubjectListPage: React.FC = () => {
       await addSubjectAPI(subjectName);
       console.log(`Added new subject: ${subjectName}`);
       setAddSubject(false);
+      refresh();
     } catch (err) {
       console.error('Error adding subject:', err);
     }
@@ -138,6 +139,7 @@ const SubjectListPage: React.FC = () => {
         `Added new category "${subjectCategoryName}" to subject: ${selectedSubject}`
       );
       setAddCategory(false);
+      refresh();
     } catch (err) {
       console.error('Error adding category:', err);
     }
@@ -155,6 +157,7 @@ const SubjectListPage: React.FC = () => {
         `Added new level "${subjectLevelName}" to category: ${selectedCategory}`
       );
       setAddLevel(false);
+      refresh();
     } catch (err) {
       console.error('Error adding level:', err);
     }
@@ -166,6 +169,7 @@ const SubjectListPage: React.FC = () => {
       await deleteSubject(selectedSubject);
       console.log(`Deleted subject: ${selectedSubject}`);
       setDeleteSubject(false);
+      refresh();
     } catch (err) {
       console.error('Error deleting subject:', err);
     }
@@ -182,6 +186,7 @@ const SubjectListPage: React.FC = () => {
         `Deleted category "${selectedCategory}" from subject: ${selectedSubject}`
       );
       setDeleteCategory(false);
+      refresh();
     } catch (err) {
       console.error('Error deleting category:', err);
     }
@@ -199,6 +204,7 @@ const SubjectListPage: React.FC = () => {
         `Deleted level "${selectedLevel}" from category: ${selectedCategory}`
       );
       setDeleteLevel(false);
+      refresh();
     } catch (err) {
       console.error('Error deleting level:', err);
     }
@@ -282,7 +288,7 @@ const SubjectListPage: React.FC = () => {
                     className={`option-button ${selectedLevel === levelData.level ? 'selected' : ''}`}
                     onClick={() => handleLevelClick(levelData)}
                   >
-                    {selectedCategory} {levelData.level}
+                    {levelData.level}
                   </button>
                 ))}
               <button className="add-button" onClick={() => setAddLevel(true)}>

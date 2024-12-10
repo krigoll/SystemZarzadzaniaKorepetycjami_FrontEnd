@@ -1,5 +1,4 @@
 ﻿import React, { useEffect, useState } from 'react';
-import './App.css';
 import { goToAddSubject, goToMainPage, goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '../components/AppButton';

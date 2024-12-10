@@ -108,6 +108,10 @@ function goToSubjectListPage(navigate: NavigateFunction) {
   navigate(`/admin/subjectList`);
 }
 
+function goToNewReportFormPage(navigate: NavigateFunction) {
+  navigate(`/report/new`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -134,4 +138,5 @@ export {
   goToAdminMenuPage,
   goToUserListPage,
   goToSubjectListPage,
+  goToNewReportFormPage,
 };

@@ -13,43 +13,43 @@ export const useAllSubjectsAdmin = () => {
   const dispatch = useDispatch();
   const refreshAccessToken = useRefreshAccessToken();
 
-  useEffect(() => {
-    const fetchSubjects = async (token: string) => {
-      try {
-        const response = await fetch(
-          'http://localhost:5230/api/subject/getAllSubjectsAdmin',
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            const newToken = await refreshAccessToken();
-            if (newToken) {
-              dispatch(updateToken(newToken));
-              return fetchSubjects(newToken);
-            } else {
-              throw new Error('Failed to refresh token');
-            }
-          }
-          throw new Error('Failed to fetch subjects');
+  const fetchSubjects = async (token: string) => {
+    try {
+      const response = await fetch(
+        'http://localhost:5230/api/subject/getAllSubjectsAdmin',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
 
-        const subjectsData = await response.json();
-        setSubjects(subjectsData);
-      } catch (error) {
-        console.error('Error fetching subjects:', error);
-        setError(error instanceof Error ? error.message : 'Unknown error');
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        if (response.status === 401) {
+          const newToken = await refreshAccessToken();
+          if (newToken) {
+            dispatch(updateToken(newToken));
+            return fetchSubjects(newToken);
+          } else {
+            throw new Error('Failed to refresh token');
+          }
+        }
+        throw new Error('Failed to fetch subjects');
       }
-    };
 
+      const subjectsData = await response.json();
+      setSubjects(subjectsData);
+    } catch (error) {
+      console.error('Error fetching subjects:', error);
+      setError(error instanceof Error ? error.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     if (token) {
       fetchSubjects(token);
     } else {
@@ -57,5 +57,14 @@ export const useAllSubjectsAdmin = () => {
     }
   }, [token]);
 
-  return { subjects, loading, error };
+  const refresh = () => {
+    setLoading(true);
+    setSubjects([]);
+    setError(null);
+    if (token) {
+      fetchSubjects(token);
+    }
+  };
+
+  return { subjects, loading, error, refresh };
 };

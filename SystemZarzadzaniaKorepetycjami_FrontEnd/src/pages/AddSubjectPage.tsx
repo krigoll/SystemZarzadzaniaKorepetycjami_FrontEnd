@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './App.css';
 import { RootState } from '../futures/store';
 import AppButton from '../components/AppButton';
 import { goToMenu } from '../lib/Navigate';

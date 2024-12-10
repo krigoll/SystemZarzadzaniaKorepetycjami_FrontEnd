@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import Login from './pages/Login';
@@ -30,6 +29,7 @@ import TeacherOpinionPage from './pages/TeacherOpinionPage';
 import AdminMenuPage from './pages/AdminMenuPage';
 import UserListPage from './pages/UsersListPage';
 import SubjectListPage from './pages/SubjectListPage';
+import NewReportForm from './pages/ReportCreatePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -90,6 +90,7 @@ function App() {
         <Route path="/admin" element={<AdminMenuPage />} />
         <Route path="/admin/userList" element={<UserListPage />} />
         <Route path="/admin/subjectList" element={<SubjectListPage />} />
+        <Route path="/report/new" element={<NewReportForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
