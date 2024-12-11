@@ -38,37 +38,40 @@ const Login: React.FC = () => {
     }
   }, [jwtToken, navigate]);
 
-  return (
-    <div className="App">
-      <div className="login-container">
-        <div className="register-link">
-          <span>Nie masz konta? Zarejestruj się tutaj:</span>
-          <AppButton
-            label="Rejestracja"
-            onClick={() => goToRegistration(navigate)}
-          />
+    return (
+        <div className="App">
+            <div className="login-container">
+                {/* Sekcja rejestracji */}
+                <div className="register-link">
+                    <span>Nie masz konta? Zarejestruj się tutaj:</span>
+                    <AppButton
+                        label="Rejestracja"
+                        onClick={() => goToRegistration(navigate)}
+                    />
+                </div>
+
+                {/* Sekcja logowania */}
+                <div className="login-box">
+                    <h1>Logowanie</h1>
+                    <AppEmailInput
+                        inputValue={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <AppPasswordInput
+                        inputValue={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <a href="/forgot-password" className="forgot-password">
+                        Zapomniałeś hasła? Kliknij tutaj.
+                    </a>
+                    <div className="login-actions">
+                        <AppButton label="Powrót" onClick={() => goToMainPage(navigate)} />
+                        <AppButton label="Dalej" onClick={handleLogin2} />
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="login-box">
-          <h1>Logowanie</h1>
-          <AppEmailInput
-            inputValue={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <AppPasswordInput
-            inputValue={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div className="login-actions">
-            <AppButton label="Dalej" onClick={handleLogin2} />
-            <AppButton label="Powrót" onClick={() => goToMainPage(navigate)} />
-          </div>
-          <a href="/forgot-password" className="forgot-password">
-            Zapomniałeś hasła? Kliknij tutaj.
-          </a>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Login;

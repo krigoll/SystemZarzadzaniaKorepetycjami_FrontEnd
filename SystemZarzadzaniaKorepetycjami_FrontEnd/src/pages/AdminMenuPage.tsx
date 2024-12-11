@@ -4,7 +4,7 @@ import Menu from './Menu';
 import { useNavigate } from 'react-router-dom';
 import {
   goToUserListPage,
-  goToTeachersReviewsListPage,
+  goToReportListPage,
   goToSubjectListPage,
 } from '../lib/Navigate';
 
@@ -18,8 +18,8 @@ const AdminMenuPage: React.FC = () => {
         onClick={() => goToUserListPage(navigate)}
       />
       <AppButton
-        label="Zgłoszenia(NI)"
-        onClick={() => goToTeachersReviewsListPage(navigate)}
+        label="Zgłoszenia"
+        onClick={() => goToReportListPage(navigate)}
       />
       <AppButton
         label="Przedmioty"

@@ -1,0 +1,237 @@
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    color: #333;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+header.App-header {
+    background-color: #4a90e2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-content .buttons {
+    display: flex;
+    gap: 15px;
+}
+
+
+.App-main {
+    text-align: center;
+    padding: 20px;
+    flex: 1;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    min-height: calc(100vh - 100px); 
+}
+
+    .App-main h1 {
+        font-size: 2.4rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .App-main p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #4a4a4a;
+        max-width: 600px;
+        margin: 10px auto;
+    }
+
+button {
+    background-color: white;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+    button:hover {
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    button:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+    }
+
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+    width: fit-content;
+}
+
+.checkbox-container label {
+    font-size: 1rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.checkbox-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #4a90e2;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+}
+
+
+.login-container, .register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+}
+
+
+.login-box, .register-box {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+}
+
+    .login-box h1, .register-box h1 {
+        font-size: 1.8rem;
+        color: #00264d;
+        margin-bottom: 20px;
+    }
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+
+.login-actions, .button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+    .login-actions button, .button-container button {
+        flex: 1;
+        max-width: 150px;
+    }
+
+
+button {
+    background-color: white;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+    button:hover {
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    button:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+    }
+
+
+.file-input-label {
+    display: block;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+    .file-input-label:hover {
+        background-color: #357abd;
+    }
+
+.file-input {
+    display: none;
+}
+
+
+.forgot-password {
+    display: block;
+    margin: 10px 0 20px;
+    font-size: 0.9rem;
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+
+.register-link {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .register-link span {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: #555;
+    }
+
+.checkbox-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+
+

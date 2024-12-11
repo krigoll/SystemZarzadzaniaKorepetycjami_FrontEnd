@@ -112,6 +112,14 @@ function goToNewReportFormPage(navigate: NavigateFunction) {
   navigate(`/report/new`);
 }
 
+function goToReportListPage(navigate: NavigateFunction) {
+  navigate(`/report`);
+}
+
+function goToReportDetailsPage(navigate: NavigateFunction, reportId: number) {
+  navigate(`/report/${reportId}`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -139,4 +147,6 @@ export {
   goToUserListPage,
   goToSubjectListPage,
   goToNewReportFormPage,
+  goToReportListPage,
+  goToReportDetailsPage,
 };

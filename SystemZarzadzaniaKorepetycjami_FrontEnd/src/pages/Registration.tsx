@@ -181,76 +181,73 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  return (
-    <div className="register-container">
-      <div className="register-box">
-        <h1>Rejestracja</h1>
-        <div className="file-input-container">
-          <label htmlFor="file-input" className="file-input-label">
-            {selectedFile ? selectedFile.name : 'Kliknij, aby dodać zdjęcie'}
-          </label>
-          <input
-            type="file"
-            id="file-input"
-            className="file-input"
-            onChange={handleFileChange}
-          />
+    return (
+        <div className="register-container">
+            <div className="register-box">
+                <h1>Rejestracja</h1>
+                <label className="file-input-label">
+                    {selectedFile ? selectedFile.name : 'Dodaj zdjęcie'}
+                    <input
+                        type="file"
+                        className="file-input"
+                        onChange={handleFileChange}
+                    />
+                </label>
+                <AppEmailInput
+                    inputValue={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <AppPasswordInput
+                    inputValue={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <AppRepeatPasswordInput
+                    inputValue={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <AppTextInput
+                    placecholder="Imię"
+                    inputValue={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
+                <AppTextInput
+                    placecholder="Nazwisko"
+                    inputValue={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                />
+                <AppDateInput
+                    placecholder="Data urodzenia"
+                    inputValue={birthDate}
+                    onChange={(e) => setBirthDate(e.target.value)}
+                />
+                <AppTextInput
+                    placecholder="Numer telefonu"
+                    inputValue={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+                <div className="checkbox-container">
+                    <label>
+                        <AppCheckboxInput
+                            checked={isStudent}
+                            onChange={(e) => setIsStudent(e.target.checked)}
+                        />
+                        Uczeń
+                    </label>
+                    <label>
+                        <AppCheckboxInput
+                            checked={isTeacher}
+                            onChange={(e) => setIsTeacher(e.target.checked)}
+                        />
+                        Nauczyciel
+                    </label>
+                </div>
+                <div className="button-container">
+                    <AppButton label="Powrót" onClick={() => navigate('/')} />
+                    <AppButton label="Zarejestruj" onClick={handleRegistration} />
+                </div>
+            </div>
         </div>
-        <AppEmailInput
-          inputValue={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <AppPasswordInput
-          inputValue={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <AppRepeatPasswordInput
-          inputValue={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <AppTextInput
-          placecholder="Imię"
-          inputValue={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <AppTextInput
-          placecholder="Nazwisko"
-          inputValue={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <AppDateInput
-          placecholder="Data urodzenia"
-          inputValue={birthDate}
-          onChange={(e) => setBirthDate(e.target.value)}
-        />
-        <AppTextInput
-          placecholder="Numer telefonu"
-          inputValue={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
-        <div className="checkbox-container">
-          <label>
-            <AppCheckboxInput
-              checked={isStudent}
-              onChange={(e) => setIsStudent(e.target.checked)}
-            />
-            Uczeń
-          </label>
-          <label>
-            <AppCheckboxInput
-              checked={isTeacher}
-              onChange={(e) => setIsTeacher(e.target.checked)}
-            />
-            Nauczyciel
-          </label>
-        </div>
-        <div className="button-container">
-          <AppButton label="Powrót" onClick={() => goToMainPage(navigate)} />
-          <AppButton label="Akceptuj" onClick={handleRegistration} />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default RegisterPage;
