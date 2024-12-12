@@ -24,43 +24,31 @@ const App: React.FC = () => {
   const getDay = (): string => {
     const currentDate = new Date();
     return currentDate.toISOString().split('T')[0];
-  };
+    };
 
-  return (
-    <div className="App">
-      <div className="sidebar">
-        <AppButton label="Profil" onClick={() => goToProfile(navigate)} />
-        <AppButton
-          label="Kalendarz"
-          onClick={() => goToCalendarPage(navigate, getDay())}
-        />
-        {isStudent && (
-          <AppButton label="Uczeń" onClick={() => goToStudentMenu(navigate)} />
-        )}
-        {isTeacher && (
-          <AppButton
-            label="Nauczyciel"
-            onClick={() => goToTeacherMenu(navigate)}
-          />
-        )}
-        {isAdmin && (
-          <AppButton
-            label="Admin"
-            onClick={() => goToAdminMenuPage(navigate)}
-          />
-        )}
-        <AppButton label="Wiadomości" onClick={() => goToChat(navigate)} />
-        <AppButton label="Wyloguj się" onClick={handleLogOut} />
-      </div>
-      {!isAdmin && (
-        <div className="main-content">
-          <a href="/report/new" className="help-link">
-            Masz jakiś problem? Napisz do nas!
-          </a>
+    return (
+        <div className="menu-container">
+            <div className="menu-box">
+                <h1>Menu</h1>
+                <div className="menu-buttons">
+                    <AppButton label="Profil" onClick={() => goToProfile(navigate)} />
+                    <AppButton label="Kalendarz" onClick={() => goToCalendarPage(navigate, getDay())} />
+                    {isStudent && <AppButton label="Uczeń" onClick={() => goToStudentMenu(navigate)} />}
+                    {isTeacher && <AppButton label="Nauczyciel" onClick={() => goToTeacherMenu(navigate)} />}
+                    {isAdmin && <AppButton label="Admin" onClick={() => goToAdminMenuPage(navigate)} />}
+                    <AppButton label="Wiadomości" onClick={() => goToChat(navigate)} />
+                    <AppButton label="Wyloguj się" onClick={handleLogOut} />
+                </div>
+                {!isAdmin && (
+                    <div className="main-content">
+                        <a href="/report/new" className="help-link">
+                            Masz jakiś problem? Napisz do nas!
+                        </a>
+                    </div>
+                )}
+            </div>
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default App;

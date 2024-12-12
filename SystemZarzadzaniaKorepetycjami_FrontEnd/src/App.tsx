@@ -32,6 +32,7 @@ import SubjectListPage from './pages/SubjectListPage';
 import NewReportForm from './pages/ReportCreatePage';
 import ReportListPage from './pages/ReportListPage';
 import ReportDetailsPage from './pages/ReportDetailsPafe';
+import UserDetailsPage from './pages/UserDetailsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ function App() {
         <Route path="/teacher/myOpinion" element={<TeacherOpinionPage />} />
         <Route path="/admin" element={<AdminMenuPage />} />
         <Route path="/admin/userList" element={<UserListPage />} />
+        <Route path="/admin/userList/:idPerson" element={<UserDetailsPage />} />
         <Route path="/admin/subjectList" element={<SubjectListPage />} />
         <Route path="/report/new" element={<NewReportForm />} />
         <Route path="/report" element={<ReportListPage />} />

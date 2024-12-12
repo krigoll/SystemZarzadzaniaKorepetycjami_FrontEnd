@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLessonDetails } from '../lib/useLessonDetails';
 import AppButton from '../components/AppButton';
 import { goToCalendarPage } from '../lib/Navigate';
+import { CancelLesson } from '../lib/useHandleLesson';
 
 const LessonDetailsPage: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
   const navigate = useNavigate();
+  const [cancel, setCancel] = useState<boolean>(false);
+  const cancelLesson = CancelLesson();
 
   const numericLessonId = lessonId ? parseInt(lessonId) : null;
 
@@ -16,6 +19,19 @@ const LessonDetailsPage: React.FC = () => {
     console.log(lessonData);
     const currentDate = new Date();
     return currentDate.toISOString().split('T')[0];
+  };
+
+  const handleCancelLesson = async () => {
+    try {
+      const response = await cancelLesson(numericLessonId);
+      if (response.ok) {
+        alert(`Lekcja została anulowana!`);
+      } else {
+        alert(`Nie udało się odrzucić lekcji.`);
+      }
+    } catch (error) {
+      alert(`Błąd`);
+    }
   };
 
   return (
@@ -30,7 +46,6 @@ const LessonDetailsPage: React.FC = () => {
           <p>
             <strong>Nauczyciel:</strong> {lessonData.teacherName}
           </p>
-          {/* Upewnij się, że lessonData.dateTime istnieje przed wykonaniem split */}
           {lessonData.startDate ? (
             <>
               <p>
@@ -47,6 +62,18 @@ const LessonDetailsPage: React.FC = () => {
           <p>
             <strong>Status:</strong> {lessonData.status}
           </p>
+          <button onClick={() => setCancel(true)}>
+            Anuluj zajęcia
+          </button>
+
+          {cancel && (
+            <div>
+              <p>Czy na pewno chcesz anulować zajęcia?</p>
+              <button onClick={() => handleCancelLesson()}>
+                Akceptuj
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <p>Ładowanie szczegółów lekcji...</p>

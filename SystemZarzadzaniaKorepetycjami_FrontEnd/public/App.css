@@ -233,5 +233,56 @@ button {
     margin: 20px 0;
 }
 
+.menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.menu-box {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+}
+
+    .menu-box h1 {
+        font-size: 1.8rem;
+        color: #00264d;
+        margin-bottom: 20px;
+    }
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Oddziela przyciski od tekstu */
+.main-content {
+    margin-top: 10px; /* Zwiêkszenie marginesu do tekstu */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ustawienie marginesu do tekstu */
+.help-link {
+    text-decoration: underline; /* Podkreœlenie napisu */
+    color: #4a90e2;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: color 0.3s;
+    margin-top: 10px; /* Dodanie marginesu miêdzy tekstem a przyciskami */
+}
+
+    .help-link:hover {
+        color: #357abd;
+    }
+
 
 
