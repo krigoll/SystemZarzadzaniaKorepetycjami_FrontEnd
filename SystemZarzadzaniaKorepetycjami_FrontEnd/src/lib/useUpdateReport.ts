@@ -5,22 +5,24 @@ import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 
 interface UpdateReportProps {
-    IdSender: number,
-    Title: string,
-    Content: string,
-    DateTime: string,
-    IsDealt: boolean
+  IdSender: number;
+  Title: string;
+  Content: string;
+  DateTime: string;
+  IsDealt: boolean;
 }
 
 export const useUpdateReport = () => {
-  const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useDispatch();
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const updateReport = async (idReport: number, reportDTO: UpdateReportProps) => {
+  const updateReport = async (
+    idReport: number,
+    reportDTO: UpdateReportProps
+  ) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
@@ -43,18 +45,14 @@ export const useUpdateReport = () => {
           if (newToken) {
             dispatch(updateToken(newToken));
             token = newToken;
-            const retryResponse = await fetch(
-             `http://localhost:5230/api/report/${idReport}/update`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(reportDTO),
-        }
-      );
-            setResponseStatus(retryResponse.status);
+            await fetch(`http://localhost:5230/api/report/${idReport}/update`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(reportDTO),
+            });
           } else {
             throw new Error('Failed to refresh token');
           }
@@ -63,8 +61,6 @@ export const useUpdateReport = () => {
             `Failed to edit update report, status: ${response.status}`
           );
         }
-      } else {
-        setResponseStatus(response.status);
       }
     } catch (error) {
       setError(
@@ -75,5 +71,5 @@ export const useUpdateReport = () => {
     }
   };
 
-  return { updateReport, responseStatus, loading, error };
+  return { updateReport, loading, error };
 };
