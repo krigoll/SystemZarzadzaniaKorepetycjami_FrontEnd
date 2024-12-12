@@ -15,7 +15,7 @@ export const useUserDetails = (numericPersonId: number | null) => {
       try {
         let token = jwtToken;
         let response = await fetch(
-          `http://localhost:5230/api/person/getUser?email=${numericPersonId}`,
+          `http://localhost:5230/api/person/getUser/${numericPersonId}`,
           {
             method: 'GET',
             headers: {
@@ -32,7 +32,7 @@ export const useUserDetails = (numericPersonId: number | null) => {
               token = newToken;
               dispatch(updateToken(token));
               response = await fetch(
-                `http://localhost:5230/api/person/getUser?email=${numericPersonId}`,
+                `http://localhost:5230/api/person/getUser/${numericPersonId}`,
                 {
                   method: 'GET',
                   headers: {
@@ -50,6 +50,16 @@ export const useUserDetails = (numericPersonId: number | null) => {
         }
 
         const data = await response.json();
+        // const user = (
+        //   idPerson: person.idPerson,
+        //   name: person.name,
+        //   surname: person.surname,
+        //   image: person.image
+        //     ? base64ToFile(person.image, 'profileImage.jpg')
+        //     : null,
+        //   isTeacher: person.isTeacher,
+        //   isStudent: person.isStudent,
+        // );
         setPersonData(data);
       } catch (error) {
         console.error('Error fetching user details:', error);

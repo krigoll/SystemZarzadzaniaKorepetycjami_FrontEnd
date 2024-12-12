@@ -2,7 +2,7 @@ import React from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { useGetUsers } from '../lib/useGetUsers';
-import { goToAdminMenuPage } from '../lib/Navigate';
+import { goToMenu, goToUserDetailsPage } from '../lib/Navigate';
 
 interface Person {
   idPerson: number;
@@ -57,7 +57,7 @@ const UserListPage: React.FC = () => {
               <div className="user-actions">
                 <AppButton
                   label="Szczegóły"
-                  onClick={() => console.log('Jajko ' + person.idPerson)}
+                  onClick={() => goToUserDetailsPage(navigate, person.idPerson)}
                 />
               </div>
             </div>
@@ -65,7 +65,7 @@ const UserListPage: React.FC = () => {
         )}
       </div>
       <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToAdminMenuPage(navigate)} />
+      <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
         {/* <AppButton label="Filtry" onClick={() => goToFiltersPage(navigate)} /> */}
       </div>
     </div>

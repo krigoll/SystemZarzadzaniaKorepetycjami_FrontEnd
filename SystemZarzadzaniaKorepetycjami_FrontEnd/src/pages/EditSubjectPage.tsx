@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import AppButton from '../components/AppButton';
-import { goToTeacherMenu } from '../lib/Navigate';
+import { goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import { useSetTeacherSalary } from '../lib/useSetTeacherSalary';
 import { useAllSubjectsEdit } from '../lib/useAllSubjectsEdit';
@@ -74,7 +74,7 @@ const AddSubjectsPage: React.FC = () => {
 
     if (responseStatus === 200) {
       alert('Przedmioty i koszty zostały pomyślnie zapisane');
-      goToTeacherMenu(navigate);
+      goToMenu(navigate);
     } else {
       alert('Nie udało się zapisać przedmiotów i kosztów');
     }
@@ -123,7 +123,7 @@ const AddSubjectsPage: React.FC = () => {
         ))
       )}
       <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToTeacherMenu(navigate)} />
+        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
         <button onClick={handleSubmit}>Akceptuj</button>
       </div>
     </div>

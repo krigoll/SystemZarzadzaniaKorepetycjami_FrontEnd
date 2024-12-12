@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { goToAdminMenuPage } from '../lib/Navigate';
+import { goToMenu } from '../lib/Navigate';
 import { useAllSubjectsAdmin } from '../lib/useAllSubjectsAdmin';
 import {
   useAddSubject,
@@ -393,7 +393,7 @@ const SubjectListPage: React.FC = () => {
         </div>
       )}
       <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToAdminMenuPage(navigate)} />
+      <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
       </div>
     </div>
   );

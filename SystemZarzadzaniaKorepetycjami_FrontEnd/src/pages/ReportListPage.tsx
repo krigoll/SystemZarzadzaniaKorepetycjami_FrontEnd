@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { goToAdminMenuPage, goToReportDetailsPage } from '../lib/Navigate';
+import { goToMenu, goToReportDetailsPage } from '../lib/Navigate';
 import { useGetReports } from '../lib/useGetReports';
 
 interface Report {
@@ -47,7 +47,7 @@ const ReportListPage: React.FC = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => goToAdminMenuPage(navigate)}>Powrót</button>
+      <button onClick={() => goToMenu(navigate)}>Powrót</button>
     </div>
   );
 };

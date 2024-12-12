@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { goToTeacherMenu } from '../lib/Navigate';
+import { goToMenu } from '../lib/Navigate';
 import { useGetReservedLessons } from '../lib/useGetReservedLessons';
 import { AcceptLesson, RejectLesson } from '../lib/useHandleLesson';
 
@@ -58,7 +58,7 @@ const TeacherRequestsPage: React.FC = () => {
     <div className="teacher-requests-page">
       <h1>Lista Zgłoszeń</h1>
       <div className="button-container-top">
-        <AppButton label="Powrót" onClick={() => goToTeacherMenu(navigate)} />
+        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
       </div>
       <div className="requests-list">
         {requests.length > 0 ? (

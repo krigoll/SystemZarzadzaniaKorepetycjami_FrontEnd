@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useNavigate } from 'react-router-dom';
 import {
   goToProfile,
-  goToStudentMenu,
-  goToTeacherMenu,
+  //goToStudentMenu,
+  //goToTeacherMenu,
   goToCalendarPage,
   goToChat,
-  goToAdminMenuPage,
+  //goToAdminMenuPage,
+  goToChooseSubjectPage,
+  goToTeachersReviewsListPage,
+  goToDeterminingAvailabilty,
+  goToEditSubjectPage,
+  goToRequestsPage,
+  goToTeacherOpinionPage,
+  goToReportListPage,
+  goToSubjectListPage,
+  goToUserListPage,
 } from '../lib/Navigate';
 import { useHandleLogOut } from '../lib/LogOut';
 
@@ -19,7 +28,23 @@ const App: React.FC = () => {
   );
 
   const navigate = useNavigate();
-  const handleLogOut = useHandleLogOut();
+    const handleLogOut = useHandleLogOut();
+
+    const [isStudentMenuVisible, setStudentMenuVisible] = useState(false); // Stan do zarządzania widocznością menu Uczeń
+    const [isTeacherMenuVisible, setTeacherMenuVisible] = useState(false); // Stan do zarządzania widocznością menu Nauczyciel
+    const [isAdminMenuVisible, setAdminMenuVisible] = useState(false); // Stan do zarządzania widocznością menu Admin
+
+    const handleStudentMenuClick = () => {
+        setStudentMenuVisible(prevState => !prevState); // Zmieniamy widoczność menu Uczeń
+    };
+
+    const handleTeacherMenuClick = () => {
+        setTeacherMenuVisible(prevState => !prevState); // Zmieniamy widoczność menu Nauczyciel
+    };
+
+    const handleAdminMenuClick = () => {
+        setAdminMenuVisible(prevState => !prevState); // Zmieniamy widoczność menu Admin
+    };
 
   const getDay = (): string => {
     const currentDate = new Date();
@@ -33,9 +58,71 @@ const App: React.FC = () => {
                 <div className="menu-buttons">
                     <AppButton label="Profil" onClick={() => goToProfile(navigate)} />
                     <AppButton label="Kalendarz" onClick={() => goToCalendarPage(navigate, getDay())} />
-                    {isStudent && <AppButton label="Uczeń" onClick={() => goToStudentMenu(navigate)} />}
-                    {isTeacher && <AppButton label="Nauczyciel" onClick={() => goToTeacherMenu(navigate)} />}
-                    {isAdmin && <AppButton label="Admin" onClick={() => goToAdminMenuPage(navigate)} />}
+                    {isStudent && (
+                        <>
+                            <AppButton label="Uczeń" onClick={handleStudentMenuClick} /> {/* Przycisk rozwijający menu */}
+                            {isStudentMenuVisible && (
+                                <div className="student-menu">
+                                    <AppButton
+                                        label="Umów się na korepetycje"
+                                        onClick={() => goToChooseSubjectPage(navigate)}
+                                    />
+                                    <AppButton
+                                        label="Wystaw opinię"
+                                        onClick={() => goToTeachersReviewsListPage(navigate)}
+                                    />
+                                    <AppButton label="Moje testy" onClick={() => console.log('Moje testy')} />
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {isTeacher && (
+                        <>
+                            <AppButton label="Nauczyciel" onClick={handleTeacherMenuClick} /> {/* Przycisk rozwijający menu dla nauczyciela */}
+                            {isTeacherMenuVisible && (
+                                <div className="teacher-menu">
+                                    <AppButton
+                                        label="Zgłoszenia"
+                                        onClick={() => goToRequestsPage(navigate)}
+                                    />
+                                    <AppButton
+                                        label="Przedmioty"
+                                        onClick={() => goToEditSubjectPage(navigate)}
+                                    />
+                                    <AppButton
+                                        label="Określenie dostępności"
+                                        onClick={() => goToDeterminingAvailabilty(navigate)}
+                                    />
+                                    <AppButton
+                                        label="Opinie"
+                                        onClick={() => goToTeacherOpinionPage(navigate)}
+                                    />
+                                    <AppButton label="Testy" onClick={() => console.log('Testy')} />
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {isAdmin && (
+                        <>
+                            <AppButton label="Admin" onClick={handleAdminMenuClick} /> {/* Przycisk rozwijający menu dla administratora */}
+                            {isAdminMenuVisible && (
+                                <div className="admin-menu">
+                                    <AppButton
+                                        label="Lista użytkowników"
+                                        onClick={() => goToUserListPage(navigate)}
+                                    />
+                                    <AppButton
+                                        label="Zgłoszenia"
+                                        onClick={() => goToReportListPage(navigate)}
+                                    />
+                                    <AppButton
+                                        label="Przedmioty"
+                                        onClick={() => goToSubjectListPage(navigate)}
+                                    />
+                                </div>
+                            )}
+                        </>
+                    )}
                     <AppButton label="Wiadomości" onClick={() => goToChat(navigate)} />
                     <AppButton label="Wyloguj się" onClick={handleLogOut} />
                 </div>

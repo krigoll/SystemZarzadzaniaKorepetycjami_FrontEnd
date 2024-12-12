@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { goToChooseTeacherPage, goToStudentMenu } from '../lib/Navigate';
+import { goToChooseTeacherPage, goToMenu} from '../lib/Navigate';
 import { useAllSubjects } from '../lib/useAllSubjects';
 
 interface LevelData {
@@ -147,7 +147,7 @@ const ChooseSubjectPage: React.FC = () => {
         </div>
       )}
       <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToStudentMenu(navigate)} />
+        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
       </div>
     </div>
   );

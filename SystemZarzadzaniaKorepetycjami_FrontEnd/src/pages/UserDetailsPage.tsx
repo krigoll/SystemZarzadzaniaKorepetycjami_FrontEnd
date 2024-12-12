@@ -12,20 +12,17 @@ const UserDetailsPage: React.FC = () => {
 
     return (
         <div className="profile-container">
-            <button
-                className="delete-account"
-                onClick={() => goToDeleteAccountPage(navigate)}
-            >
-                Usuñ konto
-            </button>
             <div className="profile-header">Profil</div>
             {personData ? (
                 <div>
-                    <div className="profile-picture">
-                        {selectedFile && (
-                            <img src={URL.createObjectURL(selectedFile)} alt="Profile" />
-                        )}
-                    </div>
+                    {personData.image ? (
+                  <img
+                    src={URL.createObjectURL(personData.image)}
+                    alt={`${person.name}`}
+                  />
+                ) : (
+                  '[Brak Zdjêcia]'
+                )}
                     <div className="profile-details">
                         <p>
                             {personData.name} {personData.surname}

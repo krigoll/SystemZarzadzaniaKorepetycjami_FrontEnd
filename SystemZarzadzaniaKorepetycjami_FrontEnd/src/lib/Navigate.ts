@@ -120,6 +120,10 @@ function goToReportDetailsPage(navigate: NavigateFunction, reportId: number) {
   navigate(`/report/${reportId}`);
 }
 
+function goToUserDetailsPage(navigate: NavigateFunction, idPerson: number) {
+  navigate(`/admin/userList/${idPerson}`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -149,4 +153,5 @@ export {
   goToNewReportFormPage,
   goToReportListPage,
   goToReportDetailsPage,
+  goToUserDetailsPage,
 };

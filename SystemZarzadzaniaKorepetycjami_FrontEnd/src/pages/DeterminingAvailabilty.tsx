@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AppButton from '../components/AppButton';
-import { goToTeacherMenu } from '../lib/Navigate';
+import { goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
@@ -114,7 +114,7 @@ const AvailabilityPage: React.FC = () => {
         ))}
       </div>
       <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToTeacherMenu(navigate)} />
+        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
         <AppButton label="Akceptuj" onClick={handleSubmit} />
       </div>
     </div>
