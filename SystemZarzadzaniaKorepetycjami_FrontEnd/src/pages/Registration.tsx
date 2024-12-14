@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { goToAddSubject, goToMainPage, goToMenu } from '../lib/Navigate';
+import { goToAddSubject, goToMenu } from '../lib/Navigate';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import {
@@ -33,6 +33,7 @@ const RegisterPage: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [isStudent, setIsStudent] = useState<boolean>(false);
   const [isTeacher, setIsTeacher] = useState<boolean>(false);
+  const [creating, setCreating] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isNotNewTeacher, setIsNotNewTeacher] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -162,6 +163,7 @@ const RegisterPage: React.FC = () => {
   };
 
   const handleRegistration = async () => {
+    setCreating(true);
     const isOk = await validationAndSending();
     if (isOk) {
       if (isTeacher) setIsNotNewTeacher(false);
@@ -179,75 +181,78 @@ const RegisterPage: React.FC = () => {
       if (!isTeacher) goToMenu(navigate);
       goToAddSubject(navigate);
     }
+    setCreating(false);
   };
 
-    return (
-        <div className="register-container">
-            <div className="register-box">
-                <h1>Rejestracja</h1>
-                <label className="file-input-label">
-                    {selectedFile ? selectedFile.name : 'Dodaj zdjęcie'}
-                    <input
-                        type="file"
-                        className="file-input"
-                        onChange={handleFileChange}
-                    />
-                </label>
-                <AppEmailInput
-                    inputValue={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <AppPasswordInput
-                    inputValue={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <AppRepeatPasswordInput
-                    inputValue={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <AppTextInput
-                    placecholder="Imię"
-                    inputValue={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                />
-                <AppTextInput
-                    placecholder="Nazwisko"
-                    inputValue={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                />
-                <AppDateInput
-                    placecholder="Data urodzenia"
-                    inputValue={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
-                />
-                <AppTextInput
-                    placecholder="Numer telefonu"
-                    inputValue={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-                <div className="checkbox-container">
-                    <label>
-                        <AppCheckboxInput
-                            checked={isStudent}
-                            onChange={(e) => setIsStudent(e.target.checked)}
-                        />
-                        Uczeń
-                    </label>
-                    <label>
-                        <AppCheckboxInput
-                            checked={isTeacher}
-                            onChange={(e) => setIsTeacher(e.target.checked)}
-                        />
-                        Nauczyciel
-                    </label>
-                </div>
-                <div className="button-container">
-                    <AppButton label="Powrót" onClick={() => navigate('/')} />
-                    <AppButton label="Zarejestruj" onClick={handleRegistration} />
-                </div>
-            </div>
+  return (
+    <div className="register-container">
+      <div className="register-box">
+        <h1>Rejestracja</h1>
+        <label className="file-input-label">
+          {selectedFile ? selectedFile.name : 'Dodaj zdjęcie'}
+          <input
+            type="file"
+            className="file-input"
+            onChange={handleFileChange}
+          />
+        </label>
+        <AppEmailInput
+          inputValue={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <AppPasswordInput
+          inputValue={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <AppRepeatPasswordInput
+          inputValue={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <AppTextInput
+          placecholder="Imię"
+          inputValue={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <AppTextInput
+          placecholder="Nazwisko"
+          inputValue={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <AppDateInput
+          placecholder="Data urodzenia"
+          inputValue={birthDate}
+          onChange={(e) => setBirthDate(e.target.value)}
+        />
+        <AppTextInput
+          placecholder="Numer telefonu"
+          inputValue={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        <div className="checkbox-container">
+          <label>
+            <AppCheckboxInput
+              checked={isStudent}
+              onChange={(e) => setIsStudent(e.target.checked)}
+            />
+            Uczeń
+          </label>
+          <label>
+            <AppCheckboxInput
+              checked={isTeacher}
+              onChange={(e) => setIsTeacher(e.target.checked)}
+            />
+            Nauczyciel
+          </label>
         </div>
-    );
+        <div className="button-container">
+          <AppButton label="Powrót" onClick={() => navigate('/')} />
+          <button onClick={handleRegistration} disabled={creating}>
+            {creating ? 'Ładowanie...' : 'Zarejestruj'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default RegisterPage;

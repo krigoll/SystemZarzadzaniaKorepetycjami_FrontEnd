@@ -122,83 +122,89 @@ const EditProfilePage: React.FC = () => {
     });
   };
 
-  return (
-    <div className="edit-profile-container">
-      <div className="edit-profile-header">Edycja Profilu</div>
-      <div className="profile-picture">
-        {profile.image && (
-          <img src={URL.createObjectURL(profile.image)} alt="Profile" />
-        )}
-      </div>
-      <div className="file-input-container">
-        <label htmlFor="file-input" className="file-input-label">
-          {selectedFile ? selectedFile.name : 'Kliknij, aby zmienić zdjęcie'}
-        </label>
-        <input
-          type="file"
-          id="file-input"
-          className="file-input"
-          onChange={handleFileChange}
-        />
-      </div>
-      <input
-        type="text"
-        name="firstName"
-        placeholder="Imię"
-        value={profile.firstName}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Nazwisko"
-        value={profile.lastName}
-        onChange={handleInputChange}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Adres email"
-        value={profile.email}
-        onChange={handleInputChange}
-      />
-      <input
-        type="tel"
-        name="phoneNumber"
-        placeholder="Numer telefonu"
-        value={profile.phoneNumber}
-        onChange={handleInputChange}
-      />
-      {!dataToEdit.isAdmin && (
-        <div className="checkbox-container">
-          <label>
-            <input
-              type="checkbox"
-              name="isStudent"
-              checked={profile.isStudent}
-              onChange={handleInputChange}
-            />
-            Uczeń
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="isTeacher"
-              checked={profile.isTeacher}
-              onChange={handleInputChange}
-            />
-            Nauczyciel
-          </label>
+    return (
+        <div className="edit-profile-container">
+            <div className="profile-box">
+                <div className="edit-profile-header">Edycja Profilu</div>
+                <div className="profile-picture">
+                    {profile.image && (
+                        <img src={URL.createObjectURL(profile.image)} alt="Profile" />
+                    )}
+                </div>
+                <div className="file-input-container">
+                    <label htmlFor="file-input" className="file-input-label">
+                        {selectedFile ? selectedFile.name : 'Kliknij, aby zmienić zdjęcie'}
+                    </label>
+                    <input
+                        type="file"
+                        id="file-input"
+                        className="file-input"
+                        onChange={handleFileChange}
+                    />
+                </div>
+                <label style={{ textAlign: 'left', display: 'block' }}>Imię:</label>
+                <input
+                    type="text"
+                    name="firstName"
+                    placeholder="Imię"
+                    value={profile.firstName}
+                    onChange={handleInputChange}
+                />
+                <label style={{ textAlign: 'left', display: 'block' }}>Nazwisko:</label>
+                <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Nazwisko"
+                    value={profile.lastName}
+                    onChange={handleInputChange}
+                />
+                <label style={{ textAlign: 'left', display: 'block' }}>Adres email:</label>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Adres email"
+                    value={profile.email}
+                    onChange={handleInputChange}
+                />
+                <label style={{ textAlign: 'left', display: 'block' }}>Numer telefonu:</label>
+                <input
+                    type="tel"
+                    name="phoneNumber"
+                    placeholder="Numer telefonu"
+                    value={profile.phoneNumber}
+                    onChange={handleInputChange}
+                />
+                {!dataToEdit.isAdmin && (
+                    <div className="checkbox-container">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="isStudent"
+                                checked={profile.isStudent}
+                                onChange={handleInputChange}
+                            />
+                            Uczeń
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="isTeacher"
+                                checked={profile.isTeacher}
+                                onChange={handleInputChange}
+                            />
+                            Nauczyciel
+                        </label>
+                    </div>
+                )}
+                <div className="button-container">
+                    <AppButton label="Powrót" onClick={() => goToProfile(navigate)} />
+                    <button onClick={handleSubmit} disabled={loading}>
+                        {loading ? 'Trwa aktualizacja...' : 'Akceptuj'}
+                    </button>
+                </div>
+            </div>
         </div>
-      )}
-      <div>
-        <AppButton label="Powrót" onClick={() => goToProfile(navigate)} />
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? 'Trwa aktualizacja...' : 'Akceptuj'}
-        </button>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default EditProfilePage;

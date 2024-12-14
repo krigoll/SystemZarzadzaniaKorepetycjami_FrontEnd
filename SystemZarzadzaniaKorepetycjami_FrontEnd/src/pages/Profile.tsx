@@ -53,37 +53,37 @@ const ProfilePage: React.FC = () => {
             >
                 Usuń konto
             </button>
-            <div className="profile-header">Profil</div>
-            {personData ? (
-                <div>
-                    <div className="profile-picture">
-                        {selectedFile && (
-                            <img src={URL.createObjectURL(selectedFile)} alt="Profile" />
-                        )}
-                    </div>
-                    <div className="profile-details">
-                        <p>
-                            {personData.name} {personData.surname}
-                        </p>
-                        <p>{personData.birthDate}</p>
-                        <p>{personData.email}</p>
-                        <p>{personData.phoneNumber}</p>
-                        <p>{personData.joiningDate}</p>
-                    </div>
-                    <div className="role">
-                        Role:
-                        <p>{personData.isStudent && 'Uczeń'}</p>
-                        <p>{personData.isTeacher && 'Nauczyciel'}</p>
-                        <p>{personData.isAdmin && 'Admin'}</p>
-                    </div>
-                </div>
-            ) : (
-                <div>Loading...</div>
-            )}
-
-            <div className="button-container">
-                <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-                <AppButton label="Edytuj" onClick={handleGoToEdit} />
+            <div className="profile-box">
+                <div className="profile-header">Twój Profil</div>
+                {personData ? (
+                    <>
+                        <div className="profile-picture">
+                            {selectedFile && (
+                                <img src={URL.createObjectURL(selectedFile)} alt="Profile" />
+                            )}
+                        </div>
+                        <div className="profile-details">
+                            <p><strong>Imię i nazwisko:</strong> {personData.name} {personData.surname}</p>
+                            <p><strong>Data urodzenia:</strong> {personData.birthDate}</p>
+                            <p><strong>Email:</strong> {personData.email}</p>
+                            <p><strong>Telefon:</strong> {personData.phoneNumber}</p>
+                            <p><strong>Data dołączenia:</strong> {personData.joiningDate}</p>
+                        </div>
+                        <div className="role">
+                            <p>Role:
+                                {personData.isStudent && ' Uczeń'}
+                                {personData.isTeacher && ' Nauczyciel'}
+                                {personData.isAdmin && ' Admin'}
+                            </p>
+                        </div>
+                        <div className="button-container">
+                            <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+                            <AppButton label="Edytuj" onClick={handleGoToEdit} />
+                        </div>
+                    </>
+                ) : (
+                    <div>Ładowanie...</div>
+                )}
             </div>
         </div>
     );

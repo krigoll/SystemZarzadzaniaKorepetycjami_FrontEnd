@@ -3,9 +3,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 import { RootState } from '../futures/store';
+import { base64ToFile } from './ConvertImage';
+
+interface PersonResponse {
+  idPerson: number;
+  name: string;
+  surname: string;
+  birthDate: string;
+  email: string;
+  phoneNumber: string;
+  joiningDate: Date;
+  image: string | null;
+  isTeacher: boolean;
+  isStudent: boolean;
+  isAdmin: boolean;
+}
+
+interface Person {
+  idPerson: number;
+  name: string;
+  surname: string;
+  birthDate: string;
+  email: string;
+  phoneNumber: string;
+  joiningDate: Date;
+  image: File | null;
+  isTeacher: boolean;
+  isStudent: boolean;
+}
 
 export const useUserDetails = (numericPersonId: number | null) => {
-  const [personData, setPersonData] = useState<any>(null);
+  const [userData, setUserData] = useState<any>(null);
   const refreshAccessToken = useRefreshAccessToken();
   const dispatch = useDispatch();
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
@@ -49,27 +77,31 @@ export const useUserDetails = (numericPersonId: number | null) => {
           }
         }
 
-        const data = await response.json();
-        // const user = (
-        //   idPerson: person.idPerson,
-        //   name: person.name,
-        //   surname: person.surname,
-        //   image: person.image
-        //     ? base64ToFile(person.image, 'profileImage.jpg')
-        //     : null,
-        //   isTeacher: person.isTeacher,
-        //   isStudent: person.isStudent,
-        // );
-        setPersonData(data);
+        const dataUser: PersonResponse = await response.json();
+        const user: Person = {
+          idPerson: dataUser.idPerson,
+          name: dataUser.name,
+          surname: dataUser.surname,
+          birthDate: dataUser.birthDate,
+          email: dataUser.email,
+          phoneNumber: dataUser.phoneNumber,
+          joiningDate: dataUser.joiningDate,
+          image: dataUser.image
+            ? base64ToFile(dataUser.image, 'profileImage.jpg')
+            : null,
+          isTeacher: dataUser.isTeacher,
+          isStudent: dataUser.isStudent,
+        };
+        setUserData(user);
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
     };
 
-    if (email && jwtToken) {
+    if (numericPersonId && jwtToken) {
       fetchData();
     }
-  }, [email]);
+  }, [numericPersonId]);
 
-  return personData;
+  return userData;
 };
