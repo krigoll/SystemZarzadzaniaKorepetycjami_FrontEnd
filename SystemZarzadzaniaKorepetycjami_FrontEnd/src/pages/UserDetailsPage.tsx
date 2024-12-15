@@ -4,17 +4,33 @@ import { goToUserListPage } from '../lib/Navigate';
 import { useUserDetails } from '../lib/useUserDetails';
 import { useState } from 'react';
 import { usePersonDelete } from '../lib/usePersonDelete';
+import { useCreateBan } from '../lib/useCreateBan';
+
+interface BanDTO {
+	idPerson: number | null; 
+	banedName: string; 
+	startTime: string;
+	lenghtInDays: number; 
+	reason: string; 
+}
 
 const UserDetailsPage: React.FC = () => {
   const navigate = useNavigate();
   const { idPerson } = useParams<{ idPerson: string }>();
   const numericPersonId = idPerson ? parseInt(idPerson) : null;
-  const personData = useUserDetails(numericPersonId);
+  const {personData, refetch } = useUserDetails(numericPersonId);
   const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
   const [ban, setBan] = useState<boolean>(false);
   const [reason, setReason] = useState<string>("");
   const [duration, setDuration] = useState<number>(1);
   const { deletePerson } = usePersonDelete();
+
+  const {
+    createBan,
+    responseStatus,
+    loading: creating,
+    error: createError,
+  } = useCreateBan();
 
   const handleDeleteUser = async () => {
     const status = await deletePerson(personData.email);
@@ -27,7 +43,7 @@ const UserDetailsPage: React.FC = () => {
     }
   };
   
-  const handleBanUser = () =>{
+  const handleBanUser = async () =>{
     if (reason.length < 10 || reason.length > 99) {
         alert('Powód musi mieœciæ siê w przedziale od 10 do 100 znaków.');
         return false;
@@ -35,6 +51,21 @@ const UserDetailsPage: React.FC = () => {
     if (duration < 1) {
         alert('D³ugoœæ mósi byæ powy¿ej denego.');
         return false;
+    }
+
+    const banDTO: BanDTO = {
+      idPerson: numericPersonId, 
+      banedName: personData.name, 
+      startTime: new Date().toISOString(),
+      lenghtInDays: duration, 
+      reason: reason,
+    };
+
+    await createBan(banDTO);
+
+    if (responseStatus === 200) {
+      alert('U¿ytkownik zosta³ zablokowany!');
+      refetch()
     }
   }
 
@@ -65,6 +96,15 @@ const UserDetailsPage: React.FC = () => {
             Role:
             <p>{personData.isStudent && 'Uczeñ'}</p>
             <p>{personData.isTeacher && 'Nauczyciel'}</p>
+          </div>
+          <div className="role">
+            <p>Czy zablokowany: {personData.isBaned ? 'Tak' : 'Nie'}</p>
+            { personData.isBaned && (
+              <div>
+                <p> Przez {personData.numberOfDays} dni</p>
+                <p> Powód: {personData.reason}</p>
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -99,7 +139,10 @@ const UserDetailsPage: React.FC = () => {
                     onChange={(e) => setDuration(parseInt(e.target.value, 1))}
                     />
                 </div>
-                <AppButton label="Potwierdz zablokowanie" onClick={() => handleBanUser()} />
+                <button onClick={handleBanUser} disabled={creating}>
+                  {creating ? 'Blokowanie...' : 'Potwierdz zablokowanie'}
+                </button>
+                {createError && <p style={{ color: 'red' }}>B³¹d: {createError}</p>}
                 </div>
             )}
         <AppButton label="Powrót" onClick={() => goToUserListPage(navigate)} />

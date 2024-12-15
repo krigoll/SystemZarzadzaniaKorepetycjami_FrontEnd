@@ -16,7 +16,9 @@ interface PersonResponse {
   image: string | null;
   isTeacher: boolean;
   isStudent: boolean;
-  isAdmin: boolean;
+  isBaned: boolean;
+  numberOfDays: number;
+  reason: string;
 }
 
 interface Person {
@@ -30,13 +32,17 @@ interface Person {
   image: File | null;
   isTeacher: boolean;
   isStudent: boolean;
+  isBaned: boolean;
+  numberOfDays: number;
+  reason: string;
 }
 
 export const useUserDetails = (numericPersonId: number | null) => {
-  const [userData, setUserData] = useState<any>(null);
+  const [personData, setPersonData] = useState<any>(null);
   const refreshAccessToken = useRefreshAccessToken();
   const dispatch = useDispatch();
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
+  const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +84,7 @@ export const useUserDetails = (numericPersonId: number | null) => {
         }
 
         const dataUser: PersonResponse = await response.json();
+        console.log(dataUser);
         const user: Person = {
           idPerson: dataUser.idPerson,
           name: dataUser.name,
@@ -91,8 +98,11 @@ export const useUserDetails = (numericPersonId: number | null) => {
             : null,
           isTeacher: dataUser.isTeacher,
           isStudent: dataUser.isStudent,
+          isBaned: dataUser.isBaned,
+          numberOfDays: dataUser.numberOfDays,
+          reason: dataUser.reason
         };
-        setUserData(user);
+        setPersonData(user);
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
@@ -101,7 +111,11 @@ export const useUserDetails = (numericPersonId: number | null) => {
     if (numericPersonId && jwtToken) {
       fetchData();
     }
-  }, [numericPersonId]);
+  }, [numericPersonId, refreshFlag]);
 
-  return userData;
+  const refetch = () => {
+    setRefreshFlag(!refreshFlag);
+  };
+
+  return {personData, refetch};
 };

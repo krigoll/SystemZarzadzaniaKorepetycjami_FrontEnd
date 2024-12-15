@@ -611,3 +611,243 @@ button {
         color: white;
         box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
     }
+
+/* Stylowanie g³ównego kontenera kalendarza */
+.availability-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .availability-container h2 {
+        color: #00264d;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+/* Stylowanie nawigacji tygodni */
+.date-picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+    .date-picker p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #4a90e2;
+    }
+
+    /* Stylowanie przycisków */
+    .date-picker button,
+    .button-container button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+        .date-picker button:hover,
+        .button-container button:hover {
+            background-color: #357abd;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+        }
+
+        .date-picker button:active {
+            transform: scale(0.95);
+        }
+
+/* Stylowanie siatki kalendarza */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.day-column {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: box-shadow 0.3s;
+}
+
+    .day-column:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .day-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #00264d;
+        text-align: center;
+    }
+
+/* Stylowanie elementów lekcji */
+.lesson-item {
+    background-color: white;
+    border: 1px solid #4a90e2;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(74, 144, 226, 0.2);
+    transition: transform 0.2s;
+}
+
+    .lesson-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+    }
+
+    .lesson-item p {
+        font-size: 0.9rem;
+        margin: 5px 0;
+        color: #333;
+    }
+
+        .lesson-item p:first-child {
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+    .lesson-item button {
+        margin-top: 10px;
+        width: 100%;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .lesson-item button:hover {
+            background-color: #357abd;
+        }
+
+/* Stylowanie dla responsywnoœci */
+@media (max-width: 768px) {
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .date-picker {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .day-column {
+        padding: 10px;
+    }
+}
+
+/* Stylizacja strony szczegó³ów przedmiotu */
+.lesson-details-container {
+    padding: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.lesson-details-container h1 {
+    font-size: 2.4rem;
+    color: #00264d;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+    .lesson-details-container p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #4a4a4a;
+        margin-bottom: 20px;
+        max-width: 600px;
+        margin: 0;
+    }
+
+.lesson-details-container .lesson-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-details-container .lesson-info h3 {
+    font-size: 1.8rem;
+    color: #00264d;
+    margin-bottom: 15px;
+}
+
+.lesson-details-container .lesson-info p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.lesson-details-container .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.lesson-details-container .back-button {
+    background-color: #4a90e2;
+    color: white;
+    border: 2px solid #4a90e2;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.lesson-details-container .back-button:hover {
+    background-color: #357abd;
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+.lesson-details-container .back-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+}
+
+/* Responsywnoœæ */
+@media (max-width: 768px) {
+    .lesson-details-container {
+        padding: 20px;
+    }
+
+    .lesson-details-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .lesson-details-container p {
+        font-size: 1rem;
+    }
+
+    .lesson-details-container .lesson-info {
+        padding: 15px;
+    }
+}
+

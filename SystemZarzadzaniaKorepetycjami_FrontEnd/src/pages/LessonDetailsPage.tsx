@@ -5,7 +5,7 @@ import AppButton from '../components/AppButton';
 import { goToCalendarPage } from '../lib/Navigate';
 import { CancelLesson } from '../lib/useHandleLesson';
 
-const LessonDetailsPage: React.FC = () => {
+const LessonDetailsPage: React.FC = () => {//odświerzanie lakcji po anulowaniu
   const { lessonId } = useParams<{ lessonId: string }>();
   const navigate = useNavigate();
   const [cancel, setCancel] = useState<boolean>(false);
@@ -25,14 +25,19 @@ const LessonDetailsPage: React.FC = () => {
     try {
       const response = await cancelLesson(numericLessonId);
       if (response.ok) {
-        alert(`Lekcja została anulowana!`);
+          alert(`Lekcja została anulowana!`);
+          setCancel(false);
       } else {
         alert(`Nie udało się odrzucić lekcji.`);
       }
     } catch (error) {
       alert(`Błąd`);
     }
-  };
+    };
+
+    const toggleCancelVisibility = () => {
+        setCancel((prevCancel) => !prevCancel);
+    };
 
   return (
     <div className="lesson-details-container">
@@ -44,12 +49,15 @@ const LessonDetailsPage: React.FC = () => {
             <strong>Przedmiot:</strong> {lessonData.subjectName}
           </p>
           <p>
-            <strong>Nauczyciel:</strong> {lessonData.teacherName}
+            <strong>Nauczyciel:</strong> {lessonData.teacherName} 
+          </p>
+          <p>
+            <strong>Uczeń:</strong> {lessonData.studentName} 
           </p>
           {lessonData.startDate ? (
             <>
               <p>
-                <strong>Data:</strong> {lessonData.startDate.split('T')[0]}
+                              <strong>Data:</strong> {lessonData.startDate.substring(0, 10)}
               </p>
               <p>
                 <strong>Godzina:</strong>{' '}
@@ -62,16 +70,19 @@ const LessonDetailsPage: React.FC = () => {
           <p>
             <strong>Status:</strong> {lessonData.status}
           </p>
-          <button onClick={() => setCancel(true)}>
+          {lessonData.status != "Anulowana" && (
+                      <button className="delete-account" onClick={toggleCancelVisibility} style={{ marginTop: '20px' }}>
             Anuluj zajęcia
           </button>
-
+          )}
+          
           {cancel && (
             <div>
-              <p>Czy na pewno chcesz anulować zajęcia?</p>
-              <button onClick={() => handleCancelLesson()}>
-                Akceptuj
-              </button>
+                          <p>Czy na pewno chcesz anulować zajęcia?</p>
+                          <div className="button-container" style={{ marginTop: '5px' }}>
+                              <AppButton label="Akceptuj" onClick={() => handleCancelLesson()} />
+                          </div>
+
             </div>
           )}
         </div>

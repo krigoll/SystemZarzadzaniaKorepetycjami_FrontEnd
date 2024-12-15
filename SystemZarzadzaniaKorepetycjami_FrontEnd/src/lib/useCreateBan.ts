@@ -3,9 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
-import { OpinionDTO } from '../types/OpinionDTO.ts';
 
-export const useCreateOpinion = () => {
+interface BanDTO {
+	idPerson: number | null; 
+	banedName: string; 
+	startTime: string;
+	lenghtInDays: number; 
+	reason: string; 
+}
+
+export const useCreateBan = () => {
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -13,20 +20,20 @@ export const useCreateOpinion = () => {
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const createOpinion = async (opinionDTO: OpinionDTO) => {
+  const createBan = async (banDTO: BanDTO) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
     try {
       let response = await fetch(
-        `http://localhost:5230/api/opinion/createOpinion`,
+        `http://localhost:5230/api/ban/create`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(opinionDTO),
+          body: JSON.stringify(banDTO),
         }
       );
 
@@ -37,14 +44,14 @@ export const useCreateOpinion = () => {
             dispatch(updateToken(newToken));
             token = newToken;
             const retryResponse = await fetch(
-              `http://localhost:5230/api/opinion/createOpinion`,
+              `http://localhost:5230/api/ban/create`,
               {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                   Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(opinionDTO),
+                body: JSON.stringify(banDTO),
               }
             );
             setResponseStatus(retryResponse.status);
@@ -53,7 +60,7 @@ export const useCreateOpinion = () => {
           }
         } else {
           throw new Error(
-            `Failed to create opinion, status: ${response.status}`
+            `Failed to ban, status: ${response.status}`
           );
         }
       } else {
@@ -68,5 +75,5 @@ export const useCreateOpinion = () => {
     }
   };
 
-  return { createOpinion, responseStatus, loading, error };
+  return { createBan, responseStatus, loading, error };
 };

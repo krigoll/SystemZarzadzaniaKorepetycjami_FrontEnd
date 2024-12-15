@@ -23,7 +23,6 @@ const CalendarPage: React.FC = () => {
 
   const { startOfWeek, endOfWeek } = getWeekRange(startDay);
 
-  // Calculate the start and end dates for the current week
   const getWeekDates = (startDateString: string) => {
     const startDate = new Date(startDateString);
     const week = [];
@@ -60,7 +59,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <div className="availability-container">
-      <h2>Kalendarzyk</h2>
+      <h2>Kalendarz</h2>
       <div className="date-picker">
         <AppButton
           label="Poprzedni tydzień"
@@ -75,23 +74,20 @@ const CalendarPage: React.FC = () => {
         />
       </div>
 
-      {/* Renderowanie dni i zaj�� dla ka�dego dnia */}
       <div className="calendar-grid">
         {weekDates.length > 0 &&
           calendars &&
           weekDates.map((date, dayIndex) => (
             <div key={date} className="day-column">
               <h3>{date}</h3>
-              {/* Sprawd�, czy s� jakie� zaj�cia dla danego dnia */}
               {calendars[dayIndex]?.length > 0 ? (
                 calendars[dayIndex].map((lesson: Calendar) => (
                   <div key={lesson.lessonId} className="lesson-item">
                     <p>Przedmiot: {lesson.subjectName}</p>
                     <p>Godzina: {lesson.dateTime.substring(11, 16)}</p>
                     <p>Status: {lesson.statusName}</p>
-                    {/* Dodanie przycisku Szczeg�y */}
                     <AppButton
-                      label="Szczegły"
+                            label="Szczegóły"
                       onClick={() =>
                         goToLessonDetailsPage(navigate, lesson.lessonId)
                       }
