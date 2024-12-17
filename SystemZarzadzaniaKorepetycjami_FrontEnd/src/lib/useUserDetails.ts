@@ -84,7 +84,6 @@ export const useUserDetails = (numericPersonId: number | null) => {
         }
 
         const dataUser: PersonResponse = await response.json();
-        console.log(dataUser);
         const user: Person = {
           idPerson: dataUser.idPerson,
           name: dataUser.name,
@@ -100,7 +99,7 @@ export const useUserDetails = (numericPersonId: number | null) => {
           isStudent: dataUser.isStudent,
           isBaned: dataUser.isBaned,
           numberOfDays: dataUser.numberOfDays,
-          reason: dataUser.reason
+          reason: dataUser.reason,
         };
         setPersonData(user);
       } catch (error) {
@@ -117,5 +116,5 @@ export const useUserDetails = (numericPersonId: number | null) => {
     setRefreshFlag(!refreshFlag);
   };
 
-  return {personData, refetch};
+  return { personData, refetch };
 };

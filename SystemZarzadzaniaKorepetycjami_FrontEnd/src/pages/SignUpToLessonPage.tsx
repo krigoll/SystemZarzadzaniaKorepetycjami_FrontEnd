@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { goToChooseTeacherPage, goToStudentMenu } from '../lib/Navigate';
+import { goToChooseTeacherPage, goToMenu } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { AppDateInput } from '../components/AppInput';
 import { useTeacherAvailabilityById } from '../lib/useTeacherAvailabilityById';
-import { useSignUpToLesson } from '../lib/useSignUpToLesson'; // Importujemy hook
+import { useSignUpToLesson } from '../lib/useSignUpToLesson';
 
 const daysOfWeek = [
   'Poniedziałek',
@@ -67,100 +67,99 @@ const TeacherDetailsPage: React.FC = () => {
   useEffect(() => {
     if (responseStatus === 200) {
       alert('Udało się zapisać na korepetycje');
-      goToStudentMenu(navigate);
+      goToMenu(navigate);
     } else if (error) {
       alert(`Błąd: ${error}`);
     }
   }, [responseStatus, error, navigate]);
 
   return (
-    <div className="teacher-details-page">
-      <h1>Szczegóły Nauczyciela</h1>
-      <div className="teacher-info">
-        <div className="teacher-photo">
-          {teacher.image ? (
-            <img
-              src={URL.createObjectURL(teacher.image)}
-              alt={`${teacher.name}`}
-            />
-          ) : (
-            '[Brak Zdjęcia]'
-          )}
-        </div>
-        <div className="teacher-details">
-          <div className="teacher-name">{teacher.name}</div>
-          <div className="teacher-subject">Przedmiot: {subjectInfo}</div>
-          <div className="teacher-price">
-            Cena za godzinę: {teacher.price} zł
-          </div>
-        </div>
-      </div>
-
-      <div className="availability-form">
-        <h2>Dostępność Nauczyciela</h2>
-        {availabilityLoading && <p>Loading availability...</p>}
-        {availabilityError && (
-          <p>Error loading availability: {availabilityError}</p>
-        )}
-        {!availabilityLoading && !availabilityError && availability && (
-          <div>
-            {daysOfWeek.map((day, index) => (
-              <div key={index} className="day-row">
-                <p>
-                  {day}: {availability[index]?.startTime || 'Brak'} -{' '}
-                  {availability[index]?.endTime || 'Dostępność'}
-                </p>
+      <div className="teacher-details-page">
+          <div className="teacher-details-box">
+              <h1>Szczegóły Nauczyciela</h1>
+              <div className="teacher-info">
+                  <div className="teacher-details">
+                      <div className="teacher-name">{teacher.name}</div>
+                      <div className="teacher-subject">Przedmiot: {subjectInfo}</div>
+                      <div className="teacher-price">Cena za godzinę: {teacher.price} zł</div>
+                  </div>
+                  <div className="teacher-photo">
+                      {teacher.image && (
+                          <img
+                              src={URL.createObjectURL(teacher.image)}
+                              alt={`${teacher.name}`}
+                          />
+                      )}
+                  </div>
               </div>
-            ))}
+
+              <div className="availability-form">
+                  <h2>Dostępność Nauczyciela</h2>
+                  {availabilityLoading && <p>Ładowanie dostępności...</p>}
+                  {availabilityError && (
+                      <p>Błąd ładowania dostępności: {availabilityError}</p>
+                  )}
+                  {!availabilityLoading && !availabilityError && availability && (
+                      <div>
+                          {daysOfWeek.map((day, index) => (
+                              <div key={index} className="day-row">
+                                  <p>
+                                      {day}: {availability[index]?.startTime || 'Brak'} {' '}
+                                      {availability[index]?.endTime}
+                                  </p>
+                              </div>
+                          ))}
+                      </div>
+                  )}
+              </div>
+
+              <div className="lesson-form">
+                  <h2>Formularz do zapisu</h2>
+                  <div className="form-field">
+                      <label htmlFor="date">Data:</label>
+                      <AppDateInput
+                          placecholder="Data lekcji"
+                          inputValue={selectedDate}
+                          onChange={(e) => setSelectedDate(e.target.value)}
+                      />
+                  </div>
+                  <div className="form-field">
+                      <label htmlFor="time">Godzina:</label>
+                      <input
+                          type="time"
+                          value={lessonTime}
+                          onChange={(e) => setLessonTime(e.target.value)}
+                      />
+                  </div>
+                  <div className="form-field">
+                      <label htmlFor="duration">Czas trwania (minuty):</label>
+                      <input
+                          type="number"
+                          id="duration"
+                          min="10"
+                          value={duration}
+                          onChange={(e) => setDuration(parseInt(e.target.value, 10))}
+                      />
+                  </div>
+              </div>
+
+              <div className="button-container">
+                  <AppButton
+                      label="Powrót"
+                      onClick={() =>
+                          goToChooseTeacherPage(navigate, DataToSignUpToLesson.subjectInfo)
+                      }
+                  />
+                  <button onClick={handleAcceptClick} disabled={loading}>
+                      Zapisz się!
+                  </button>
+              </div>
+
+              {loading && <p>Trwa zapisywanie na lekcję...</p>}
+              {error && <p>Błąd: {error}</p>}
           </div>
-        )}
       </div>
 
-      <div className="lesson-form">
-        <h2>Formularz do zapisu</h2>
-        <div className="form-field">
-          <label htmlFor="date">Data:</label>
-          <AppDateInput
-            placecholder="Data lekcji"
-            inputValue={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="time">Godzina:</label>
-          <input
-            type="time"
-            value={lessonTime}
-            onChange={(e) => setLessonTime(e.target.value)}
-          />
-        </div>
-        <div className="form-field">
-          <label htmlFor="duration">Czas trwania (minuty):</label>
-          <input
-            type="number"
-            id="duration"
-            min="10"
-            value={duration}
-            onChange={(e) => setDuration(parseInt(e.target.value, 10))}
-          />
-        </div>
-      </div>
-
-      <div className="button-container">
-        <AppButton
-          label="Powrót"
-          onClick={() =>
-            goToChooseTeacherPage(navigate, DataToSignUpToLesson.subjectInfo)
-          }
-        />
-        <button onClick={handleAcceptClick} disabled={loading}>
-          Zapisz się!
-        </button>
-      </div>
-
-      {loading && <p>Trwa zapisywanie na lekcję...</p>}
-      {error && <p>Błąd: {error}</p>}
-    </div>
   );
 };
 

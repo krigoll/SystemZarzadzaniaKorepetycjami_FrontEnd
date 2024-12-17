@@ -95,61 +95,63 @@ const ChooseSubjectPage: React.FC = () => {
   };
 
   return (
-    <div className="choose-subject-page">
-      <h1>Wybierz przedmiot, na który chcesz się zapisać.</h1>
-
-      {loading ? (
-        <p>Ładowanie przedmiotów...</p>
-      ) : error ? (
-        <p>Wystąpił błąd: {error}</p>
-      ) : (
-        <div className="selection-container">
-          <div className="subject-selection">
-            <div className="title">Przedmiot</div>
-            {Object.keys(subjectsData).map((subject) => (
-              <button
-                key={subject}
-                className={`option-button ${selectedSubject === subject ? 'selected' : ''}`}
-                onClick={() => handleSubjectClick(subject)}
-              >
-                {subject}
-              </button>
-            ))}
+      <div className="choose-subject-page">
+          <div className="choose-subject-box">
+              <h1>Wybierz przedmiot, na który chcesz się zapisać.</h1>
+              {loading ? (
+                  <p>Ładowanie przedmiotów...</p>
+              ) : error ? (
+                  <p>Wystąpił błąd: {error}</p>
+              ) : (
+                  <div className="selection-container">
+                      <div className="subject-selection">
+                          <div className="title">Przedmiot</div>
+                          {Object.keys(subjectsData).map((subject) => (
+                              <button
+                                  key={subject}
+                                  className={`option-button ${selectedSubject === subject ? 'selected' : ''}`}
+                                  onClick={() => handleSubjectClick(subject)}
+                              >
+                                  {subject}
+                              </button>
+                          ))}
+                      </div>
+                      {selectedSubject && (
+                          <div className="category-selection">
+                              <div className="title">Kategoria</div>
+                              {getCategories().map((category) => (
+                                  <button
+                                      key={category}
+                                      className={`option-button ${selectedCategory === category ? 'selected' : ''}`}
+                                      onClick={() => handleCategoryClick(category)}
+                                  >
+                                      {category}
+                                  </button>
+                              ))}
+                          </div>
+                      )}
+                      {selectedCategory && (
+                          <div className="level-selection">
+                              <div className="title">Poziom</div>
+                              {getLevels().map((levelData) => (
+                                  <button
+                                      key={levelData.id}
+                                      className={`option-button ${selectedLevel === levelData.level ? 'selected' : ''}`}
+                                      onClick={() => handleLevelClick(selectedCategory, levelData)}
+                                  >
+                                      {selectedCategory} {levelData.level}
+                                  </button>
+                              ))}
+                          </div>
+                      )}
+                  </div>
+              )}
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+              </div>
           </div>
-          {selectedSubject && (
-            <div className="category-selection">
-              <div className="title">Kategoria</div>
-              {getCategories().map((category) => (
-                <button
-                  key={category}
-                  className={`option-button ${selectedCategory === category ? 'selected' : ''}`}
-                  onClick={() => handleCategoryClick(category)}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          )}
-          {selectedCategory && (
-            <div className="level-selection">
-              <div className="title">Poziom</div>
-              {getLevels().map((levelData) => (
-                <button
-                  key={levelData.id}
-                  className={`option-button ${selectedLevel === levelData.level ? 'selected' : ''}`}
-                  onClick={() => handleLevelClick(selectedCategory, levelData)}
-                >
-                  {selectedCategory} {levelData.level}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-      <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
       </div>
-    </div>
+
   );
 };
 

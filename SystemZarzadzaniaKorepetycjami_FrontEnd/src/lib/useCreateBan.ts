@@ -5,11 +5,11 @@ import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 
 interface BanDTO {
-	idPerson: number | null; 
-	banedName: string; 
-	startTime: string;
-	lenghtInDays: number; 
-	reason: string; 
+  idPerson: number | null;
+  banedName: string;
+  startTime: string;
+  lenghtInDays: number;
+  reason: string;
 }
 
 export const useCreateBan = () => {
@@ -25,17 +25,14 @@ export const useCreateBan = () => {
     setError(null);
     let token = jwtToken;
     try {
-      let response = await fetch(
-        `http://localhost:5230/api/ban/create`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(banDTO),
-        }
-      );
+      let response = await fetch(`http://localhost:5230/api/ban/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(banDTO),
+      });
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -54,13 +51,23 @@ export const useCreateBan = () => {
                 body: JSON.stringify(banDTO),
               }
             );
-            setResponseStatus(retryResponse.status);
+
+            if (retryResponse.ok) {
+              setResponseStatus(retryResponse.status);
+            } else {
+              const retryResponseData = await retryResponse.json();
+              throw new Error(
+                retryResponseData.message ||
+                  `Failed to ban, status: ${retryResponse.status}`
+              );
+            }
           } else {
             throw new Error('Failed to refresh token');
           }
         } else {
+          const responseData = await response.json();
           throw new Error(
-            `Failed to ban, status: ${response.status}`
+            responseData.message || `Failed to ban, status: ${response.status}`
           );
         }
       } else {
