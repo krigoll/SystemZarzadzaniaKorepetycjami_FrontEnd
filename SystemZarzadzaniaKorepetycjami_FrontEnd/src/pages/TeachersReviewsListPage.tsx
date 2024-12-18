@@ -20,64 +20,48 @@ const TeachersListPage: React.FC = () => {
   const teachers = useTeachers(email);
 
   const handleGoBack = () => {
-    navigate(-1); // Goes back to the previous page
+    navigate(-1);
   };
 
   return (
-    <div
-      className="teachers-list-page"
-      style={{ padding: '20px', textAlign: 'center' }}
-    >
-      <h1>Lista Nauczycieli</h1>
-
-      <div className="teachers-list">
-        {teachers ? (
-          teachers.teachers.length > 0 ? (
-            teachers.teachers.map((teacher: Teacher) => (
-              <div
-                key={teacher.id}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  margin: '10px 0',
-                  padding: '10px',
-                  border: '1px solid #ccc',
-                  borderRadius: '5px',
-                }}
-              >
-                <span>{teacher.name}</span>
-                <div className="teacher-photo">
-                  {teacher.image ? (
-                    <img
-                      src={URL.createObjectURL(teacher.image)}
-                      alt={`${teacher.name}`}
-                      style={{ maxWidth: '50px', maxHeight: '50px' }}
-                    />
+      <div className="teachers-list-page">
+          <div className="teachers-list-box">
+              <h1>Lista Nauczycieli</h1>
+              <div className="teachers-list">
+                  {teachers ? (
+                      teachers.teachers.length > 0 ? (
+                          teachers.teachers.map((teacher: Teacher) => (
+                              <div key={teacher.id} className="teacher-item">
+                                  <span>{teacher.name}</span>
+                                  <div className="teacher-photo">
+                                      {teacher.image ? (
+                                          <img
+                                              src={URL.createObjectURL(teacher.image)}
+                                              alt={`${teacher.name}`}
+                                          />
+                                      ) : null}
+                                  </div>
+                                  <AppButton
+                                      label="Wystaw opinię"
+                                      onClick={() =>
+                                          goToAddReviewPage(navigate, `${teacher.id} ${teacher.name}`)
+                                      }
+                                  />
+                              </div>
+                          ))
+                      ) : (
+                          <p className="no-teachers">Brak nauczycieli!</p>
+                      )
                   ) : (
-                    '[Brak Zdjęcia]'
+                      <p className="loading-teachers">Ładowanie nauczycieli...</p>
                   )}
-                </div>
-                <AppButton
-                  label="Wystaw opinię"
-                  onClick={() =>
-                    goToAddReviewPage(navigate, `${teacher.id} ${teacher.name}`)
-                  }
-                />
               </div>
-            ))
-          ) : (
-            <p>Brak nauczycieli</p>
-          )
-        ) : (
-          <p>Loading teachers...</p> // Loading message while data is being fetched
-        )}
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={handleGoBack} />
+              </div>
+          </div>
       </div>
 
-      <div style={{ marginTop: '20px' }}>
-        <AppButton label="Powrót" onClick={handleGoBack} />
-      </div>
-    </div>
   );
 };
 

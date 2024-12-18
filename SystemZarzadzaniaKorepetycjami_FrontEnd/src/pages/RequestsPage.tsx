@@ -12,6 +12,7 @@ interface Request {
   subjectLevelName: string;
   studentName: string;
   studentSurname: string;
+  durationInMinutes: number;
 }
 
 const TeacherRequestsPage: React.FC = () => {
@@ -66,6 +67,7 @@ const TeacherRequestsPage: React.FC = () => {
             <div key={r.lessonId} className="request-item">
               <div className="request-info">
                 <div className="date">{r.dateTime}</div>
+                <div>{r.durationInMinutes}</div>
                 <div className="student-name">
                   {r.studentName} {r.studentSurname}
                 </div>
