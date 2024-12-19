@@ -74,90 +74,93 @@ const ChatPage: React.FC = () => {
   };
 
   return (
-    <div className="chat-container">
-      <div className="conversations-list">
-        <h2>Conversations</h2>
-        {conversations ? (
-          <ul>
-            {conversations.map((conv: Conversation) => (
-              <li
-                key={conv.corespondentId}
-                onClick={() => handleConversationClick(conv)}
-              >
-                {conv.corespondentName}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Loading conversations...</p>
-        )}
-      </div>
-
-      <div className="search-section">
-        <input
-          type="text"
-          placeholder="Search for contacts..."
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-        {searchLoading && <p>Searching...</p>}
-        {searchError && <p>Error: {searchError}</p>}
-        {persons && (
-          <ul>
-            {persons.map((person) => (
-              <li
-                key={person.idPerson}
-                onClick={() =>
-                  handleConversationClick({
-                    userId: uId,
-                    corespondentId: person.idPerson,
-                    corespondentName: person.fullName,
-                  })
-                }
-              >
-                {person.fullName}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {selectedConversation && (
-        <div className="messages-section">
-          <h2>Messages with {selectedConversation.corespondentName}</h2>
-          {loading ? (
-            <p>Loading messages...</p>
-          ) : errorM ? (
-            <p>Error: {errorM}</p>
-          ) : messages && messages.length > 0 ? (
-            <ul className="messages-list">
-              {messages.map((msg: MessageDTO, index: number) => (
-                <li key={index}>
-                  <strong>
-                    {msg.senderId === selectedConversation.userId
-                      ? 'Ty'
-                      : selectedConversation.corespondentName}
-                  </strong>
-                  : {msg.content} <em>({msg.date})</em>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Brak wiadomości</p>
-          )}
-          <div className="message-input">
-            <input
-              type="text"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Write a message..."
-            />
-            <button onClick={handleSendMessage}>Send</button>
+      <div className="chat-container">
+          <div className="conversations-list">
+              <h2 style={{ textAlign: 'center' }}>Wiadomości</h2>
+              {conversations ? (
+                  <ul>
+                      {conversations.map((conv: Conversation) => (
+                          <li
+                              key={conv.corespondentId}
+                              onClick={() => handleConversationClick(conv)}
+                          >
+                              {conv.corespondentName}
+                          </li>
+                      ))}
+                  </ul>
+              ) : (
+                  <p>Ładowanie wiadomości...</p>
+              )}
           </div>
-        </div>
-      )}
-      <button onClick={() => goToMenu(navigate)}>Powrót</button>
-    </div>
+
+          <div className="search-section">
+              <input
+                  type="text"
+                  placeholder="Wyszkukaj osoby..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+              />
+              {searchLoading && <p>Szukanie...</p>}
+              {searchError && <p>Błąd: {searchError}</p>}
+              {persons && (
+                  <ul>
+                      {persons.map((person) => (
+                          <li
+                              key={person.idPerson}
+                              onClick={() =>
+                                  handleConversationClick({
+                                      userId: uId,
+                                      corespondentId: person.idPerson,
+                                      corespondentName: person.fullName,
+                                  })
+                              }
+                          >
+                              {person.fullName}
+                          </li>
+                      ))}
+                  </ul>
+              )}
+          </div>
+
+          {selectedConversation && (
+              <div className="messages-section">
+                  <h2>{selectedConversation.corespondentName}</h2>
+                  {loading ? (
+                      <p>Ładowanie wiadomości...</p>
+                  ) : errorM ? (
+                      <p>Error: {errorM}</p>
+                  ) : messages && messages.length > 0 ? (
+                      <ul className="messages-list">
+                          {messages.map((msg: MessageDTO, index: number) => (
+                              <li key={index}>
+                                  <strong>
+                                      {msg.senderId === selectedConversation.userId
+                                          ? 'Ty'
+                                          : selectedConversation.corespondentName}
+                                  </strong>
+                                  : {msg.content} <em>({msg.date})</em>
+                              </li>
+                          ))}
+                      </ul>
+                  ) : (
+                      <p>Brak wiadomości</p>
+                  )}
+                  <div className="message-input">
+                      <input
+                          type="text"
+                          value={newMessage}
+                          onChange={(e) => setNewMessage(e.target.value)}
+                          placeholder="Napisz wiadomość..."
+                      />
+                      <button onClick={handleSendMessage}>Wyślij</button>
+                  </div>
+              </div>
+          )}
+          <button className="back-button" onClick={() => goToMenu(navigate)}>
+              Powrót
+          </button>
+      </div>
+
   );
 };
 

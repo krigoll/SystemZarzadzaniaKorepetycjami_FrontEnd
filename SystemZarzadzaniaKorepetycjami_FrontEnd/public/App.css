@@ -1527,3 +1527,393 @@ input[type="range"] {
         background-color: #ccc;
         cursor: not-allowed;
     }
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+    gap: 20px;
+}
+
+.conversations-list,
+.search-section,
+.messages-section {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
+}
+
+    .conversations-list h2,
+    .search-section h2,
+    .messages-section h2 {
+        font-size: 1.8rem;
+        color: #00264d;
+        margin-bottom: 15px;
+    }
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+    li:hover {
+        background-color: #e6f7ff;
+        transform: translateX(5px);
+    }
+
+.messages-list li {
+    margin-bottom: 10px;
+}
+
+    .messages-list li strong {
+        color: #00264d;
+    }
+
+    .messages-list li em {
+        font-size: 0.8rem;
+        color: #888;
+    }
+
+.message-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+    .message-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+        .message-input input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+
+    .message-input button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+        .message-input button:hover {
+            background-color: #357abd;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+        }
+
+button.back-button {
+    background-color: white;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+
+    button.back-button:hover {
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+@media (max-width: 768px) {
+    .chat-container {
+        gap: 10px;
+    }
+
+    .conversations-list,
+    .search-section,
+    .messages-section {
+        width: 100%;
+    }
+
+    .message-input {
+        flex-direction: column;
+    }
+
+        .message-input button {
+            width: 100%;
+        }
+}
+
+.ticket-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+}
+
+.ticket-form-box {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+    .ticket-form-box h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .ticket-form-box label {
+        display: block;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #4a4a4a;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+
+    .ticket-form-box input,
+    .ticket-form-box textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+        .ticket-form-box input:focus,
+        .ticket-form-box textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+
+.ticket-form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+    .ticket-form-actions button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        width: 150px;
+    }
+
+        .ticket-form-actions button:hover {
+            background-color: #357abd;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+        }
+
+        .ticket-form-actions button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+    .ticket-form-actions .back-button {
+        background-color: white;
+        color: #4a90e2;
+        border: 2px solid #4a90e2;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+        .ticket-form-actions .back-button:hover {
+            background-color: #4a90e2;
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+.error-message {
+    color: red;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.teacher-requests-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+    gap: 20px;
+}
+
+    .teacher-requests-page h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+.requests-list {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.request-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    gap: 20px;
+}
+
+.request-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 2;
+    text-align: left;
+}
+
+    .request-info .date {
+        font-size: 1rem;
+        color: #888;
+    }
+
+    .request-info .student-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #00264d;
+    }
+
+    .request-info .subject {
+        font-size: 1rem;
+        color: #4a4a4a;
+    }
+
+.request-actions {
+    display: flex;
+    flex-direction: column; /* Przyciski jeden pod drugim */
+    align-items: center; /* Wyœrodkowanie */
+    gap: 10px; /* Odstêp miêdzy przyciskami */
+}
+
+    .request-actions button {
+        background-color: #4a90e2;
+        color: white;
+        border: 2px solid #4a90e2;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        min-width: 150px; /* Spójna szerokoœæ */
+    }
+
+/*        .request-actions button:hover {
+            background-color: #4a90e2;
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .request-actions button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }*/
+
+
+
+
+.no-requests {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    text-align: center;
+}
+
+.button-container-bottom {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+    .button-container-bottom .back-button {
+        background-color: #4a90e2;
+        color: white;
+        border: 2px solid #4a90e2;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        width: 150px;
+    }
+
+/*        .button-container-bottom .back-button:hover {
+            background-color: #4a90e2;
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }*/
+
+@media (max-width: 768px) {
+    .request-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .request-actions {
+        align-items: center;
+        width: 100%;
+    }
+
+        .request-actions .app-button {
+            width: 100%;
+        }
+
+    .button-container-bottom .back-button {
+        width: 100%;
+    }
+}
+
