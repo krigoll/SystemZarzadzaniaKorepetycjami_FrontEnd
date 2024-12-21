@@ -124,6 +124,10 @@ function goToUserDetailsPage(navigate: NavigateFunction, idPerson: number) {
   navigate(`/admin/userList/${idPerson}`);
 }
 
+function goToTestsPage(navigate: NavigateFunction) {
+  navigate(`/teacher/tests`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -154,4 +158,5 @@ export {
   goToReportListPage,
   goToReportDetailsPage,
   goToUserDetailsPage,
+  goToTestsPage,
 };
