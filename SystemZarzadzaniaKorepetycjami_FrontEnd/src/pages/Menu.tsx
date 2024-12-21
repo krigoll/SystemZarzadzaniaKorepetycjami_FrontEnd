@@ -19,6 +19,7 @@ import {
   goToReportListPage,
   goToSubjectListPage,
   goToUserListPage,
+  goToTestsPage,
 } from '../lib/Navigate';
 import { useHandleLogOut } from '../lib/LogOut';
 
@@ -115,7 +116,7 @@ const App: React.FC = () => {
                     <div>
                       <AppButton
                         label="Moje testy"
-                        onClick={() => goToDeterminingAvailabilty(navigate)}
+                        onClick={() => goToTestsPage(navigate)}
                       />
                       <AppButton
                         label="Wysłane testy"
