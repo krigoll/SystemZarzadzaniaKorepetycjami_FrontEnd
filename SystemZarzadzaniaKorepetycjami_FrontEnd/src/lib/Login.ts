@@ -12,6 +12,9 @@ async function handleLogin({ email, password }: LoginProps) {
             if (response.status === 401) {
                 alert('Błędny login lub hasło');
                 return;
+            } else if (response.status === 403) {
+                alert('Użytkownik został zablokowany');
+                return;
             } else {
                 alert('Bazy danych'); // TODO: dodać przejscie do stony, kod 500
                 return;

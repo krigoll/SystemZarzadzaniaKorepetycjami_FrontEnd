@@ -44,7 +44,7 @@ const ReportDetailsPage: React.FC = () => {
 
   return (
     <div className="lesson-details-container">
-      <h2>Szczeguy zgłoszenia</h2>
+      <h2>Szczeguły zgłoszenia</h2>
 
       {reportData ? (
         <div className="lesson-details">

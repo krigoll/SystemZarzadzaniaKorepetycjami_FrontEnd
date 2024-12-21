@@ -12,6 +12,7 @@ interface Request {
   subjectLevelName: string;
   studentName: string;
   studentSurname: string;
+  durationInMinutes: number;
 }
 
 const TeacherRequestsPage: React.FC = () => {
@@ -55,41 +56,40 @@ const TeacherRequestsPage: React.FC = () => {
   };
 
   return (
-    <div className="teacher-requests-page">
-      <h1>Lista Zgłoszeń</h1>
-      <div className="button-container-top">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+      <div className="teacher-requests-page">
+          <h1>Lista Zgłoszeń</h1>
+          <div className="requests-list">
+              {requests.length > 0 ? (
+                  requests.map((r: Request) => (
+                      <div key={r.lessonId} className="request-item">
+                          <div className="request-info">
+                              <div className="date">{r.dateTime}</div>
+                              <div>{r.durationInMinutes} minut</div>
+                              <div className="student-name">
+                                  {r.studentName} {r.studentSurname}
+                              </div>
+                              <div className="subject">
+                                  {r.subjectCategoryName} {r.subjectLevelName}
+                              </div>
+                          </div>
+                          <div className="request-actions">
+                                  <button onClick={() => handleAccept(r.lessonId)}>Akceptuj</button>
+                                  <button onClick={() => handleReject(r.lessonId)}>Odrzuć</button>
+                          </div>
+                      </div>
+                  ))
+              ) : (
+                  <p className="no-requests">Nie znaleziono zgłoszeń.</p>
+              )}
+          </div>
+          <div className="button-container-bottom">
+              <button className="back-button" onClick={() => goToMenu(navigate)}>
+                  Powrót
+              </button>
+          </div>
       </div>
-      <div className="requests-list">
-        {requests.length > 0 ? (
-          requests.map((r: Request) => (
-            <div key={r.lessonId} className="request-item">
-              <div className="request-info">
-                <div className="date">{r.dateTime}</div>
-                <div className="student-name">
-                  {r.studentName} {r.studentSurname}
-                </div>
-                <div className="subject">
-                  {r.subjectCategoryName} {r.subjectLevelName}
-                </div>
-              </div>
-              <div className="request-actions">
-                <AppButton
-                  label="Akceptuj"
-                  onClick={() => handleAccept(r.lessonId)}
-                />
-                <AppButton
-                  label="Odrzuć"
-                  onClick={() => handleReject(r.lessonId)}
-                />
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>Nie znaleziono zgłoszeń.</p>
-        )}
-      </div>
-    </div>
+
+
   );
 };
 

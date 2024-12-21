@@ -56,14 +56,11 @@ const UserDetailsPage: React.FC = () => {
       reason: reason,
     };
 
-    // Wykonaj banowanie u¿ytkownika
     await createBan(banDTO);
 
-    // Jeœli odpowiedŸ z serwera by³a pomyœlna, zaktualizuj dane u¿ytkownika
     if (!createError) {
       alert('U?ytkownik zosta? zablokowany!');
-      // Rêczna aktualizacja danych u¿ytkownika, jeœli refetch() nie dzia³a
-      refetch(); // Zak³adaj¹c, ¿e masz odpowiedni¹ funkcjê do rêcznej aktualizacji
+      refetch();
     } else {
       alert('B³¹d podczas blokowania u¿ytkownika.');
     }
@@ -143,10 +140,8 @@ const UserDetailsPage: React.FC = () => {
                 onChange={(e) => setDuration(parseInt(e.target.value, 10))}
               />
             </div>
-            <button onClick={handleBanUser} disabled={creating}>
-              {creating ? 'Blokowanie...' : 'Potwierdz zablokowanie'}
-            </button>
-            {createError && <p style={{ color: 'red' }}>B??d: {createError}</p>}
+            <AppButton label={creating ? 'Blokowanie...' : 'Potwierdz zablokowanie'} onClick={handleBanUser} disabled={creating}/>
+                      {createError && <p style={{ color: 'red' }}>B³¹d: {createError}</p>}
           </div>
         )}
         <AppButton label="Powr?t" onClick={() => goToUserListPage(navigate)} />
