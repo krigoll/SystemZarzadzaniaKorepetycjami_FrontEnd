@@ -14,38 +14,39 @@ const TeacherOpinionPage: React.FC = () => {
   };
 
   return (
-    <div className="teacher-reviews-page">
-      <h1>Opinie o Tobie</h1>
-
-      {error ? (
-        <p>Błąd podczas ładowania opinii.</p>
-      ) : loading ? (
-        <p>Ładowanie...</p>
-      ) : (
-        <>
-          <button onClick={handleGoBack}>Powrót</button>
-
-          <div className="reviews-list">
-            {reviews && reviews.length > 0 ? (
-              <>
-                {reviews?.map((review) => (
-                  <div key={review.idPerson}>
-                    <p>
-                      <strong>Ocena:</strong> {review.rating}/5
-                    </p>
-                    <p>{review.content}</p>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <div>
-                <p>Brak opinji</p>
-              </div>
-            )}
+      <div className="teacher-reviews-page">
+          <div className="reviews-wrapper">
+              <h1>Opinie o Tobie</h1>
+              {error ? (
+                  <p>Błąd podczas ładowania opinii.</p>
+              ) : loading ? (
+                  <p>Ładowanie...</p>
+              ) : (
+                  <>
+                      <div className="reviews-list">
+                          {reviews && reviews.length > 0 ? (
+                              reviews.map((review) => (
+                                  <div key={review.idPerson} className="review-item">
+                                      <p>
+                                          <strong>Ocena:</strong> {review.rating}/5
+                                      </p>
+                                      <p>{review.content}</p>
+                                  </div>
+                              ))
+                          ) : (
+                              <div>
+                                  <p>Brak opinii</p>
+                              </div>
+                          )}
+                              </div>
+                              <div className="button-container">
+                                  <button onClick={handleGoBack}>Powrót</button>
+                              </div>
+                  </>
+              )}
           </div>
-        </>
-      )}
-    </div>
+      </div>
+
   );
 };
 

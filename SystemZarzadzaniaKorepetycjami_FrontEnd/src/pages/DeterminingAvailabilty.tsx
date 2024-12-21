@@ -90,34 +90,34 @@ const AvailabilityPage: React.FC = () => {
   }
 
   return (
-    <div className="availability-page">
-      <h1>Określenie dostępności</h1>
-      <div className="availability-form">
-        {daysOfWeek.map((day, index) => (
-          <div key={index} className="day-row">
-            <span className="day-label">{day}</span>
-            <input
-              type="time"
-              value={availability[index].startTime}
-              onChange={(e) =>
-                handleInputChange(index, 'startTime', e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={availability[index].endTime}
-              onChange={(e) =>
-                handleInputChange(index, 'endTime', e.target.value)
-              }
-            />
+      <div className="availability-page">
+          <div className="availability-wrapper">
+              <h1>Określenie dostępności</h1>
+              <div className="availability-form">
+                  {daysOfWeek.map((day, index) => (
+                      <div key={index} className="day-row">
+                          <span className="day-label">{day}</span>
+                          <input
+                              type="time"
+                              value={availability[index].startTime}
+                              onChange={(e) => handleInputChange(index, 'startTime', e.target.value)}
+                          />
+                          <input
+                              type="time"
+                              value={availability[index].endTime}
+                              onChange={(e) => handleInputChange(index, 'endTime', e.target.value)}
+                          />
+                      </div>
+                  ))}
+              </div>
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+                  <AppButton label="Akceptuj" onClick={handleSubmit} />
+              </div>
           </div>
-        ))}
       </div>
-      <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-        <AppButton label="Akceptuj" onClick={handleSubmit} />
-      </div>
-    </div>
+
+
   );
 };
 
