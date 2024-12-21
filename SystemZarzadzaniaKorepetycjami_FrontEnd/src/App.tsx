@@ -34,6 +34,7 @@ import ReportListPage from './pages/ReportListPage';
 import ReportDetailsPage from './pages/ReportDetailsPafe';
 import UserDetailsPage from './pages/UserDetailsPage';
 import TestsPage from './pages/TestsPage';
+import TestDetailsPage from './pages/TestDetailsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ function App() {
         <Route path="/report" element={<ReportListPage />} />
         <Route path="/report/:reportId" element={<ReportDetailsPage />} />
         <Route path="/teacher/tests" element={<TestsPage />} />
+        <Route path="/teacher/tests/:idTest" element={<TestDetailsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

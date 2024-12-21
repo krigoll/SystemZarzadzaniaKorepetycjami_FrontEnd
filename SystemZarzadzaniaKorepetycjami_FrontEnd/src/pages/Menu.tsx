@@ -116,11 +116,7 @@ const App: React.FC = () => {
                     <div>
                       <AppButton
                         label="Moje testy"
-<<<<<<< HEAD
                         onClick={() => goToTestsPage(navigate)}
-=======
-                        onClick={() => goToDeterminingAvailabilty(navigate)}
->>>>>>> ac75f7098f30360d5141da18b20c0eb84cb57f65
                       />
                       <AppButton
                         label="Wysłane testy"

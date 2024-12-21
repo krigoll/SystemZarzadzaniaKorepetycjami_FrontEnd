@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { goToMenu, goToUserDetailsPage } from '../lib/Navigate';
+import { goToMenu, goToTestsDetailsPage } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useGetTests } from '../lib/useGetTests';
@@ -13,7 +13,7 @@ interface Test {
   numberOfAssignments: number;
 }
 
-const UserListPage: React.FC = () => {
+const TestsPage: React.FC = () => {
   const navigate = useNavigate();
   const uId = useSelector((state: RootState) => state.login.idPerson);
   const { tests, loading, error, refetch } = useGetTests(uId);
@@ -84,7 +84,7 @@ const UserListPage: React.FC = () => {
               <div className="user-actions">
                 <AppButton
                   label="Szczegóły"
-                  onClick={() => goToUserDetailsPage(navigate, test.idTest)}
+                  onClick={() => goToTestsDetailsPage(navigate, test.idTest)}
                 />
               </div>
             </div>
@@ -95,4 +95,4 @@ const UserListPage: React.FC = () => {
   );
 };
 
-export default UserListPage;
+export default TestsPage;
