@@ -43,44 +43,44 @@ const ReportDetailsPage: React.FC = () => {
   };
 
   return (
-    <div className="lesson-details-container">
-      <h2>Szczeguły zgłoszenia</h2>
+      <div className="report-details-page">
+          <div className="report-details-wrapper">
+              <h2 className="report-details-header">Szczegóły zgłoszenia</h2>
 
-      {reportData ? (
-        <div className="lesson-details">
-          <p>
-            <strong>Tytuł:</strong> {reportData.title}
-          </p>
-          <p>
-            <strong>Data:</strong> {reportData.dateTime}
-          </p>
-          <p>
-            <strong>Treść:</strong> {reportData.content}
-          </p>
-          <p>
-            <strong>Rozpatrzono: </strong> {reportData.isDealt ? 'Tak' : 'Nie'}
-          </p>
-        </div>
-      ) : (
-        <p>Ładowanie szczegłów zgłoszenia...</p>
-      )}
+              {reportData ? (
+                  <div className="report-details-content">
+                      <p>
+                          <strong>Tytuł:</strong> {reportData.title}
+                      </p>
+                      <p>
+                          <strong>Data:</strong> {reportData.dateTime}
+                      </p>
+                      <p>
+                          <strong>Treść:</strong> {reportData.content}
+                      </p>
+                      <p>
+                          <strong>Rozpatrzono:</strong> {reportData.isDealt ? 'Tak' : 'Nie'}
+                      </p>
+                  </div>
+              ) : (
+                  <p>Ładowanie szczegółów zgłoszenia...</p>
+              )}
 
-      <div className="button-container">
-        <button onClick={() => handleUpdateReport(true)} disabled={loading}>
-          Rozpatrzone
-        </button>
+              <div className="report-details-button-container">
+                  <button onClick={() => handleUpdateReport(true)} disabled={loading}>
+                      Rozpatrzone
+                  </button>
+                  <button onClick={() => handleUpdateReport(false)} disabled={loading}>
+                      Nierozpatrzone
+                  </button>
+              </div>
 
-        <button onClick={() => handleUpdateReport(false)} disabled={loading}>
-          Nie rozpatrzone
-        </button>
+              <div className="report-details-button-container">
+                  <AppButton label="Powrót" onClick={() => goToReportListPage(navigate)} />
+              </div>
+          </div>
       </div>
-      <div className="button-container">
-        <AppButton
-          label="Powrót"
-          onClick={() => goToReportListPage(navigate)}
-        />
-      </div>
-    </div>
+
   );
 };
 
