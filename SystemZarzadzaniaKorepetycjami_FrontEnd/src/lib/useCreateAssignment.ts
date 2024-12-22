@@ -26,7 +26,7 @@ export const useCreateAssignment = (idTest: number | null) => {
       let response = await fetch(
         `http://localhost:5230/api/test/${idTest}/addAssignment`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const useCreateAssignment = (idTest: number | null) => {
             const retryResponse = await fetch(
               `http://localhost:5230/api/test/${idTest}/addAssignment`,
               {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
                   Authorization: `Bearer ${token}`,
