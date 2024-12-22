@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate, useParams } from 'react-router-dom';
-import { goToTestsPage } from '../lib/Navigate';
+import { goToGiveTestToStudentPage, goToTestsPage } from '../lib/Navigate';
 import { useCreateAssignment } from '../lib/useCreateAssignment';
 import { useTestDetails } from '../lib/useTestDetails';
+import { useDeleteAssignment } from '../lib/useDeleteAssignment';
+import { useDeleteTest } from '../lib/useDeleteTest';
 
 interface Assignment {
   idAssignment: number;
@@ -14,8 +16,9 @@ interface Assignment {
 const TestDetailsPage: React.FC = () => {
   const navigate = useNavigate();
   const [createAssignmento, setCreateAssignment] = useState<boolean>(false);
-  const [content, setContent] = useState<string>('');
-  const [answer, setAnswer] = useState<string>('');
+  const [deleteTesto, setDeleteTest] = useState<boolean>(false);
+  const [content, setContent] = useState<string>(' ');
+  const [answer, setAnswer] = useState<string>(' ');
 
   const { idTest } = useParams<{ idTest: string }>();
   const numericTestId = idTest ? parseInt(idTest) : null;
@@ -26,6 +29,18 @@ const TestDetailsPage: React.FC = () => {
     loading: creating,
     error: createError,
   } = useCreateAssignment(numericTestId);
+
+  const {
+    deleteAssignment,
+    loading: deleting,
+    error: deleteError,
+  } = useDeleteAssignment();
+
+  const {
+    deleteTest,
+    loading: deletingTest,
+    error: deleteErrorTest,
+  } = useDeleteTest();
 
   const handleCreateAssignment = async () => {
     if (content.length < 3 || content.length > 500) {
@@ -47,15 +62,32 @@ const TestDetailsPage: React.FC = () => {
     await createAssignment(assignment);
 
     if (!createError) {
-      alert('Test został stworzony');
+      alert('Zadanie zostało stworzone');
+      setContent(' ');
+      setAnswer(' ');
+      setCreateAssignment(false);
       refetch();
     } else {
-      alert('Błąd podczas tworzenia testu.');
+      alert('Błąd podczas tworzenia zadania.');
     }
   };
 
-  const handleDeleteAssignment = (idAssignment: number) => {
-    alert(`usuwamy ${idAssignment}`);
+  const handleDeleteAssignment = async (idAssignment: number) => {
+    const status = await deleteAssignment(numericTestId, idAssignment);
+
+    if (status == 200) {
+      alert('Zadanie zostało usunięte!');
+      refetch();
+    }
+  };
+
+  const handleDeleteTest = async () => {
+    const status = await deleteTest(numericTestId);
+
+    if (status == 200) {
+      alert('Test został usunięty!');
+      goToTestsPage(navigate);
+    }
   };
 
   return (
@@ -66,9 +98,32 @@ const TestDetailsPage: React.FC = () => {
           <p>Tytuł: {testData.title}</p>
           <AppButton label="Powrót" onClick={() => goToTestsPage(navigate)} />
           <AppButton
+            label="Usuń test"
+            onClick={() => setDeleteTest(!deleteTesto)}
+          />
+          <AppButton
             label="Dodaj nowe zadanie"
             onClick={() => setCreateAssignment(!createAssignmento)}
+            disabled={deleting}
           />
+          {!(testData.assignments.length === 0) && (
+            <AppButton
+              label="Zadaj test uczniowi"
+              onClick={() => goToGiveTestToStudentPage(navigate, numericTestId)}
+            />
+          )}
+          {deleteError && <p>Błąd podczas usuwania {deleteError}</p>}
+          {deleteTesto && (
+            <div>
+              Czy na pewcho chcesz usunąc ten test?
+              <AppButton
+                label="Tak"
+                onClick={handleDeleteTest}
+                disabled={deletingTest}
+              />
+            </div>
+          )}
+          {deleteErrorTest && <p>Błąd podczas usuwania {deleteErrorTest}</p>}
           {createAssignmento && (
             <div className="form-field">
               <label htmlFor="text">Treść zadania:</label>
@@ -98,7 +153,12 @@ const TestDetailsPage: React.FC = () => {
                   <div className="user-info">
                     <div className="user-name">
                       <p>Treść: {assignment.content}</p>
-                      <p>Odpowiedz (opcjonalne): {assignment.answer}</p>
+                      <p>
+                        Odpowiedz (opcjonalne):{' '}
+                        {assignment.answer.trim().length > 0
+                          ? assignment.answer
+                          : 'Brak'}
+                      </p>
                     </div>
                   </div>
                   <div className="user-actions">

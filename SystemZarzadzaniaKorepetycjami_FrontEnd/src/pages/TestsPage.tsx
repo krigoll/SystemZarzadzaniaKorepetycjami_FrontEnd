@@ -78,7 +78,7 @@ const TestsPage: React.FC = () => {
               <div className="user-info">
                 <div className="user-name">
                   <p>Tytuł: {test.title}</p>
-                  <p>Ilość zadań: {test.numberOfAssignments - 1}</p>
+                  <p>Ilość zadań: {test.numberOfAssignments}</p>
                 </div>
               </div>
               <div className="user-actions">
