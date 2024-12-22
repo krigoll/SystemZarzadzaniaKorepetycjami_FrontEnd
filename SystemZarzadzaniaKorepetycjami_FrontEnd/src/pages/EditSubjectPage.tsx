@@ -89,44 +89,53 @@ const AddSubjectsPage: React.FC = () => {
   }
 
   return (
-    <div className="subjects-container">
-      <h1>Dodaj Przedmioty i Koszty</h1>
-      {subjectsList.length === 0 ? (
-        <p>Brak dostępnych przedmiotów</p>
-      ) : (
-        subjectsList.map((subjectDTO) => (
-          <div key={subjectDTO.subjectLevelId} className="subject-item">
-            <label>
-              <input
-                type="checkbox"
-                checked={!!selectedSubjects[subjectDTO.subjectLevelId]}
-                onChange={(e) =>
-                  handleSubjectChange(
-                    subjectDTO.subjectLevelId,
-                    e.target.checked
-                  )
-                }
-              />
-              {subjectDTO.subjectFullName}
-            </label>
-            {selectedSubjects[subjectDTO.subjectLevelId] !== undefined && (
-              <input
-                type="text"
-                placeholder="Koszt"
-                value={selectedSubjects[subjectDTO.subjectLevelId] || ''}
-                onChange={(e) =>
-                  handleCostChange(subjectDTO.subjectLevelId, e.target.value)
-                }
-              />
-            )}
+      <div className="add-subjects-container">
+          <div className="add-subjects-wrapper">
+              <h1>Dodaj Przedmioty i Koszty</h1>
+              <div className="add-subjects-list">
+                  {subjectsList.length === 0 ? (
+                      <p className="add-subjects-message">Brak dostępnych przedmiotów</p>
+                  ) : (
+                      subjectsList.map((subjectDTO) => (
+                          <div key={subjectDTO.subjectLevelId} className="add-subject-item">
+                              <label>
+                                  <input
+                                      type="checkbox"
+                                      checked={!!selectedSubjects[subjectDTO.subjectLevelId]}
+                                      onChange={(e) =>
+                                          handleSubjectChange(
+                                              subjectDTO.subjectLevelId,
+                                              e.target.checked
+                                          )
+                                      }
+                                  />
+                                  
+                              </label>
+                              {subjectDTO.subjectFullName}
+                              {selectedSubjects[subjectDTO.subjectLevelId] !== undefined && (
+                                  <input
+                                      type="text"
+                                      placeholder="Koszt"
+                                      value={selectedSubjects[subjectDTO.subjectLevelId] || ''}
+                                      onChange={(e) =>
+                                          handleCostChange(subjectDTO.subjectLevelId, e.target.value)
+                                      }
+                                  />
+                              )}
+                          </div>
+                      ))
+                  )}
+              </div>
+              <div className="add-subjects-button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+                  <button onClick={handleSubmit}>Akceptuj</button>
+              </div>
           </div>
-        ))
-      )}
-      <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-        <button onClick={handleSubmit}>Akceptuj</button>
       </div>
-    </div>
+
+
+
+
   );
 };
 

@@ -1917,3 +1917,266 @@ button.back-button {
     }
 }
 
+.add-subject-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #f9f9f9; /* Jasne t³o podobne do day-column */
+    border: 1px solid #ddd; /* Subtelne obramowanie */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Dopasowanie paddingu do day-column */
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 600px;
+    transition: box-shadow 0.3s; /* Animacja cienia */
+}
+
+    .add-subject-item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Wzmocnienie cienia przy hover */
+    }
+
+.add-subject-name {
+    font-size: 1rem;
+    color: #4a4a4a;
+    flex: 1;
+    text-align: left;
+}
+
+.add-subject-item input[type="checkbox"] {
+    margin: 0;
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.add-subject-item input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 120px;
+    text-align: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+    .add-subject-item input[type="text"]:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+
+
+
+
+
+
+.add-subjects-message {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.add-subjects-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+    .add-subjects-button-container button,
+    .add-subjects-button-container .app-button {
+        background-color: #4a90e2; /* Sta³y niebieski kolor */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 150px; /* Ustalona szerokoœæ */
+ /* Ustalona wysokoœæ */
+        transition: none; /* Brak efektów zmiany koloru */
+    }
+
+        .add-subjects-button-container button:disabled,
+        .add-subjects-button-container .app-button:disabled {
+            background-color: #ccc; /* Szary kolor dla wy³¹czonych przycisków */
+            cursor: not-allowed;
+        }
+
+
+.add-subjects-wrapper {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    margin: 20px auto; /* Wyœrodkowanie boxa */
+    text-align: center;
+}
+
+.add-subjects-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Wyœrodkowanie elementów w poziomie */
+    gap: 20px; /* Odstêp miêdzy elementami */
+    width: 100%;
+}
+
+.availability-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+}
+
+.availability-wrapper {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+    .availability-wrapper h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+.availability-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Odstêp miêdzy dniami */
+    width: 100%;
+}
+
+.day-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+    .day-row:last-child {
+        border-bottom: none;
+    }
+
+.day-label {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    flex: 1;
+    text-align: left;
+}
+
+.day-row input[type="time"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    flex-shrink: 0;
+    width: 130px;
+    box-sizing: border-box;
+}
+
+    .day-row input[type="time"]:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+
+.teacher-reviews-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+}
+
+.reviews-wrapper {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+    .reviews-wrapper h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Odstêp miêdzy opiniami */
+    margin-top: 20px;
+}
+
+.review-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: box-shadow 0.3s;
+}
+
+    .review-item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .review-item p {
+        margin: 5px 0;
+        color: #4a4a4a;
+    }
+
+/*.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+    .button-container button {
+        background-color: white;
+        color: #4a90e2;
+        border: 2px solid #4a90e2;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        width: 150px;
+        height: 50px;
+    }
+
+        .button-container button:hover {
+            background-color: #4a90e2;
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }*/
+
+p {
+    font-size: 1rem;
+    color: #4a4a4a;
+}
+
+
