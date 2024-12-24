@@ -66,7 +66,7 @@ const ReportDetailsPage: React.FC = () => {
                   <p>Ładowanie szczegółów zgłoszenia...</p>
               )}
 
-              <div className="report-details-button-container">
+              <div className="button-container">
                   <button onClick={() => handleUpdateReport(true)} disabled={loading}>
                       Rozpatrzone
                   </button>
@@ -75,7 +75,7 @@ const ReportDetailsPage: React.FC = () => {
                   </button>
               </div>
 
-              <div className="report-details-button-container">
+              <div className="button-container">
                   <AppButton label="Powrót" onClick={() => goToReportListPage(navigate)} />
               </div>
           </div>

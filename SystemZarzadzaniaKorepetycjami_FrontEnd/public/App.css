@@ -2603,7 +2603,7 @@ p {
 }
 
 .report-details-content {
-    text-align: left;
+    text-align: center; /* Wyœrodkowanie tekstu */
     color: #4a4a4a;
     line-height: 1.5;
     margin-bottom: 20px;
@@ -2618,6 +2618,7 @@ p {
             font-weight: bold;
             color: #00264d;
         }
+
 
 .report-details-button-container {
     display: flex;
@@ -2645,4 +2646,172 @@ p {
             color: white;
             box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
         }
+
+.subject-management-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+}
+
+.subject-management-box {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    text-align: center;
+    width: 50%;
+}
+
+    .subject-management-box h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+.subject-management-container {
+    display: flex;
+    flex-direction: column; /* Zmieniono na kolumnê */
+    gap: 30px; /* Odstêp miêdzy sekcjami */
+    justify-content: flex-start; /* Dopasowanie do góry */
+    align-items: center; /* Wyrównanie na œrodku */
+    margin-top: 20px;
+    width: 100%;
+}
+
+.subject-management-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Wyœrodkowanie */
+    width: 100%; /* Rozci¹gniêcie do szerokoœci kontenera */
+    max-width: 600px; /* Maksymalna szerokoœæ */
+}
+
+
+.subject-management-title {
+    font-size: 1.4rem;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.subject-management-button{
+    background-color: white;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    text-align: center;
+    width: 50%;
+}
+
+.subject-management-add-button {
+    background-color: red;
+    color: white;
+    border: 2px solid red;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    text-align: center;
+    width: 40%;
+}
+
+    .subject-management-button:hover{
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .subject-management-add-button:hover {
+        background-color: red;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .subject-management-button.selected {
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.5);
+    }
+
+.subject-management-input-container {
+    margin-top: 15px;
+}
+
+    .subject-management-input-container input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+.subject-management-back-button {
+    margin-top: 30px;
+    background-color: white;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+    .subject-management-back-button:hover {
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .subject-management-center-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.subject-management-center-actions input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.subject-management-center-actions button {
+    background-color: white;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.subject-management-center-actions button:hover {
+    background-color: #4a90e2;
+    color: white;
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
 

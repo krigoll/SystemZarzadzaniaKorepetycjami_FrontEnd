@@ -225,177 +225,204 @@ const SubjectListPage: React.FC = () => {
   };
 
   return (
-    <div className="choose-subject-page">
-      <h1>Lista przedmiotów.</h1>
+      <div className="subject-management-page">
+          <div className="subject-management-box">
+              <h1>Lista przedmiotów.</h1>
 
-      {loading ? (
-        <p>Ładowanie przedmiotów...</p>
-      ) : error ? (
-        <p>Wystąpił błąd: {error}</p>
-      ) : (
-        <div className="selection-container">
-          <div className="subject-selection">
-            <div className="title">Przedmiot</div>
-            {Object.keys(subjectsData).map((subject) => (
-              <button
-                key={subject}
-                className={`option-button ${selectedSubject === subject ? 'selected' : ''}`}
-                onClick={() => handleSubjectClick(subject)}
-              >
-                {subject}
-              </button>
-            ))}
-            <button className="add-button" onClick={() => setAddSubject(true)}>
-              Dodaj nowy
-            </button>
+              {loading ? (
+                  <p>Ładowanie przedmiotów...</p>
+              ) : error ? (
+                  <p>Wystąpił błąd: {error}</p>
+              ) : (
+                  <div className="subject-management-container">
+                      <div className="subject-management-column">
+                          <div className="subject-management-title">Przedmiot</div>
+                          {Object.keys(subjectsData).map((subject) => (
+                              <button
+                                  key={subject}
+                                  className={`subject-management-button ${selectedSubject === subject ? 'selected' : ''
+                                      }`}
+                                  onClick={() => handleSubjectClick(subject)}
+                              >
+                                  {subject}
+                              </button>
+                          ))}
+                          <button
+                              className="subject-management-add-button"
+                              onClick={() => setAddSubject((prev) => !prev)} // Przełączanie stanu
+                          >
+                              Dodaj nowy
+                          </button>
+                      </div>
+
+                      {selectedSubject && (
+                          <div className="subject-management-column">
+                              <div className="subject-management-title">Kategoria</div>
+                              {getCategories()
+                                  .filter((category) => category !== 'Brak Kategorii')
+                                  .map((category) => (
+                                      <button
+                                          key={category}
+                                          className={`subject-management-button ${selectedCategory === category ? 'selected' : ''
+                                              }`}
+                                          onClick={() => handleCategoryClick(category)}
+                                      >
+                                          {category}
+                                      </button>
+                                  ))}
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => setAddCategory((prev) => !prev)} // Przełączanie stanu
+                              >
+                                  Dodaj nową kategorię
+                              </button>
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => setDeleteSubject((prev) => !prev)} // Przełączanie stanu
+                              >
+                                  Usuń przedmiot
+                              </button>
+                          </div>
+                      )}
+
+                      {selectedCategory && (
+                          <div className="subject-management-column">
+                              <div className="subject-management-title">Poziom</div>
+                              {getLevels()
+                                  .filter((levelData) => levelData.level !== 'Brak Poziomu')
+                                  .map((levelData) => (
+                                      <button
+                                          key={levelData.id}
+                                          className={`subject-management-button ${selectedLevel === levelData.level ? 'selected' : ''
+                                              }`}
+                                          onClick={() => handleLevelClick(levelData)}
+                                      >
+                                          {levelData.level}
+                                      </button>
+                                  ))}
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => setAddLevel((prev) => !prev)} // Przełączanie stanu
+                              >
+                                  Dodaj nowy poziom
+                              </button>
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => setDeleteCategory((prev) => !prev)} // Przełączanie stanu
+                              >
+                                  Usuń kategorię
+                              </button>
+                          </div>
+                      )}
+
+                      {addSubject && (
+                          <div className="subject-management-column">
+                              <p>Dodaj przedmiot</p>
+                              <input
+                                  type="text"
+                                  value={subjectName}
+                                  onChange={(e) => setSubjectName(e.target.value)}
+                                  placeholder="Nazwa przedmiotu"
+                              />
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => handleAddNewSubject()}
+                              >
+                                  Akceptuj
+                              </button>
+                          </div>
+                      )}
+
+                      {deleteSingleSubject && (
+                          <div className="subject-management-column">
+                              <p>Usuń przedmiot: {selectedSubject}</p>
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => handleDeleteSubject()}
+                              >
+                                  Akceptuj
+                              </button>
+                          </div>
+                      )}
+
+                      {addCategory && (
+                          <div className="subject-management-column">
+                              <p>Dodaj kategorię do przedmiotu {selectedSubject}</p>
+                              <input
+                                  type="text"
+                                  value={subjectCategoryName}
+                                  onChange={(e) => setSubjectCategoryName(e.target.value)}
+                                  placeholder="Nazwa kategorii"
+                              />
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => handleAddNewCategory()}
+                              >
+                                  Akceptuj
+                              </button>
+                          </div>
+                      )}
+
+                      {deleteCategory && (
+                          <div className="subject-management-column">
+                              <p>
+                                  Usuń kategorię {selectedCategory} z przedmiotu {selectedSubject}
+                              </p>
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => handleDeletingCategory()}
+                              >
+                                  Akceptuj
+                              </button>
+                          </div>
+                      )}
+
+                      {addLevel && (
+                          <div className="subject-management-column">
+                              <p>
+                                  Dodaj poziom do kategorii {selectedCategory} w przedmiocie{' '}
+                                  {selectedSubject}
+                              </p>
+                              <input
+                                  type="text"
+                                  value={subjectLevelName}
+                                  onChange={(e) => setSubjectLevelName(e.target.value)}
+                                  placeholder="Nazwa poziomu"
+                              />
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => handleAddNewLevel()}
+                              >
+                                  Akceptuj
+                              </button>
+                          </div>
+                      )}
+
+                      {deleteLevel && (
+                          <div className="subject-management-column">
+                              <p>
+                                  Usuń poziom {selectedLevel} z kategorii {selectedCategory} w
+                                  przedmiocie {selectedSubject}
+                              </p>
+                              <button
+                                  className="subject-management-add-button"
+                                  onClick={() => handleDeletingLevel()}
+                              >
+                                  Akceptuj
+                              </button>
+                          </div>
+                      )}
+                  </div>
+              )}
+
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+              </div>
           </div>
-          {selectedSubject && (
-            <div className="category-selection">
-              <div className="title">Kategoria</div>
-              {getCategories()
-                .filter((category) => category !== 'Brak Kategorii')
-                .map((category) => (
-                  <button
-                    key={category}
-                    className={`option-button ${selectedCategory === category ? 'selected' : ''}`}
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              <button
-                className="add-button"
-                onClick={() => setAddCategory(true)}
-              >
-                Dodaj nową kategorię
-              </button>
-              <button
-                className="add-button"
-                onClick={() => setDeleteSubject(true)}
-              >
-                Usuń przedmiot
-              </button>
-            </div>
-          )}
-          {selectedCategory && (
-            <div className="level-selection">
-              <div className="title">Poziom</div>
-              {getLevels()
-                .filter((levelData) => levelData.level !== 'Brak Poziomu')
-                .map((levelData) => (
-                  <button
-                    key={levelData.id}
-                    className={`option-button ${selectedLevel === levelData.level ? 'selected' : ''}`}
-                    onClick={() => handleLevelClick(levelData)}
-                  >
-                    {levelData.level}
-                  </button>
-                ))}
-              <button className="add-button" onClick={() => setAddLevel(true)}>
-                Dodaj nowy poziom
-              </button>
-              <button
-                className="add-button"
-                onClick={() => setDeleteCategory(true)}
-              >
-                Usuń kategorię
-              </button>
-            </div>
-          )}
-          {selectedLevel && (
-            <button className="add-button" onClick={() => setDeleteLevel(true)}>
-              Usuń poziom
-            </button>
-          )}
-          {addSubject && (
-            <div>
-              Dodaj przedmiot
-              <input
-                type="text"
-                value={subjectName}
-                onChange={(e) => setSubjectName(e.target.value)}
-              />
-              <button
-                className="add-button"
-                onClick={() => handleAddNewSubject()}
-              >
-                akceptuj
-              </button>
-            </div>
-          )}
-          {addCategory && (
-            <div>
-              Dodaj kategorię do przedmiotu {selectedSubject}
-              <input
-                type="text"
-                value={subjectCategoryName}
-                onChange={(e) => setSubjectCategoryName(e.target.value)}
-              />
-              <button
-                className="add-button"
-                onClick={() => handleAddNewCategory()}
-              >
-                akceptuj
-              </button>
-            </div>
-          )}
-          {addLevel && (
-            <div>
-              Dodaj poziom do kategorji {selectedCategory} w przedmiocie{' '}
-              {selectedSubject}
-              <input
-                type="text"
-                value={subjectLevelName}
-                onChange={(e) => setSubjectLevelName(e.target.value)}
-              />
-              <button
-                className="add-button"
-                onClick={() => handleAddNewLevel()}
-              >
-                akceptuj
-              </button>
-            </div>
-          )}
-          {deleteSingleSubject && (
-            <div>
-              Usuń przedmiot {selectedSubject}
-              <button
-                className="add-button"
-                onClick={() => handleDeleteSubject()}
-              >
-                akceptuj
-              </button>
-            </div>
-          )}
-          {deleteCategory && (
-            <div>
-              Usuń kategorię {selectedCategory} przedmotu {selectedSubject}
-              <button
-                className="add-button"
-                onClick={() => handleDeletingCategory()}
-              >
-                akceptuj
-              </button>
-            </div>
-          )}
-          {deleteLevel && (
-            <div>
-              Usuń poziom {selectedLevel} kategorji {selectedCategory} poziomu{' '}
-              {selectedSubject}
-              <button
-                className="add-button"
-                onClick={() => handleDeletingLevel()}
-              >
-                akceptuj
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-      <div className="button-container">
-      <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
       </div>
-    </div>
+
+
+
   );
 };
 
