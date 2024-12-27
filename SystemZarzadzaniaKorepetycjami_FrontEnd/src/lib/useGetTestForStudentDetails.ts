@@ -3,30 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 import { RootState } from '../futures/store';
+import { TestForStudentDetailsDTO } from '../types/TestForStudentDetailsDTO';
 
-interface Test {
-  idTest: number;
-  title: string;
-  numberOfAssignments: number;
-  fullname: string;
-  creationTime: string;
-  idTestForStudent: number;
-}
-
-export const useGetTestsTeacher = (itTeacher: number) => {
-  const [tests, setTests] = useState<any[]>([]);
+export const useGetTestForStudentDetails = (idTestForStudent: number) => {
+  const [testDetails, setTestDetails] =
+    useState<TestForStudentDetailsDTO | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
 
   const token = useSelector((state: RootState) => state.login.jwtToken);
   const dispatch = useDispatch();
   const refreshAccessToken = useRefreshAccessToken();
 
   useEffect(() => {
-    const fetchTest = async (token: string) => {
+    const fetchTestDetails = async (token: string) => {
       try {
         const response = await fetch(
-          `http://localhost:5230/api/testForStudent/teacher/${itTeacher}`,
+          `http://localhost:5230/api/testForStudent/${idTestForStudent}`,
           {
             method: 'GET',
             headers: {
@@ -41,21 +35,18 @@ export const useGetTestsTeacher = (itTeacher: number) => {
             const newToken = await refreshAccessToken();
             if (newToken) {
               dispatch(updateToken(newToken));
-              return fetchTest(newToken);
+              return fetchTestDetails(newToken);
             } else {
               throw new Error('Failed to refresh token');
             }
           }
-          if (response.status === 403) {
-            throw new Error('Nie admin');
-          }
-          throw new Error('Failed to fetch tests' + ' ' + response.status);
+          throw new Error('Failed to fetch test details: ' + response.status);
         }
 
-        let testData: Test[] = await response.json();
-        setTests(testData);
+        const testData: TestForStudentDetailsDTO = await response.json();
+        setTestDetails(testData);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching test details:', error);
         setError(error instanceof Error ? error.message : 'Unknown error');
       } finally {
         setLoading(false);
@@ -63,11 +54,15 @@ export const useGetTestsTeacher = (itTeacher: number) => {
     };
 
     if (token) {
-      fetchTest(token);
+      fetchTestDetails(token);
     } else {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, refreshFlag, idTestForStudent]);
 
-  return { tests, loading, error };
+  const refetch = () => {
+    setRefreshFlag(!refreshFlag);
+  };
+
+  return { testDetails, loading, error, refetch };
 };

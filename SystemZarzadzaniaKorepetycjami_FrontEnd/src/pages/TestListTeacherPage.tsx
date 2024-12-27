@@ -12,6 +12,7 @@ interface Test {
   numberOfAssignments: number;
   fullname: string;
   creationTime: string;
+  idTestForStudent: number;
 }
 
 const TestListTeacherPage: React.FC = () => {
@@ -50,7 +51,9 @@ const TestListTeacherPage: React.FC = () => {
               <div className="user-actions">
                 <AppButton
                   label="Szczegóły"
-                  onClick={() => goToTestsDetailsPage(navigate, test.idTest)}
+                  onClick={() =>
+                    goToTestsDetailsPage(navigate, test.idTestForStudent)
+                  }
                 />
               </div>
             </div>

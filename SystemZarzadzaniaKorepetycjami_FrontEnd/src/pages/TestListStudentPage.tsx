@@ -1,7 +1,7 @@
 import React from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { goToMenu, goToTestsDetailsPage } from '../lib/Navigate';
+import { goToMenu, goToTestForStudentDetailsPage } from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useGetTestsStudent } from '../lib/useGetTestsStudent';
@@ -12,6 +12,7 @@ interface Test {
   numberOfAssignments: number;
   fullname: string;
   creationTime: string;
+  idTestForStudent: number;
 }
 
 const TestListStudentPage: React.FC = () => {
@@ -50,7 +51,12 @@ const TestListStudentPage: React.FC = () => {
               <div className="user-actions">
                 <AppButton
                   label="Szczegóły"
-                  onClick={() => goToTestsDetailsPage(navigate, test.idTest)}
+                  onClick={() =>
+                    goToTestForStudentDetailsPage(
+                      navigate,
+                      test.idTestForStudent
+                    )
+                  }
                 />
               </div>
             </div>

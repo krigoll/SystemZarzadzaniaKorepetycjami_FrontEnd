@@ -38,6 +38,7 @@ import TestDetailsPage from './pages/TestDetailsPage';
 import GiveTestToStudentPage from './pages/GiveTestToStudentPage';
 import TestListTeacherPage from './pages/TestListTeacherPage';
 import TestListStudentPage from './pages/TestListStudentPage';
+import TestForStudentDetailsStudentPage from './pages/TestForStudentDetailsStudentPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -110,6 +111,10 @@ function App() {
         />
         <Route path="/teacher/givenTersts" element={<TestListTeacherPage />} />
         <Route path="/student/givenTersts" element={<TestListStudentPage />} />
+        <Route
+          path="/student/givenTersts/:idTestForStudent"
+          element={<TestForStudentDetailsStudentPage />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

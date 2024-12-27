@@ -10,6 +10,7 @@ interface Test {
   numberOfAssignments: number;
   fullname: string;
   creationTime: string;
+  idTestForStudent: number;
 }
 
 export const useGetTestsStudent = (idStudent: number) => {
