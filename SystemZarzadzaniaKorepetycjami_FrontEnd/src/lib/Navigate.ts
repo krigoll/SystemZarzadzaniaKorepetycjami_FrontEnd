@@ -127,6 +127,7 @@ function goToUserDetailsPage(navigate: NavigateFunction, idPerson: number) {
 function goToTestsPage(navigate: NavigateFunction) {
   navigate(`/teacher/tests`);
 }
+
 function goToTestsDetailsPage(
   navigate: NavigateFunction,
   idTest: number | null
@@ -139,6 +140,14 @@ function goToGiveTestToStudentPage(
   idTest: number | null
 ) {
   navigate(`/teacher/tests/${idTest}/student`);
+}
+
+function goToTestTeacherPage(navigate: NavigateFunction) {
+  navigate(`/teacher/givenTersts`);
+}
+
+function goToTestStudentPage(navigate: NavigateFunction) {
+  navigate(`/student/givenTersts`);
 }
 
 export {
@@ -174,4 +183,6 @@ export {
   goToTestsPage,
   goToTestsDetailsPage,
   goToGiveTestToStudentPage,
+  goToTestTeacherPage,
+  goToTestStudentPage,
 };

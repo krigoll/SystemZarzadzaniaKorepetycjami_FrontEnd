@@ -20,6 +20,8 @@ import {
   goToSubjectListPage,
   goToUserListPage,
   goToTestsPage,
+  goToTestStudentPage,
+  goToTestTeacherPage,
 } from '../lib/Navigate';
 import { useHandleLogOut } from '../lib/LogOut';
 
@@ -83,7 +85,7 @@ const App: React.FC = () => {
                   />
                   <AppButton
                     label="Moje testy"
-                    onClick={() => console.log('Moje testy')}
+                    onClick={() => goToTestStudentPage(navigate)}
                   />
                 </div>
               )}
@@ -120,7 +122,7 @@ const App: React.FC = () => {
                       />
                       <AppButton
                         label="Wysłane testy"
-                        onClick={() => goToTeacherOpinionPage(navigate)}
+                        onClick={() => goToTestTeacherPage(navigate)}
                       />
                     </div>
                   )}

@@ -5,6 +5,7 @@ import { goToTestsDetailsPage } from '../lib/Navigate';
 import { useTeachetStudents } from '../lib/useTeachetStudents';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
+import { useGiveTest } from '../lib/useGiveTest';
 
 interface Student {
   idStudent: number;
@@ -18,9 +19,14 @@ const GiveTestToStudentPage: React.FC = () => {
   const numericTestId = idTest ? parseInt(idTest) : null;
   const uId = useSelector((state: RootState) => state.login.idPerson);
   const { students, loading, error } = useTeachetStudents(uId);
+  const { giveTest, loading: loadingGive, error: giveError } = useGiveTest();
 
   const handleGiveTest = async (idStudent: number) => {
-    alert(`Zadano ${idStudent} ${numericTestId}`);
+    await giveTest(numericTestId, idStudent);
+
+    if (!giveError) {
+      alert(`Zadano test uczniowi`);
+    }
   };
 
   if (loading) {
@@ -56,6 +62,7 @@ const GiveTestToStudentPage: React.FC = () => {
                     <AppButton
                       label="Zadaj"
                       onClick={() => handleGiveTest(student.idStudent)}
+                      disabled={loadingGive}
                     />
                   </div>
                 </div>
