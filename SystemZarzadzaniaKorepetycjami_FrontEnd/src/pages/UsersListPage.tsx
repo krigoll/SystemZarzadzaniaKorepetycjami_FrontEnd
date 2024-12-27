@@ -26,49 +26,51 @@ const UserListPage: React.FC = () => {
   }
 
   return (
-    <div className="user-list-page">
-      <h1>Lista Użytkowników</h1>
-      <div className="user-list">
-        {users.length === 0 ? (
-          <div className="no-users">Brak użytkowników</div>
-        ) : (
-          users.map((person: Person) => (
-            <div key={person.idPerson} className="user-item">
-              <div className="user-info">
-                <div className="user-name">
-                  {person.name} {person.surname}
-                </div>
+      <div className="user-list-page">
+          <div className="user-list-wrapper">
+              <h1>Lista Użytkowników</h1>
+              <div className="user-list">
+                  {users.length === 0 ? (
+                      <div className="no-users">Brak użytkowników</div>
+                  ) : (
+                      users.map((person: Person) => (
+                          <div key={person.idPerson} className="user-item">
+                              <div className="user-info">
+                                  <div className="user-name">
+                                      {person.name} {person.surname}
+                                  </div>
+                              </div>
+                              <div className="role">
+                                  Role:
+                                  <p>{person.isStudent && 'Uczeń'}</p>
+                                  <p>{person.isTeacher && 'Nauczyciel'}</p>
+                              </div>
+                              <div className="user-photo">
+                                  {person.image ? (
+                                      <img
+                                          src={URL.createObjectURL(person.image)}
+                                          alt={`${person.name}`}
+                                      />
+                                  ) : (
+                                      null
+                                  )}
+                              </div>
+                              <div className="user-actions">
+                                  <AppButton
+                                      label="Szczegóły"
+                                      onClick={() => goToUserDetailsPage(navigate, person.idPerson)}
+                                  />
+                              </div>
+                          </div>
+                      ))
+                  )}
               </div>
-              <div className="role">
-                Role:
-                <p>{person.isStudent && 'Uczeń'}</p>
-                <p>{person.isTeacher && 'Nauczyciel'}</p>
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
               </div>
-              <div className="user-photo">
-                {person.image ? (
-                  <img
-                    src={URL.createObjectURL(person.image)}
-                    alt={`${person.name}`}
-                  />
-                ) : (
-                  '[Brak Zdjęcia]'
-                )}
-              </div>
-              <div className="user-actions">
-                <AppButton
-                  label="Szczegóły"
-                  onClick={() => goToUserDetailsPage(navigate, person.idPerson)}
-                />
-              </div>
-            </div>
-          ))
-        )}
+          </div>
       </div>
-      <div className="button-container">
-      <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-        {/* <AppButton label="Filtry" onClick={() => goToFiltersPage(navigate)} /> */}
-      </div>
-    </div>
+
   );
 };
 
