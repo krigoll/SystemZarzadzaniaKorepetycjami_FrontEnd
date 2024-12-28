@@ -257,6 +257,12 @@ const SubjectListPage: React.FC = () => {
 
                       {selectedSubject && (
                           <div className="subject-management-column">
+                            <button
+                        className="subject-management-add-button"
+                        onClick={() => setDeleteSubject((prev) => !prev)} // Przełączanie stanu
+                    >
+                        Usuń przedmiot
+                    </button>
                               <div className="subject-management-title">Kategoria</div>
                               {getCategories()
                                   .filter((category) => category !== 'Brak Kategorii')
@@ -276,17 +282,17 @@ const SubjectListPage: React.FC = () => {
                               >
                                   Dodaj nową kategorię
                               </button>
-                              <button
-                                  className="subject-management-add-button"
-                                  onClick={() => setDeleteSubject((prev) => !prev)} // Przełączanie stanu
-                              >
-                                  Usuń przedmiot
-                              </button>
                           </div>
                       )}
 
                       {selectedCategory && (
                           <div className="subject-management-column">
+                            <button
+                                  className="subject-management-add-button"
+                                  onClick={() => setDeleteCategory((prev) => !prev)} // Przełączanie stanu
+                              >
+                                  Usuń kategorię
+                              </button>
                               <div className="subject-management-title">Poziom</div>
                               {getLevels()
                                   .filter((levelData) => levelData.level !== 'Brak Poziomu')
@@ -306,15 +312,19 @@ const SubjectListPage: React.FC = () => {
                               >
                                   Dodaj nowy poziom
                               </button>
-                              <button
-                                  className="subject-management-add-button"
-                                  onClick={() => setDeleteCategory((prev) => !prev)} // Przełączanie stanu
-                              >
-                                  Usuń kategorię
-                              </button>
+                              {selectedLevel && (
+                        <button
+                        className="subject-management-add-button"
+                        onClick={() => setDeleteLevel((prev) => !prev)} // Przełączanie stanu
+                    >
+                        Usuń poziom
+                    </button>
+                      )}
+
                           </div>
                       )}
 
+                      
                       {addSubject && (
                           <div className="subject-management-column">
                               <p>Dodaj przedmiot</p>
