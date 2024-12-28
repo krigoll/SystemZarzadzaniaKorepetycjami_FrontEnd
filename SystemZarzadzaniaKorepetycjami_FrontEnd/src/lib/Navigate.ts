@@ -157,6 +157,13 @@ function goToTestForStudentDetailsPage(
   navigate(`/student/givenTersts/${idTestForStudent}`);
 }
 
+function goToTestForStudentDetailsTeacherPage(
+  navigate: NavigateFunction,
+  idTestForStudent: number
+) {
+  navigate(`/teacher/givenTersts/${idTestForStudent}`);
+}
+
 export {
   goToLogin,
   goToRegistration,
@@ -193,4 +200,5 @@ export {
   goToTestTeacherPage,
   goToTestStudentPage,
   goToTestForStudentDetailsPage,
+  goToTestForStudentDetailsTeacherPage,
 };

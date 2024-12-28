@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import { useGetTestForStudentDetails } from '../lib/useGetTestForStudentDetails';
-import { useSelector } from 'react-redux';
-import { RootState } from '../futures/store';
-import { goToMenu } from '../lib/Navigate';
+import { goToTestStudentPage } from '../lib/Navigate';
+import { useCreateOrUpdateStudentAnswer } from '../lib/useCreateOrUpdateStudentAnswer';
 
 const TestForStudentDetailsStudentPage: React.FC = () => {
   const { idTestForStudent } = useParams<{ idTestForStudent: string }>();
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, string>>({});
-  const uId = useSelector((state: RootState) => state.login.idPerson);
 
   const { testDetails, loading, error, refetch } = useGetTestForStudentDetails(
     Number(idTestForStudent)
   );
+
+  const {
+    createOrUpdateStudentAnswers,
+    loading: submitting,
+    error: submitError,
+  } = useCreateOrUpdateStudentAnswer();
 
   const handleAnswerChange = (idAssignment: number, value: string) => {
     setAnswers((prev) => ({
@@ -24,21 +28,28 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    // Example: Send updated answers to the server.
-    // Assuming `useSubmitAnswers` is a custom hook to handle API calls.
     const updatedAnswers = Object.entries(answers).map(
       ([idAssignment, answer]) => ({
         idAssignment: Number(idAssignment),
         answer,
+        idStudentAnswer: 0,
       })
     );
 
     try {
-      // Placeholder for API call
-      console.log('Submitting answers:', updatedAnswers, uId);
-      alert('Odpowiedzi zapisane!');
-      refetch(); // Reload data after submission
+      const success = await createOrUpdateStudentAnswers(
+        Number(idTestForStudent),
+        updatedAnswers
+      );
+
+      if (success) {
+        alert('Odpowiedzi zapisane!');
+        refetch();
+      } else {
+        alert(submitError || 'Błąd podczas zapisywania odpowiedzi.');
+      }
     } catch (error) {
+      console.error('Error during submission:', error);
       alert('Błąd podczas zapisywania odpowiedzi.');
     }
   };
@@ -50,7 +61,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
   return (
     <div className="test-details-page">
       <h1>Szczegóły Testu</h1>
-      <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+      <AppButton label="Powrót" onClick={() => goToTestStudentPage(navigate)} />
 
       <div className="test-info">
         <h2>Tytuł testu: {testDetails.title}</h2>
@@ -64,7 +75,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                 <p>Treść zadania: {assignment.content}</p>
                 <p>
                   Poprawna odpowiedź:{' '}
-                  {assignment.answerAssignment
+                  {assignment.answerAssignment && assignment.idMark
                     ? assignment.answerAssignment
                     : 'Brak'}
                 </p>
@@ -96,7 +107,9 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
           </div>
         )}
       </div>
-      <button onClick={handleSubmit}>Zapisz odpowiedzi</button>
+      <button onClick={handleSubmit} disabled={submitting}>
+        {submitting ? 'Trwa zapisywanie...' : 'Zapisz odpowiedzi'}
+      </button>
     </div>
   );
 };

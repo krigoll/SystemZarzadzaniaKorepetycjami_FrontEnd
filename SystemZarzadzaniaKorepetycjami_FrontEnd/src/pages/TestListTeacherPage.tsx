@@ -1,7 +1,10 @@
 import React from 'react';
 import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { goToMenu, goToTestsDetailsPage } from '../lib/Navigate';
+import {
+  goToMenu,
+  goToTestForStudentDetailsTeacherPage,
+} from '../lib/Navigate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../futures/store';
 import { useGetTestsTeacher } from '../lib/useGetTestsTeacher';
@@ -52,7 +55,10 @@ const TestListTeacherPage: React.FC = () => {
                 <AppButton
                   label="Szczegóły"
                   onClick={() =>
-                    goToTestsDetailsPage(navigate, test.idTestForStudent)
+                    goToTestForStudentDetailsTeacherPage(
+                      navigate,
+                      test.idTestForStudent
+                    )
                   }
                 />
               </div>
