@@ -1,8 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../futures/store';
-import { updateToken } from '../futures/login/loginSlice';
-import { useHandleLogOut } from '../lib/LogOut';
-
 interface LoginProps {
   email: string;
   password: string;
@@ -71,7 +66,4 @@ async function RegisterToApp({
   return response;
 }
 
-export {
-  loginToApp,
-  RegisterToApp,
-};
+export { loginToApp, RegisterToApp };

@@ -40,6 +40,7 @@ import TestListTeacherPage from './pages/TestListTeacherPage';
 import TestListStudentPage from './pages/TestListStudentPage';
 import TestForStudentDetailsStudentPage from './pages/TestForStudentDetailsStudentPage';
 import TestForStudentDetailsTeacherPage from './pages/TestForStudentDetailsTeacherPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -120,6 +121,7 @@ function App() {
           path="/student/givenTersts/:idTestForStudent"
           element={<TestForStudentDetailsStudentPage />}
         />
+        <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
