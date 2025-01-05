@@ -111,12 +111,14 @@ const ResetPasswordPage: React.FC = () => {
               inputValue={code}
               onChange={(e) => setCode(e.target.value)}
             />
-            <div className="login-actions">
+            <div className="button-container">
               <AppButton label="Dalej" onClick={handleResetPassword} />
             </div>
           </div>
-        )}
-        <AppButton label="Powrót" onClick={() => goToMainPage(navigate)} />
+              )}
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMainPage(navigate)} />
+              </div>
       </div>
     </div>
   );

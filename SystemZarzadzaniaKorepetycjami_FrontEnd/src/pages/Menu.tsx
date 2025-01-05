@@ -115,7 +115,7 @@ const App: React.FC = () => {
                   />
                   <AppButton label="Testy" onClick={handleTeacherTestClick} />
                   {isTeacherTestVisible && (
-                    <div>
+                                      <div className="teacher-menu">
                       <AppButton
                         label="Moje testy"
                         onClick={() => goToTestsPage(navigate)}

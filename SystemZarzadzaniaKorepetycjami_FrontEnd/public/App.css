@@ -2814,4 +2814,284 @@ p {
     box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
 }
 
+.test-management-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+}
 
+.test-management-box {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 900px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .test-management-box h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+.test-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.test-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .test-form-field label {
+        font-weight: bold;
+        font-size: 1rem;
+        color: #4a4a4a;
+    }
+
+    .test-form-field input {
+        width: 300px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .test-form-field button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+        .test-form-field button:hover {
+            background-color: #357ABD;
+            box-shadow: 0 4px 10px rgba(53, 122, 189, 0.3);
+        }
+
+.test-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+/*.test-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    width: 100%;*/ /* Rozci¹gniêcie na szerokoœæ kontenera */
+    /*box-sizing: border-box;
+}
+
+    .test-item p {
+        margin: 5px 0;
+        color: #4a4a4a;
+    }*/
+
+.test-item {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    justify-content: space-between; /* Zdjêcie po prawej, informacje po lewej */
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .test-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+    }
+
+    .test-item span {
+        font-size: 1.2rem;
+        color: #4a4a4a;
+        font-weight: bold;
+        margin-right: auto; /* Wyrównanie nazwy nauczyciela do lewej */
+}
+
+
+.test-back-button {
+    margin-top: auto; /* Wypychanie na dó³ */
+    text-align: center;
+}
+
+.test-details-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f0f9ff, #d4ebf2);
+    padding: 20px;
+}
+
+.test-details-box {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .test-details-box h1 {
+        font-size: 2rem;
+        color: #00264d;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+.test-details-buttons {
+    display: flex;
+    flex-direction: column; /* Przycisk jeden pod drugim */
+    gap: 10px; /* Odstêp miêdzy przyciskami */
+    align-items: center; /* Wyœrodkowanie przycisków */
+    margin-bottom: 20px;
+}
+
+.test-details-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 20px; /* Zaokr¹glone rogi */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    width: 250px; /* Sta³a szerokoœæ dla przycisków */
+    text-align: center;
+}
+
+
+
+
+
+
+.test-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .test-form-field label {
+        font-weight: bold;
+        font-size: 1rem;
+        color: #4a4a4a;
+    }
+
+    .test-form-field input {
+        width: 300px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .test-form-field button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+        .test-form-field button:hover {
+            background-color: #357ABD;
+            box-shadow: 0 4px 10px rgba(53, 122, 189, 0.3);
+        }
+
+.test-assignments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.test-assignment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    width: 100%; /* Rozci¹gniêcie na szerokoœæ kontenera */
+    box-sizing: border-box;
+}
+
+    .test-assignment-item p {
+        margin: 5px 0;
+        color: #4a4a4a;
+    }
+
+.test-assignment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    width: 100%; /* Rozci¹gniêcie na szerokoœæ kontenera */
+    box-sizing: border-box;
+    overflow-wrap: break-word; /* Zawijanie d³ugich s³ów */
+    word-wrap: break-word; /* Zawijanie d³ugich s³ów w starszych przegl¹darkach */
+    word-break: break-word; /* Zawijanie s³ów */
+    white-space: normal; /* Pozwala na zawijanie tekstu */
+}
+
+
+.test-assignment-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+}
+
+.test-assignment-item span {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    font-weight: bold;
+    margin-right: auto; /* Wyrównanie nazwy nauczyciela do lewej */
+}
+
+.test-assignment-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

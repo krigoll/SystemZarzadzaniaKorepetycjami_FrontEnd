@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AppButton from '../components/AppButton';
 import { useNavigate, useParams } from 'react-router-dom';
 import { goToGiveTestToStudentPage, goToTestsPage } from '../lib/Navigate';
 import { useCreateAssignment } from '../lib/useCreateAssignment';
@@ -91,93 +90,123 @@ const TestDetailsPage: React.FC = () => {
   };
 
   return (
-    <div className="user-list-page">
-      <h1>Szczeguły testu</h1>
-      {testData ? (
-        <>
-          <p>Tytuł: {testData.title}</p>
-          <AppButton label="Powrót" onClick={() => goToTestsPage(navigate)} />
-          <AppButton
-            label="Usuń test"
-            onClick={() => setDeleteTest(!deleteTesto)}
-          />
-          <AppButton
-            label="Dodaj nowe zadanie"
-            onClick={() => setCreateAssignment(!createAssignmento)}
-            disabled={deleting}
-          />
-          {!(testData.assignments.length === 0) && (
-            <AppButton
-              label="Zadaj test uczniowi"
-              onClick={() => goToGiveTestToStudentPage(navigate, numericTestId)}
-            />
-          )}
-          {deleteError && <p>Błąd podczas usuwania {deleteError}</p>}
-          {deleteTesto && (
-            <div>
-              Czy na pewcho chcesz usunąc ten test?
-              <AppButton
-                label="Tak"
-                onClick={handleDeleteTest}
-                disabled={deletingTest}
-              />
-            </div>
-          )}
-          {deleteErrorTest && <p>Błąd podczas usuwania {deleteErrorTest}</p>}
-          {createAssignmento && (
-            <div className="form-field">
-              <label htmlFor="text">Treść zadania:</label>
-              <input
-                type="text"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-              <label htmlFor="text">Poprawna odpowiedż (obcionalnie):</label>
-              <input
-                type="text"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-              />
-              <button onClick={handleCreateAssignment} disabled={creating}>
-                {creating ? 'Tworzenie...' : 'Utwórz'}
-              </button>
-            </div>
-          )}
-          <div className="user-list">
-            Zadania:
-            {testData.assignments.length === 0 ? (
-              <div className="no-users">Brak</div>
-            ) : (
-              testData.assignments.map((assignment: Assignment) => (
-                <div key={assignment.idAssignment} className="user-item">
-                  <div className="user-info">
-                    <div className="user-name">
-                      <p>Treść: {assignment.content}</p>
-                      <p>
-                        Odpowiedz (opcjonalne):{' '}
-                        {assignment.answer.trim().length > 0
-                          ? assignment.answer
-                          : 'Brak'}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="user-actions">
-                    <AppButton
-                      label="Usuń"
-                      onClick={() =>
-                        handleDeleteAssignment(assignment.idAssignment)
-                      }
-                    />
-                  </div>
-                </div>
-              ))
-            )}
+      <div className="test-details-page">
+          <div className="test-details-box">
+              <h1>Szczegóły testu</h1>
+
+              {testData ? (
+                  <>
+                      <p><strong>Tytuł:</strong> {testData.title}</p>
+                      <div className="test-details-buttons">
+                          <button
+                              className="test-details-button"
+                              onClick={() => setDeleteTest((prev) => !prev)}
+                          >
+                              Usuń test
+                          </button>
+                          <button
+                              className="test-details-button"
+                              onClick={() => setCreateAssignment((prev) => !prev)}
+                              disabled={deleting}
+                          >
+                              Dodaj nowe zadanie
+                          </button>
+                          {!(testData.assignments.length === 0) && (
+                              <button
+                                  className="test-details-button"
+                                  onClick={() =>
+                                      goToGiveTestToStudentPage(navigate, numericTestId)
+                                  }
+                              >
+                                  Zadaj test uczniowi
+                              </button>
+
+                          )}
+                          <button
+                              className="test-details-button"
+                              onClick={() => goToTestsPage(navigate)}
+                          >
+                              Powrót
+                          </button>
+                      </div>
+
+                      {deleteError && <p style={{ color: 'red' }}>Błąd podczas usuwania: {deleteError}</p>}
+                      {deleteTesto && (
+                          <div className="test-form-field">
+                              <p>Czy na pewno chcesz usunąć ten test?</p>
+                              <button
+                                  className="test-details-button"
+                                  onClick={handleDeleteTest}
+                                  disabled={deletingTest}
+                              >
+                                  Tak
+                              </button>
+                          </div>
+                      )}
+                      {deleteErrorTest && <p style={{ color: 'red' }}>Błąd podczas usuwania testu: {deleteErrorTest}</p>}
+
+                      {createAssignmento && (
+                          <div className="test-form-field">
+                              <label htmlFor="text">Treść zadania:</label>
+                              <input
+                                  type="text"
+                                  value={content}
+                                  onChange={(e) => setContent(e.target.value)}
+                              />
+                              <label htmlFor="text">Poprawna odpowiedź (opcjonalnie):</label>
+                              <input
+                                  type="text"
+                                  value={answer}
+                                  onChange={(e) => setAnswer(e.target.value)}
+                              />
+                              <button
+                                  className="test-details-button"
+                                  onClick={handleCreateAssignment}
+                                  disabled={creating}
+                              >
+                                  {creating ? 'Tworzenie...' : 'Utwórz'}
+                              </button>
+                          </div>
+                      )}
+
+                      <div className="test-assignments-list">
+                          <p><strong>Zadania:</strong></p>
+                          {testData.assignments.length === 0 ? (
+                              <p>Brak</p>
+                          ) : (
+                              testData.assignments.map((assignment: Assignment) => (
+                                  <div
+                                      key={assignment.idAssignment}
+                                      className="test-assignment-item"
+                                  >
+                                      <p><strong>Treść:</strong> {assignment.content}</p>
+                                      <p>
+                                          <strong>Odpowiedź (opcjonalnie):</strong>{' '}
+                                          {assignment.answer.trim().length > 0
+                                              ? assignment.answer
+                                              : 'Brak'}
+                                      </p>
+                                      <div className="test-assignment-actions">
+                                          <button
+                                              onClick={() =>
+                                                  handleDeleteAssignment(assignment.idAssignment)
+                                              }
+                                          >
+                                              Usuń
+                                          </button>
+                                      </div>
+                                  </div>
+                              ))
+                          )}
+                      </div>
+                  </>
+              ) : (
+                  <p>Ładowanie danych testu...</p>
+              )}
           </div>
-        </>
-      ) : (
-        <p>Ładowanie danych testu...</p>
-      )}
-    </div>
+      </div>
+
+
   );
 };
 

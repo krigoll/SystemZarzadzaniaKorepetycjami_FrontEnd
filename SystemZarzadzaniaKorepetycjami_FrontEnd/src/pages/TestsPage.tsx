@@ -47,51 +47,59 @@ const TestsPage: React.FC = () => {
   }
 
   return (
-    <div className="user-list-page">
-      <h1>Lista Testów</h1>
-      <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-        <AppButton
-          label="Dodaj nowy"
-          onClick={() => setCreateTest(!createTesto)}
-        />
-      </div>
-      {createTesto && (
-        <div className="form-field">
-          <label htmlFor="text">Tytuł:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <button onClick={handleCreateTest} disabled={creating}>
-            {creating ? 'Tworzenie...' : 'Utwórz'}
-          </button>
-        </div>
-      )}
-      <div className="user-list">
-        {tests.length === 0 ? (
-          <div className="no-users">Brak Testów</div>
-        ) : (
-          tests.map((test: Test) => (
-            <div key={test.idTest} className="user-item">
-              <div className="user-info">
-                <div className="user-name">
-                  <p>Tytuł: {test.title}</p>
-                  <p>Ilość zadań: {test.numberOfAssignments}</p>
-                </div>
+      <div className="test-management-page">
+          <div className="test-management-box">
+              <h1>Lista Testów</h1>
+
+              <div className="button-container">
+                  <AppButton
+                      label="Dodaj nowy"
+                      onClick={() => setCreateTest((prev) => !prev)}
+                  />
               </div>
-              <div className="user-actions">
-                <AppButton
-                  label="Szczegóły"
-                  onClick={() => goToTestsDetailsPage(navigate, test.idTest)}
-                />
+
+              {createTesto && (
+                  <div className="test-form-field">
+                      <label htmlFor="text">Tytuł:</label>
+                      <input
+                          type="text"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                      />
+                      <button onClick={handleCreateTest} disabled={creating}>
+                          {creating ? 'Tworzenie...' : 'Utwórz'}
+                      </button>
+                  </div>
+              )}
+
+              <div className="test-list">
+                  {tests.length === 0 ? (
+                      <p>Brak Testów</p>
+                  ) : (
+                      tests.map((test: Test) => (
+                          <div key={test.idTest} className="test-item">
+                              <div >
+                              <p><strong>Tytuł:</strong> {test.title}</p>
+                              <p><strong>Ilość zadań:</strong> {test.numberOfAssignments}</p>
+                              </div>
+                              <div className="test-actions">
+                                  <AppButton
+                                      label="Szczegóły"
+                                      onClick={() => goToTestsDetailsPage(navigate, test.idTest)}
+                                  />
+                              </div>
+                          </div>
+                      ))
+                  )}
               </div>
-            </div>
-          ))
-        )}
+
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+              </div>
+          </div>
       </div>
-    </div>
+
+
   );
 };
 
