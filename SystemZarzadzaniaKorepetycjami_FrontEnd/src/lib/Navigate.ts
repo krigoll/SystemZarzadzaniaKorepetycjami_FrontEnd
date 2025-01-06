@@ -143,25 +143,25 @@ function goToGiveTestToStudentPage(
 }
 
 function goToTestTeacherPage(navigate: NavigateFunction) {
-  navigate(`/teacher/givenTersts`);
+  navigate(`/teacher/givenTests`);
 }
 
 function goToTestStudentPage(navigate: NavigateFunction) {
-  navigate(`/student/givenTersts`);
+  navigate(`/student/givenTests`);
 }
 
 function goToTestForStudentDetailsPage(
   navigate: NavigateFunction,
   idTestForStudent: number
 ) {
-  navigate(`/student/givenTersts/${idTestForStudent}`);
+  navigate(`/student/givenTests/${idTestForStudent}`);
 }
 
 function goToTestForStudentDetailsTeacherPage(
   navigate: NavigateFunction,
   idTestForStudent: number
 ) {
-  navigate(`/teacher/givenTersts/${idTestForStudent}`);
+  navigate(`/teacher/givenTests/${idTestForStudent}`);
 }
 
 export {

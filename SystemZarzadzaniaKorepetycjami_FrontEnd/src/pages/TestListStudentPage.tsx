@@ -29,41 +29,43 @@ const TestListStudentPage: React.FC = () => {
   }
 
   return (
-    <div className="user-list-page">
-      <h1>Lista Testów</h1>
-      <div className="button-container">
-        <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-      </div>
-      <div className="user-list">
-        {tests.length === 0 ? (
-          <div className="no-users">Brak Testów</div>
-        ) : (
-          tests.map((test: Test) => (
-            <div key={test.idTest} className="user-item">
-              <div className="user-info">
-                <div className="user-name">
-                  <p>Tytuł: {test.title}</p>
-                  <p>Ilość zadań: {test.numberOfAssignments}</p>
-                  <p>Zadano przez: {test.fullname}</p>
-                  <p>Data: {test.creationTime}</p>
-                </div>
+      <div className="student-test-list-page">
+          <div className="student-test-list-box">
+              <h1>Lista Testów</h1>
+
+
+
+              <div className="student-test-list">
+                  {tests.length === 0 ? (
+                      <p>Brak Testów</p>
+                  ) : (
+                      tests.map((test: Test) => (
+                          <div key={test.idTest} className="test-item">
+                              <p><strong>Tytuł:</strong> {test.title}</p>
+                              <p><strong>Ilość zadań:</strong> {test.numberOfAssignments}</p>
+                              <p><strong>Zadano przez:</strong> {test.fullname}</p>
+                              <p><strong>Data:</strong> {test.creationTime}</p>
+                              <div className="test-item-actions">
+                                  <AppButton
+                                      label="Szczegóły"
+                                      onClick={() =>
+                                          goToTestForStudentDetailsPage(
+                                              navigate,
+                                              test.idTestForStudent
+                                          )
+                                      }
+                                  />
+                              </div>
+                          </div>
+                      ))
+                  )}
               </div>
-              <div className="user-actions">
-                <AppButton
-                  label="Szczegóły"
-                  onClick={() =>
-                    goToTestForStudentDetailsPage(
-                      navigate,
-                      test.idTestForStudent
-                    )
-                  }
-                />
+              <div className="button-container">
+                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
               </div>
-            </div>
-          ))
-        )}
+          </div>
       </div>
-    </div>
+
   );
 };
 
