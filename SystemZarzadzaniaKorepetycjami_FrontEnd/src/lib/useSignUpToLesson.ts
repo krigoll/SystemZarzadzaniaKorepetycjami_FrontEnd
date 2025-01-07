@@ -70,6 +70,8 @@ export const useSignUpToLesson = () => {
           throw new Error(
             'Ty albo nauczyciel macie nakładające się zajęcia w danym czasie!'
           );
+        } else if (response.status === 422) {
+          throw new Error('Nauczyciel nie jest wolny w wybranym terminie!');
         } else {
           throw new Error('Error during lesson signup');
         }

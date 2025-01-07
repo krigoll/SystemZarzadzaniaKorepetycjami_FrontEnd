@@ -41,6 +41,7 @@ import TestListStudentPage from './pages/TestListStudentPage';
 import TestForStudentDetailsStudentPage from './pages/TestForStudentDetailsStudentPage';
 import TestForStudentDetailsTeacherPage from './pages/TestForStudentDetailsTeacherPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import StudentOpinionPage from './pages/StudentOpinionPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -101,6 +102,10 @@ function App() {
         <Route path="/admin" element={<AdminMenuPage />} />
         <Route path="/admin/userList" element={<UserListPage />} />
         <Route path="/admin/userList/:idPerson" element={<UserDetailsPage />} />
+        <Route
+          path="/admin/userList/:idPerson/:studentInfo"
+          element={<StudentOpinionPage />}
+        />
         <Route path="/admin/subjectList" element={<SubjectListPage />} />
         <Route path="/report/new" element={<NewReportForm />} />
         <Route path="/report" element={<ReportListPage />} />

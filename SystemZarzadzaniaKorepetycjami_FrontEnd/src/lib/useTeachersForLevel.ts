@@ -10,6 +10,7 @@ interface Teacher {
   name: string;
   price: number;
   image: File | null;
+  avgOpinion: number;
 }
 
 interface TeacherResponse {
@@ -18,6 +19,7 @@ interface TeacherResponse {
   surname: string;
   hourlyRate: number;
   image: string | null;
+  avgOpinion: number;
 }
 
 export const useTeachersForLevel = (subjectLevelId: number, email: string) => {
@@ -29,12 +31,12 @@ export const useTeachersForLevel = (subjectLevelId: number, email: string) => {
   const token = useSelector((state: RootState) => state.login.jwtToken);
 
   const fetchTeachersForLevel = async (
-      id: number,
+    id: number,
     currentToken: string
   ): Promise<Teacher[]> => {
     try {
       const response = await fetch(
-          `http://localhost:5230/api/teacher?subjectLevelId=${id}&email=${email}`,
+        `http://localhost:5230/api/teacher?subjectLevelId=${id}&email=${email}`,
         {
           method: 'GET',
           headers: {
@@ -68,6 +70,7 @@ export const useTeachersForLevel = (subjectLevelId: number, email: string) => {
         image: teacher.image
           ? base64ToFile(teacher.image, 'profileImage.jpg')
           : null,
+        avgOpinion: teacher.avgOpinion,
       }));
     } catch (error) {
       console.error('Error fetching teachers:', error);
@@ -81,10 +84,7 @@ export const useTeachersForLevel = (subjectLevelId: number, email: string) => {
       setError(null);
 
       try {
-          const teacherData = await fetchTeachersForLevel(
-          subjectLevelId,
-          token
-        );
+        const teacherData = await fetchTeachersForLevel(subjectLevelId, token);
         setTeachers(teacherData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');

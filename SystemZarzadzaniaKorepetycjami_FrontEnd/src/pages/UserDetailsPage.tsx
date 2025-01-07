@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import AppButton from '../components/AppButton';
-import { goToUserListPage } from '../lib/Navigate';
+import { goToStudentOpinionPage, goToUserListPage } from '../lib/Navigate';
 import { useUserDetails } from '../lib/useUserDetails';
 import { useState } from 'react';
 import { usePersonDelete } from '../lib/usePersonDelete';
@@ -31,20 +31,22 @@ const UserDetailsPage: React.FC = () => {
     const status = await deletePerson(personData.email);
 
     if (status === 200) {
-      alert('Uøytkownik zosta≥ usuniÍty pomyúlnie!');
+      alert('UÔøΩytkownik zostaÔøΩ usuniÔøΩty pomyÔøΩlnie!');
       goToUserListPage(navigate);
     } else {
-      alert('Nie uda≥u siÍ usunπÊ uøytkownika!');
+      alert('Nie udaÔøΩu siÔøΩ usunÔøΩÔøΩ uÔøΩytkownika!');
     }
   };
 
   const handleBanUser = async () => {
     if (reason.length < 10 || reason.length > 99) {
-      alert('PowÛd blokady uøytkownia musi zawieraÊ siÍ w 10-99 znakach!');
+      alert('PowÔøΩd blokady uÔøΩytkownia musi zawieraÔøΩ siÔøΩ w 10-99 znakach!');
       return false;
     }
     if (duration < 1) {
-      alert('D≥ugoúÊ blokady uøytkownika musi wynosiÊ co najmniej jeden dzieÒ!');
+      alert(
+        'DÔøΩugoÔøΩÔøΩ blokady uÔøΩytkownika musi wynosiÔøΩ co najmniej jeden dzieÔøΩ!'
+      );
       return false;
     }
 
@@ -59,119 +61,151 @@ const UserDetailsPage: React.FC = () => {
     await createBan(banDTO);
 
     if (!createError) {
-      alert('Uøytkownik zosta≥ zablokowany pomyúlnie!');
+      alert('UÔøΩytkownik zostaÔøΩ zablokowany pomyÔøΩlnie!');
       refetch();
     } else {
-      alert('B≥πd podczas blokowania uøytkownika.');
+      alert('BÔøΩÔøΩd podczas blokowania uÔøΩytkownika.');
     }
   };
 
   return (
-      <div className="user-profile-container">
-          <div className="user-profile-wrapper">
-              <div className="user-profile-header">SzczegÛ≥y uøytkownika</div>
-              {personData ? (
-                  <div>
-                      {personData.image ? (
-                          <img
-                              className="user-profile-image"
-                              src={URL.createObjectURL(personData.image)}
-                              alt={`${personData.name}`}
-                          />
-                      ) : null}
-                      <div className="user-profile-details">
-                          <p><strong>Id:</strong> {numericPersonId}</p>
-                          <p><strong>ImiÍ i nazwisko:</strong> {personData.name} {personData.surname}</p>
-                          <p><strong>Data urodzenia:</strong> {personData.birthDate}</p>
-                          <p><strong>Adres email:</strong> {personData.email}</p>
-                          <p><strong>Numer telefonu:</strong> {personData.phoneNumber}</p>
-                          <p><strong>Data do≥πczenia:</strong> {personData.joiningDate}</p>
-                      </div>
-                      <div className="user-profile-role">
-                          <p><strong>Role:</strong></p>
-                          <p>{personData.isStudent && 'UczeÒ'}</p>
-                          <p>{personData.isTeacher && 'Nauczyciel'}</p>
-                      </div>
-                      <div className="user-profile-role">
-                          <p><strong>Czy zablokowany:</strong> {personData.isBaned ? 'Tak' : 'Nie'}</p>
-                          {personData.isBaned && (
-                              <div>
-                                  <p><strong>Przez:</strong> {personData.numberOfDays} dni</p>
-                                  <p><strong>PowÛd:</strong> {personData.reason}</p>
-                              </div>
-                          )}
-                      </div>
-                  </div>
-              ) : (
-                  <div>£adowanie...</div>
+    <div className="user-profile-container">
+      <div className="user-profile-wrapper">
+        <div className="user-profile-header">SzczegÔøΩy uÔøΩytkownika</div>
+        {personData ? (
+          <div>
+            {personData.image ? (
+              <img
+                className="user-profile-image"
+                src={URL.createObjectURL(personData.image)}
+                alt={`${personData.name}`}
+              />
+            ) : null}
+            <div className="user-profile-details">
+              <p>
+                <strong>Id:</strong> {numericPersonId}
+              </p>
+              <p>
+                <strong>ImiÔøΩ i nazwisko:</strong> {personData.name}{' '}
+                {personData.surname}
+              </p>
+              <p>
+                <strong>Data urodzenia:</strong> {personData.birthDate}
+              </p>
+              <p>
+                <strong>Adres email:</strong> {personData.email}
+              </p>
+              <p>
+                <strong>Numer telefonu:</strong> {personData.phoneNumber}
+              </p>
+              <p>
+                <strong>Data do≈ÇƒÖczenia:</strong> {personData.joiningDate}
+              </p>
+            </div>
+            <div className="user-profile-role">
+              <p>
+                <strong>Role:</strong>
+              </p>
+              <p>{personData.isStudent && 'Ucze≈Ñ'}</p>
+              <p>{personData.isTeacher && 'Nauczyciel'}</p>
+            </div>
+            <div className="user-profile-role">
+              <p>
+                <strong>Czy zablokowany:</strong>{' '}
+                {personData.isBaned ? 'Tak' : 'Nie'}
+              </p>
+              {personData.isBaned && (
+                <div>
+                  <p>
+                    <strong>Przez:</strong> {personData.numberOfDays} dni
+                  </p>
+                  <p>
+                    <strong>PowÔøΩd:</strong> {personData.reason}
+                  </p>
+                </div>
               )}
-              <div className="user-profile-button-container">
-                  <AppButton
-                      //className="delete-button"
-                      label="UsuÒ konto"
-                      onClick={() => setDeleteDialog(!deleteDialog)}
-                  />
-                  {deleteDialog && (
-                      <div>
-                          Czy na pewno chcesz usunπÊ konto?
-                          <div>
-                          <br></br>
-                          </div>
-                          <div>
-                          <AppButton
-                              //className="delete-button"
-                              label="Potwierdü"
-                              onClick={() => handleDeleteUser()}
-                          />
-                          </div>
-                      </div>
-                  )}
-                  <AppButton
-                      //className="ban-button"
-                      label="Zablokuj konto"
-                      onClick={() => setBan(!ban)}
-                  />
-                  {ban && (
-                      <div>
-                          <div className="user-profile-form-field">
-                              <label htmlFor="text">PowÛd:</label>
-                              <input
-                                  type="text"
-                                  value={reason}
-                                  onChange={(e) => setReason(e.target.value)}
-                              />
-                          </div>
-                          <div className="user-profile-form-field">
-                              <label htmlFor="duration">Czas trwania (dni):</label>
-                              <input
-                                  type="number"
-                                  id="duration"
-                                  min="1"
-                                  value={duration}
-                                  onChange={(e) => setDuration(parseInt(e.target.value, 10))}
-                              />
-                          </div>
-                          <AppButton
-                              //className="ban-button"
-                              label={creating ? 'Blokowanie...' : 'Potwierdü'}
-                              onClick={handleBanUser}
-                              disabled={creating}
-                          />
-                          {createError && (
-                              <p style={{ color: 'red' }}>B≥πd: {createError}</p>
-                          )}
-                          </div>
-                  )}
-              </div>
-              <div className ="button-container">
-              <AppButton label="PowrÛt" onClick={() => goToUserListPage(navigate)} />
-                  </div>
-              
+            </div>
           </div>
+        ) : (
+          <div>≈Åadowanie...</div>
+        )}
+        <div className="user-profile-button-container">
+          <AppButton
+            //className="delete-button"
+            label="UsuÔøΩ konto"
+            onClick={() => setDeleteDialog(!deleteDialog)}
+          />
+          {deleteDialog && (
+            <div>
+              Czy na pewno chcesz usunƒÖƒá konto?
+              <div>
+                <br></br>
+              </div>
+              <div>
+                <AppButton
+                  //className="delete-button"
+                  label="Potwierd≈º"
+                  onClick={() => handleDeleteUser()}
+                />
+              </div>
+            </div>
+          )}
+          <AppButton
+            //className="ban-button"
+            label="Zablokuj konto"
+            onClick={() => setBan(!ban)}
+          />
+          {personData && personData.isStudent && (
+            <AppButton
+              label="Zobacz wstawione opinie"
+              onClick={() =>
+                goToStudentOpinionPage(
+                  navigate,
+                  `${personData.email} ${personData.name} ${personData.surname}`
+                )
+              }
+            />
+          )}
+          {ban && (
+            <div>
+              <div className="user-profile-form-field">
+                <label htmlFor="text">PowÔøΩd:</label>
+                <input
+                  type="text"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                />
+              </div>
+              <div className="user-profile-form-field">
+                <label htmlFor="duration">Czas trwania (dni):</label>
+                <input
+                  type="number"
+                  id="duration"
+                  min="1"
+                  value={duration}
+                  onChange={(e) => setDuration(parseInt(e.target.value, 10))}
+                />
+              </div>
+              <AppButton
+                //className="ban-button"
+                label={creating ? 'Blokowanie...' : 'PotwierdÔøΩ'}
+                onClick={handleBanUser}
+                disabled={creating}
+              />
+              {createError && (
+                <p style={{ color: 'red' }}>BÔøΩÔøΩd: {createError}</p>
+              )}
+            </div>
+          )}
+        </div>
+        <div className="button-container">
+          <AppButton
+            label="PowrÔøΩt"
+            onClick={() => goToUserListPage(navigate)}
+          />
+        </div>
       </div>
-
-
-
+    </div>
   );
 };
 

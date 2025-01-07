@@ -4,7 +4,7 @@ import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 
-export const useGetTeacherReviews = (teacherId: number) => {
+export const useGetStudentReviews = (email: string | undefined) => {
   const [reviews, setReviews] = useState<any[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export const useGetTeacherReviews = (teacherId: number) => {
 
     try {
       let response = await fetch(
-        `http://localhost:5230/api/opinion/getOpinionsByTeacherId?teacherId=${teacherId}`,
+        `http://localhost:5230/api/opinion/getOpinionsByStudentEmail?email=${email}`,
         {
           method: 'GET',
           headers: {
@@ -36,7 +36,7 @@ export const useGetTeacherReviews = (teacherId: number) => {
             dispatch(updateToken(newToken));
             token = newToken;
             response = await fetch(
-              `http://localhost:5230/api/opinion/getOpinionsByTeacherId?teacherId=${teacherId}`,
+              `http://localhost:5230/api/opinion/getOpinionsByStudentEmail?email=${email}`,
               {
                 method: 'GET',
                 headers: {
@@ -72,10 +72,10 @@ export const useGetTeacherReviews = (teacherId: number) => {
   };
 
   useEffect(() => {
-    if (teacherId && jwtToken) {
+    if (email && jwtToken) {
       fetchReviews();
     }
-  }, [teacherId, jwtToken]);
+  }, [email, jwtToken]);
 
   return { reviews, loading, error, refetch };
 };
