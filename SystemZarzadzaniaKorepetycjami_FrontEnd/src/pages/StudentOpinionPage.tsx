@@ -45,6 +45,7 @@ const StudentOpinionPage: React.FC = () => {
                 review //dodać jeszcze imie i nazwisko nauczyciela
               ) => (
                 <div key={review.idPerson} className="review-item">
+                  <p>{review.fullName}</p>
                   <p>
                     <strong>Ocena:</strong> {review.rating}/5
                   </p>

@@ -14,39 +14,39 @@ const TeacherOpinionPage: React.FC = () => {
   };
 
   return (
-      <div className="teacher-reviews-page">
-          <div className="reviews-wrapper">
-              <h1>Opinie o Tobie</h1>
-              {error ? (
-                  <p>Błąd podczas ładowania opinii.</p>
-              ) : loading ? (
-                  <p>Ładowanie...</p>
+    <div className="teacher-reviews-page">
+      <div className="reviews-wrapper">
+        <h1>Opinie o Tobie</h1>
+        {error ? (
+          <p>Błąd podczas ładowania opinii.</p>
+        ) : loading ? (
+          <p>Ładowanie...</p>
+        ) : (
+          <>
+            <div className="reviews-list">
+              {reviews && reviews.length > 0 ? (
+                reviews.map((review) => (
+                  <div key={review.idPerson} className="review-item">
+                    <p>{review.fullName}</p>
+                    <p>
+                      <strong>Ocena:</strong> {review.rating}/5
+                    </p>
+                    <p>{review.content}</p>
+                  </div>
+                ))
               ) : (
-                  <>
-                      <div className="reviews-list">
-                          {reviews && reviews.length > 0 ? (
-                              reviews.map((review) => (
-                                  <div key={review.idPerson} className="review-item">
-                                      <p>
-                                          <strong>Ocena:</strong> {review.rating}/5
-                                      </p>
-                                      <p>{review.content}</p>
-                                  </div>
-                              ))
-                          ) : (
-                              <div>
-                                  <p>Brak opinii</p>
-                              </div>
-                          )}
-                              </div>
-                              <div className="button-container">
-                                  <button onClick={handleGoBack}>Powrót</button>
-                              </div>
-                  </>
+                <div>
+                  <p>Brak opinii</p>
+                </div>
               )}
-          </div>
+            </div>
+            <div className="button-container">
+              <button onClick={handleGoBack}>Powrót</button>
+            </div>
+          </>
+        )}
       </div>
-
+    </div>
   );
 };
 
