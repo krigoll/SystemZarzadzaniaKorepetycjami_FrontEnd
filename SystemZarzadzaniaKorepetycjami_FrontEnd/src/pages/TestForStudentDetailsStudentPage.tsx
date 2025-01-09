@@ -59,58 +59,72 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
   if (!testDetails) return <p>Nie znaleziono szczegółów testu.</p>;
 
   return (
-    <div className="test-details-page">
-      <h1>Szczegóły Testu</h1>
-      <AppButton label="Powrót" onClick={() => goToTestStudentPage(navigate)} />
+      <div className="student-test-details-page">
+          <div className="student-test-details-box">
+              <h1>Szczegóły Testu</h1>
 
-      <div className="test-info">
-        <h2>Tytuł testu: {testDetails.title}</h2>
-        <h3>Zadania:</h3>
-        {testDetails.assignment.length === 0 ? (
-          <p>Brak zadań.</p>
-        ) : (
-          <div className="assignment-list">
-            {testDetails.assignment.map((assignment) => (
-              <div key={assignment.idAssignment} className="assignment-item">
-                <p>Treść zadania: {assignment.content}</p>
-                <p>
-                  Poprawna odpowiedź:{' '}
-                  {assignment.answerAssignment && assignment.idMark
-                    ? assignment.answerAssignment
-                    : 'Brak'}
-                </p>
-                <p>
-                  Ocena:{' '}
-                  {assignment.idMark
-                    ? `${assignment.description} (${assignment.value ? 'Poprawna' : 'Niepoprawna'})`
-                    : 'Brak oceny'}
-                </p>
-                <div className="answer-field">
-                  <label>Twoja odpowiedź:</label>
-                  <input
-                    type="text"
-                    value={
-                      answers[assignment.idAssignment] ??
-                      assignment.studentAnswer ??
-                      ''
-                    }
-                    onChange={(e) =>
-                      handleAnswerChange(
-                        assignment.idAssignment,
-                        e.target.value
-                      )
-                    }
-                  />
-                </div>
+              <div className="student-test-details-info">
+                  <h2>Tytuł testu: {testDetails.title}</h2>
+                  <h3>Zadania:</h3>
+                  {testDetails.assignment.length === 0 ? (
+                      <p>Brak zadań.</p>
+                  ) : (
+                      <div className="student-assignment-list">
+                          {testDetails.assignment.map((assignment) => (
+                              <div
+                                  key={assignment.idAssignment}
+                                  className="student-assignment-item"
+                              >
+                                  <p><strong>Treść zadania:</strong> {assignment.content}</p>
+                                  <p>
+                                      <strong>Poprawna odpowiedź:</strong>{' '}
+                                      {assignment.answerAssignment && assignment.idMark
+                                          ? assignment.answerAssignment
+                                          : 'Brak'}
+                                  </p>
+                                  <p>
+                                      <strong>Ocena:</strong>{' '}
+                                      {assignment.idMark
+                                          ? `${assignment.description} (${assignment.value ? 'Poprawna' : 'Niepoprawna'})`
+                                          : 'Brak oceny'}
+                                  </p>
+                                  <div className="student-answer-field">
+                                      <label>Twoja odpowiedź:</label>
+                                      <input
+                                          type="text"
+                                          value={
+                                              answers[assignment.idAssignment] ??
+                                              assignment.studentAnswer ??
+                                              ''
+                                          }
+                                          onChange={(e) =>
+                                              handleAnswerChange(
+                                                  assignment.idAssignment,
+                                                  e.target.value
+                                              )
+                                          }
+                                      />
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  )}
               </div>
-            ))}
+              <button
+                  className="student-submit-button"
+                  onClick={handleSubmit}
+                  disabled={submitting}
+              >
+                  {submitting ? 'Trwa zapisywanie...' : 'Zapisz odpowiedzi'}
+              </button>
           </div>
-        )}
+          <div className="button-container">
+              <AppButton
+                  label="Powrót"
+                  onClick={() => goToTestStudentPage(navigate)}
+              /></div>
       </div>
-      <button onClick={handleSubmit} disabled={submitting}>
-        {submitting ? 'Trwa zapisywanie...' : 'Zapisz odpowiedzi'}
-      </button>
-    </div>
+
   );
 };
 
