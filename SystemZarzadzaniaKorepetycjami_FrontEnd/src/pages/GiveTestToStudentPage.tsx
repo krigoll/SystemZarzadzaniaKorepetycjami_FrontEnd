@@ -38,42 +38,46 @@ const GiveTestToStudentPage: React.FC = () => {
   }
 
   return (
-    <div className="user-list-page">
-      <h1>Zadaj test uczniowi</h1>
-      {students ? (
-        <>
-          <AppButton
-            label="Powrót"
-            onClick={() => goToTestsDetailsPage(navigate, numericTestId)}
-          />
-          <div className="user-list">
-            Uczniowie:
-            {students.length === 0 ? (
-              <div className="no-users">Brak</div>
-            ) : (
-              students.map((student: Student) => (
-                <div key={student.idStudent} className="user-item">
-                  <div className="user-info">
-                    <div className="user-name">
-                      <p>Imię i nazwisko: {student.fullName}</p>
-                    </div>
-                  </div>
-                  <div className="user-actions">
-                    <AppButton
-                      label="Zadaj"
-                      onClick={() => handleGiveTest(student.idStudent)}
-                      disabled={loadingGive}
-                    />
-                  </div>
-                </div>
-              ))
-            )}
+      <div className="assign-test-page">
+          <div className="assign-test-box">
+              <h1>Zadaj test uczniowi</h1>
+
+              {students ? (
+                  <>
+
+
+                      <div className="assign-test-list">
+                          <p><strong>Uczniowie:</strong></p>
+                          {students.length === 0 ? (
+                              <p>Brak</p>
+                          ) : (
+                              students.map((student: Student) => (
+                                  <div key={student.idStudent} className="test-item">
+                                      <p><strong>Imię i nazwisko:</strong> {student.fullName}</p>
+                                      <div className="test-actions">
+                                          <AppButton
+                                              label="Zadaj"
+                                              onClick={() => handleGiveTest(student.idStudent)}
+                                              disabled={loadingGive}
+                                          />
+                                      </div>
+                                  </div>
+                              ))
+                          )}
+                      </div>
+                      <div className="button-container">
+                          <AppButton
+                              label="Powrót"
+                              onClick={() => goToTestsDetailsPage(navigate, numericTestId)}
+                          />
+                      </div>
+                  </>
+              ) : (
+                  <p>Ładowanie danych testu...</p>
+              )}
           </div>
-        </>
-      ) : (
-        <p>Ładowanie danych testu...</p>
-      )}
-    </div>
+      </div>
+
   );
 };
 

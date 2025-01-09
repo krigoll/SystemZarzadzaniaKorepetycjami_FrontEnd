@@ -63,10 +63,10 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
           idMark: 0,
           description: mark.description,
           value: mark.value,
-          idStudentAnswer: assignment.idStudentAnswer,
+          idStudentAnswer: assignment.idStudentAnswer, // Używamy poprawnego idStudentAnswer
         };
       })
-      .filter((mark) => mark !== null);
+      .filter((mark) => mark !== null); // Filtruj null, jeśli jakiś element nie miał idStudentAnswer
 
     console.log(updatedMarks);
 

@@ -116,14 +116,14 @@ function App() {
           path="/teacher/tests/:idTest/student"
           element={<GiveTestToStudentPage />}
         />
-        <Route path="/teacher/givenTersts" element={<TestListTeacherPage />} />
+        <Route path="/teacher/givenTests" element={<TestListTeacherPage />} />
         <Route
-          path="/teacher/givenTersts/:idTestForStudent"
+          path="/teacher/givenTests/:idTestForStudent"
           element={<TestForStudentDetailsTeacherPage />}
         />
-        <Route path="/student/givenTersts" element={<TestListStudentPage />} />
+        <Route path="/student/givenTests" element={<TestListStudentPage />} />
         <Route
-          path="/student/givenTersts/:idTestForStudent"
+          path="/student/givenTests/:idTestForStudent"
           element={<TestForStudentDetailsStudentPage />}
         />
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
