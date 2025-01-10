@@ -27,21 +27,18 @@ const AvailabilityPage: React.FC = () => {
   const email = useSelector((state: RootState) => state.login.email);
   const navigate = useNavigate();
 
-  // Fetching availability
   const {
     availability: fetchedAvailability,
     loading: fetchLoading,
     error: fetchError,
   } = useAvailability(email);
 
-  // Hook for updating availability
   const {
     updateAvailability,
     loading: updateLoading,
     error: updateError,
   } = useAvailabilityUpdate();
 
-  // Local state for holding availability data
   const [availability, setAvailability] = useState<EditAddAvailabilityProps[]>(
     daysOfWeek.map((_, index) => ({
       idDayOfTheWeek: index + 1,
@@ -50,7 +47,6 @@ const AvailabilityPage: React.FC = () => {
     }))
   );
 
-  // Populate the availability state when data is fetched
   useEffect(() => {
     if (fetchedAvailability) {
       setAvailability(
@@ -63,7 +59,6 @@ const AvailabilityPage: React.FC = () => {
     }
   }, [fetchedAvailability]);
 
-  // Handle input changes for availability
   const handleInputChange = (
     index: number,
     field: 'startTime' | 'endTime',
@@ -74,17 +69,14 @@ const AvailabilityPage: React.FC = () => {
     setAvailability(newAvailability);
   };
 
-  // Submit handler for updating availability
   const handleSubmit = async () => {
     await updateAvailability(availability);
   };
 
-  // Render loading states
   if (fetchLoading || updateLoading) {
     return <p>Loading availability...</p>;
   }
 
-  // Render errors
   if (fetchError || updateError) {
     return <p>Error: {fetchError || updateError}</p>;
   }

@@ -1,6 +1,6 @@
 export interface Calendar {
-    LessonId: number;
-    DateTime: string;
-    SubjectName: string;
-    StatusName: string;
+    lessonId: number;
+    dateTime: string;
+    subjectName: string;
+    statusName: string;
 }

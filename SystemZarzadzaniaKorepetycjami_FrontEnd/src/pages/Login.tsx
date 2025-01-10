@@ -41,7 +41,6 @@ const Login: React.FC = () => {
     return (
         <div className="App">
             <div className="login-container">
-                {/* Sekcja rejestracji */}
                 <div className="register-link">
                     <span>Nie masz konta? Zarejestruj się tutaj:</span>
                     <AppButton
@@ -50,7 +49,6 @@ const Login: React.FC = () => {
                     />
                 </div>
 
-                {/* Sekcja logowania */}
                 <div className="login-box">
                     <h1>Logowanie</h1>
                     <AppEmailInput

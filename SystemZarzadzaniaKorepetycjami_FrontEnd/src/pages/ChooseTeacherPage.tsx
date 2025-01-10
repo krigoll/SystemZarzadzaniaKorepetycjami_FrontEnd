@@ -60,7 +60,7 @@ const ChooseTeacherPage: React.FC = () => {
                 <div className="teacher-info">
                   <div className="teacher-name">
                     {teacher.name}, {teacher.price} zł, Średnia ocen{' '}
-                    {teacher.avgOpinion == 0 ? 'Brak' : teacher.avgOpinion}/5
+                    {teacher.avgOpinion == 0 ? 'Brak' : teacher.avgOpinion + '/5'}
                   </div>
                 </div>
                 <div className="teacher-photo">

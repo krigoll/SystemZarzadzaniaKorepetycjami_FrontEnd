@@ -31,21 +31,21 @@ const UserDetailsPage: React.FC = () => {
     const status = await deletePerson(personData.email);
 
     if (status === 200) {
-      alert('U�ytkownik zosta� usuni�ty pomy�lnie!');
+      alert('Użytkownik został usunięty pomyślnie!');
       goToUserListPage(navigate);
     } else {
-      alert('Nie uda�u si� usun�� u�ytkownika!');
+      alert('Nie udału sie usunąć użytkownika!');
     }
   };
 
   const handleBanUser = async () => {
     if (reason.length < 10 || reason.length > 99) {
-      alert('Pow�d blokady u�ytkownia musi zawiera� si� w 10-99 znakach!');
+      alert('Powód blokady użytkownia musi zawierać się w 10-99 znakach!');
       return false;
     }
     if (duration < 1) {
       alert(
-        'D�ugo�� blokady u�ytkownika musi wynosi� co najmniej jeden dzie�!'
+        'Długość blokady użytkownika musi wynosić co najmniej jeden dzień!'
       );
       return false;
     }
@@ -61,17 +61,17 @@ const UserDetailsPage: React.FC = () => {
     await createBan(banDTO);
 
     if (!createError) {
-      alert('U�ytkownik zosta� zablokowany pomy�lnie!');
+      alert('Użytkownik został zablokowany pomyślnie!');
       refetch();
     } else {
-      alert('B��d podczas blokowania u�ytkownika.');
+      alert('Bład podczas blokowania użytkownika.');
     }
   };
 
   return (
     <div className="user-profile-container">
       <div className="user-profile-wrapper">
-        <div className="user-profile-header">Szczeg�y u�ytkownika</div>
+        <div className="user-profile-header">Szczegły użytkownika</div>
         {personData ? (
           <div>
             {personData.image ? (
@@ -86,7 +86,7 @@ const UserDetailsPage: React.FC = () => {
                 <strong>Id:</strong> {numericPersonId}
               </p>
               <p>
-                <strong>Imi� i nazwisko:</strong> {personData.name}{' '}
+                <strong>Imię i nazwisko:</strong> {personData.name}{' '}
                 {personData.surname}
               </p>
               <p>
@@ -120,7 +120,7 @@ const UserDetailsPage: React.FC = () => {
                     <strong>Przez:</strong> {personData.numberOfDays} dni
                   </p>
                   <p>
-                    <strong>Pow�d:</strong> {personData.reason}
+                    <strong>Powód:</strong> {personData.reason}
                   </p>
                 </div>
               )}
@@ -131,8 +131,7 @@ const UserDetailsPage: React.FC = () => {
         )}
         <div className="user-profile-button-container">
           <AppButton
-            //className="delete-button"
-            label="Usu� konto"
+            label="Usuń konto"
             onClick={() => setDeleteDialog(!deleteDialog)}
           />
           {deleteDialog && (
@@ -143,21 +142,19 @@ const UserDetailsPage: React.FC = () => {
               </div>
               <div>
                 <AppButton
-                  //className="delete-button"
                   label="Potwierdż"
                   onClick={() => handleDeleteUser()}
                 />
               </div>
             </div>
           )}
-          <AppButton
-            //className="ban-button"
+          <AppButton          
             label="Zablokuj konto"
             onClick={() => setBan(!ban)}
           />
           {personData && personData.isStudent && (
             <AppButton
-              label="Zobacz wstawione opinie"
+              label="Wstawione opinie"
               onClick={() =>
                 goToStudentOpinionPage(
                   navigate,
@@ -169,7 +166,7 @@ const UserDetailsPage: React.FC = () => {
           {ban && (
             <div>
               <div className="user-profile-form-field">
-                <label htmlFor="text">Pow�d:</label>
+                <label htmlFor="text">Powód:</label>
                 <input
                   type="text"
                   value={reason}
@@ -187,20 +184,19 @@ const UserDetailsPage: React.FC = () => {
                 />
               </div>
               <AppButton
-                //className="ban-button"
-                label={creating ? 'Blokowanie...' : 'Potwierd�'}
+                label={creating ? 'Blokowanie...' : 'Potwierdź'}
                 onClick={handleBanUser}
                 disabled={creating}
               />
               {createError && (
-                <p style={{ color: 'red' }}>B��d: {createError}</p>
+                <p style={{ color: 'red' }}>Błąd: {createError}</p>
               )}
             </div>
           )}
         </div>
         <div className="button-container">
           <AppButton
-            label="Powr�t"
+            label="Powrót"
             onClick={() => goToUserListPage(navigate)}
           />
         </div>

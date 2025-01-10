@@ -249,7 +249,7 @@ const SubjectListPage: React.FC = () => {
                           ))}
                           <button
                               className="subject-management-add-button"
-                              onClick={() => setAddSubject((prev) => !prev)} // Przełączanie stanu
+                              onClick={() => setAddSubject((prev) => !prev)} 
                           >
                               Dodaj nowy
                           </button>
@@ -259,7 +259,7 @@ const SubjectListPage: React.FC = () => {
                           <div className="subject-management-column">
                             <button
                         className="subject-management-add-button"
-                        onClick={() => setDeleteSubject((prev) => !prev)} // Przełączanie stanu
+                        onClick={() => setDeleteSubject((prev) => !prev)} 
                     >
                         Usuń przedmiot
                     </button>
@@ -278,7 +278,7 @@ const SubjectListPage: React.FC = () => {
                                   ))}
                               <button
                                   className="subject-management-add-button"
-                                  onClick={() => setAddCategory((prev) => !prev)} // Przełączanie stanu
+                                  onClick={() => setAddCategory((prev) => !prev)} 
                               >
                                   Dodaj nową kategorię
                               </button>
@@ -289,7 +289,7 @@ const SubjectListPage: React.FC = () => {
                           <div className="subject-management-column">
                             <button
                                   className="subject-management-add-button"
-                                  onClick={() => setDeleteCategory((prev) => !prev)} // Przełączanie stanu
+                                  onClick={() => setDeleteCategory((prev) => !prev)} 
                               >
                                   Usuń kategorię
                               </button>
@@ -308,14 +308,14 @@ const SubjectListPage: React.FC = () => {
                                   ))}
                               <button
                                   className="subject-management-add-button"
-                                  onClick={() => setAddLevel((prev) => !prev)} // Przełączanie stanu
+                                  onClick={() => setAddLevel((prev) => !prev)} 
                               >
                                   Dodaj nowy poziom
                               </button>
                               {selectedLevel && (
                         <button
                         className="subject-management-add-button"
-                        onClick={() => setDeleteLevel((prev) => !prev)} // Przełączanie stanu
+                        onClick={() => setDeleteLevel((prev) => !prev)} 
                     >
                         Usuń poziom
                     </button>

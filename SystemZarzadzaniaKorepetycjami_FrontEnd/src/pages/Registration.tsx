@@ -43,7 +43,7 @@ const RegisterPage: React.FC = () => {
 
   useEffect(() => {
     if (jwtToken && isNotNewTeacher) {
-      goToMenu(navigate); //TODO
+      goToMenu(navigate); 
     }
   }, [jwtToken, navigate]);
 

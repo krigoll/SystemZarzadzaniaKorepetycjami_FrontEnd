@@ -30,11 +30,11 @@ const GiveTestToStudentPage: React.FC = () => {
   };
 
   if (loading) {
-    return <p>Loading tests...</p>;
+    return <p>Ładowanie testów...</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Błąd: {error}</p>;
   }
 
   return (

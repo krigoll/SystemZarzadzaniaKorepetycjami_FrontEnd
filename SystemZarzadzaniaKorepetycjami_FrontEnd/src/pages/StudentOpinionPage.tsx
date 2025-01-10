@@ -40,9 +40,9 @@ const StudentOpinionPage: React.FC = () => {
           <p>Ładowanie...</p>
         ) : (
           <div className="reviews-list">
-            {reviews?.map(
+            {reviews && reviews.length == 0 ? 'Brak opinji' : (reviews?.map(
               (
-                review //dodać jeszcze imie i nazwisko nauczyciela
+                review 
               ) => (
                 <div key={review.idPerson} className="review-item">
                   <p>{review.fullName}</p>
@@ -59,7 +59,9 @@ const StudentOpinionPage: React.FC = () => {
                   </button>
                 </div>
               )
-            )}
+            ))}
+
+            
           </div>
         )}
         <div className="button-container">

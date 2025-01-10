@@ -5,11 +5,8 @@ import { RootState } from '../futures/store';
 import { useNavigate } from 'react-router-dom';
 import {
   goToProfile,
-  //goToStudentMenu,
-  //goToTeacherMenu,
   goToCalendarPage,
   goToChat,
-  //goToAdminMenuPage,
   goToChooseSubjectPage,
   goToTeachersReviewsListPage,
   goToDeterminingAvailabilty,
@@ -33,25 +30,25 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const handleLogOut = useHandleLogOut();
 
-  const [isStudentMenuVisible, setStudentMenuVisible] = useState(false); // Stan do zarządzania widocznością menu Uczeń
-  const [isTeacherMenuVisible, setTeacherMenuVisible] = useState(false); // Stan do zarządzania widocznością menu Nauczyciel
-  const [isAdminMenuVisible, setAdminMenuVisible] = useState(false); // Stan do zarządzania widocznością menu Admin
+  const [isStudentMenuVisible, setStudentMenuVisible] = useState(false);
+  const [isTeacherMenuVisible, setTeacherMenuVisible] = useState(false); 
+  const [isAdminMenuVisible, setAdminMenuVisible] = useState(false); 
   const [isTeacherTestVisible, setTeacherTestVisible] = useState(false);
 
   const handleStudentMenuClick = () => {
-    setStudentMenuVisible((prevState) => !prevState); // Zmieniamy widoczność menu Uczeń
+    setStudentMenuVisible((prevState) => !prevState);
   };
 
   const handleTeacherMenuClick = () => {
-    setTeacherMenuVisible((prevState) => !prevState); // Zmieniamy widoczność menu Nauczyciel
+    setTeacherMenuVisible((prevState) => !prevState);
   };
 
   const handleAdminMenuClick = () => {
-    setAdminMenuVisible((prevState) => !prevState); // Zmieniamy widoczność menu Admin
+    setAdminMenuVisible((prevState) => !prevState); 
   };
 
   const handleTeacherTestClick = () => {
-    setTeacherTestVisible((prevState) => !prevState); // Zmieniamy widoczność menu Admin
+    setTeacherTestVisible((prevState) => !prevState); 
   };
 
   const getDay = (): string => {
@@ -72,7 +69,6 @@ const App: React.FC = () => {
           {isStudent && (
             <>
               <AppButton label="Uczeń" onClick={handleStudentMenuClick} />{' '}
-              {/* Przycisk rozwijający menu */}
               {isStudentMenuVisible && (
                 <div className="student-menu">
                   <AppButton
@@ -94,7 +90,6 @@ const App: React.FC = () => {
           {isTeacher && (
             <>
               <AppButton label="Nauczyciel" onClick={handleTeacherMenuClick} />{' '}
-              {/* Przycisk rozwijający menu dla nauczyciela */}
               {isTeacherMenuVisible && (
                 <div className="teacher-menu">
                   <AppButton
@@ -133,7 +128,6 @@ const App: React.FC = () => {
           {isAdmin && (
             <>
               <AppButton label="Admin" onClick={handleAdminMenuClick} />{' '}
-              {/* Przycisk rozwijający menu dla administratora */}
               {isAdminMenuVisible && (
                 <div className="admin-menu">
                   <AppButton
