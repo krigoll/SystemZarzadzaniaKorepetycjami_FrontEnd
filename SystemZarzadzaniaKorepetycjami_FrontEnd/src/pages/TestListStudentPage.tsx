@@ -41,10 +41,10 @@ const TestListStudentPage: React.FC = () => {
                   ) : (
                       tests.map((test: Test) => (
                           <div key={test.idTest} className="test-item">
-                              <p><strong>Tytuł:</strong> {test.title}</p>
-                              <p><strong>Ilość zadań:</strong> {test.numberOfAssignments}</p>
-                              <p><strong>Zadano przez:</strong> {test.fullname}</p>
-                              <p><strong>Data:</strong> {test.creationTime}</p>
+                              <p><strong>Tytuł:</strong> {test.title} </p>
+                              <p><strong>Ilość zadań:</strong> {test.numberOfAssignments} </p>
+                              <p><strong>Zadano przez:</strong> {test.fullname} </p>
+                              <p><strong>Data:</strong> {test.creationTime} </p>
                               <div className="test-item-actions">
                                   <AppButton
                                       label="Szczegóły"
