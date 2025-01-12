@@ -58,7 +58,7 @@ const AddSubjectsPage: React.FC = () => {
     const responseStatus = await setTeacherSalary(teacherSalaries);
 
     if (responseStatus === 200) {
-      alert('Subjects and costs submitted successfully');
+      alert('Przedmioty i koszty wysłane pomyślnie');
       goToMenu(navigate);
     } else {
       alert('Failed to submit subjects and costs');
@@ -74,48 +74,53 @@ const AddSubjectsPage: React.FC = () => {
   }
 
   return (
-      <div className="subjects-container">
-          <h1>Dodaj Przedmioty i Koszty</h1>
-          <p className="instructions">Zaznacz przedmioty, które chcesz dodać, i podaj koszt godzinowy.</p>
-          {subjectsList.length === 0 ? (
-              <p className="no-subjects">Brak dostępnych przedmiotów</p>
-          ) : (
-              <div className="subjects-list">
-                  {subjectsList.map((subjectDTO) => (
-                      <div key={subjectDTO.subjectLevelId} className="subject-item">
-                          <label className="subject-label">
-                              <input
-                                  type="checkbox"
-                                  className="subject-checkbox"
-                                  checked={!!selectedSubjects[subjectDTO.subjectLevelId]}
-                                  onChange={(e) =>
-                                      handleSubjectChange(subjectDTO.subjectLevelId, e.target.checked)
-                                  }
-                              />
-                              {subjectDTO.subjectFullName}
-                          </label>
-                          {selectedSubjects[subjectDTO.subjectLevelId] !== undefined && (
-                              <input
-                                  type="text"
-                                  className="cost-input"
-                                  placeholder="Koszt (zł/h)"
-                                  value={selectedSubjects[subjectDTO.subjectLevelId]}
-                                  onChange={(e) =>
-                                      handleCostChange(subjectDTO.subjectLevelId, e.target.value)
-                                  }
-                              />
-                          )}
-                      </div>
-                  ))}
-              </div>
-          )}
-          <div className="button-container">
-              <AppButton label="Pomiń" onClick={() => goToMenu(navigate)} />
-              <button className="submit-button" onClick={handleSubmit}>
-                  Akceptuj
-              </button>
-          </div>
+    <div className="subjects-container">
+      <h1>Dodaj Przedmioty i Koszty</h1>
+      <p className="instructions">
+        Zaznacz przedmioty, które chcesz dodać, i podaj koszt godzinowy.
+      </p>
+      {subjectsList.length === 0 ? (
+        <p className="no-subjects">Brak dostępnych przedmiotów</p>
+      ) : (
+        <div className="subjects-list">
+          {subjectsList.map((subjectDTO) => (
+            <div key={subjectDTO.subjectLevelId} className="subject-item">
+              <label className="subject-label">
+                <input
+                  type="checkbox"
+                  className="subject-checkbox"
+                  checked={!!selectedSubjects[subjectDTO.subjectLevelId]}
+                  onChange={(e) =>
+                    handleSubjectChange(
+                      subjectDTO.subjectLevelId,
+                      e.target.checked
+                    )
+                  }
+                />
+                {subjectDTO.subjectFullName}
+              </label>
+              {selectedSubjects[subjectDTO.subjectLevelId] !== undefined && (
+                <input
+                  type="text"
+                  className="cost-input"
+                  placeholder="Koszt (zł/h)"
+                  value={selectedSubjects[subjectDTO.subjectLevelId]}
+                  onChange={(e) =>
+                    handleCostChange(subjectDTO.subjectLevelId, e.target.value)
+                  }
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="button-container">
+        <AppButton label="Pomiń" onClick={() => goToMenu(navigate)} />
+        <button className="submit-button" onClick={handleSubmit}>
+          Akceptuj
+        </button>
       </div>
+    </div>
   );
 };
 

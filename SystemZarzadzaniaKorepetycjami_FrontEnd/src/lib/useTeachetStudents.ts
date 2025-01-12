@@ -9,7 +9,10 @@ interface Student {
   fullName: string;
 }
 
-export const useTeachetStudents = (itTeacher: number) => {
+export const useTeachetStudents = (
+  itTeacher: number,
+  numericTestId: number | null
+) => {
   const [students, setStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +25,7 @@ export const useTeachetStudents = (itTeacher: number) => {
     const fetchTest = async (token: string) => {
       try {
         const response = await fetch(
-          `http://localhost:5230/api/student/${itTeacher}`,
+          `http://localhost:5230/api/student/${itTeacher}?idTest=${numericTestId}`,
           {
             method: 'GET',
             headers: {

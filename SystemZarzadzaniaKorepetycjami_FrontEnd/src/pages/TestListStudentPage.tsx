@@ -29,43 +29,48 @@ const TestListStudentPage: React.FC = () => {
   }
 
   return (
-      <div className="student-test-list-page">
-          <div className="student-test-list-box">
-              <h1>Lista Testów</h1>
+    <div className="student-test-list-page">
+      <div className="student-test-list-box">
+        <h1>Lista Testów</h1>
 
-
-
-              <div className="student-test-list">
-                  {tests.length === 0 ? (
-                      <p>Brak Testów</p>
-                  ) : (
-                      tests.map((test: Test) => (
-                          <div key={test.idTest} className="test-item">
-                              <p><strong>Tytuł:</strong> {test.title} </p>
-                              <p><strong>Ilość zadań:</strong> {test.numberOfAssignments} </p>
-                              <p><strong>Zadano przez:</strong> {test.fullname} </p>
-                              <p><strong>Data:</strong> {test.creationTime} </p>
-                              <div className="test-item-actions">
-                                  <AppButton
-                                      label="Szczegóły"
-                                      onClick={() =>
-                                          goToTestForStudentDetailsPage(
-                                              navigate,
-                                              test.idTestForStudent
-                                          )
-                                      }
-                                  />
-                              </div>
-                          </div>
-                      ))
-                  )}
+        <div className="student-test-list">
+          {tests.length === 0 ? (
+            <p>Brak Testów</p>
+          ) : (
+            tests.map((test: Test) => (
+              <div key={test.idTestForStudent} className="test-item">
+                <p>
+                  <strong>Tytuł:</strong> {test.title} &nbsp;
+                </p>
+                <p>
+                  <strong>Ilość zadań:</strong> {test.numberOfAssignments}&nbsp;
+                </p>
+                <p>
+                  <strong>Zadano przez:</strong> {test.fullname}&nbsp;
+                </p>
+                <p>
+                  <strong>Data:</strong> {test.creationTime}&nbsp;
+                </p>
+                <div className="test-item-actions">
+                  <AppButton
+                    label="Szczegóły"
+                    onClick={() =>
+                      goToTestForStudentDetailsPage(
+                        navigate,
+                        test.idTestForStudent
+                      )
+                    }
+                  />
+                </div>
               </div>
-              <div className="button-container">
-                  <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
-              </div>
-          </div>
+            ))
+          )}
+        </div>
+        <div className="button-container">
+          <AppButton label="Powrót" onClick={() => goToMenu(navigate)} />
+        </div>
       </div>
-
+    </div>
   );
 };
 

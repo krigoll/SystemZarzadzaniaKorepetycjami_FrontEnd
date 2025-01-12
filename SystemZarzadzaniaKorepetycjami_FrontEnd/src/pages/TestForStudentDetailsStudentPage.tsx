@@ -10,7 +10,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, string>>({});
 
-  const { testDetails, loading, error, refetch } = useGetTestForStudentDetails(
+  const { testDetails, loading, error } = useGetTestForStudentDetails(
     Number(idTestForStudent)
   );
 
@@ -35,7 +35,6 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
         idStudentAnswer: 0,
       })
     );
-
     try {
       const success = await createOrUpdateStudentAnswers(
         Number(idTestForStudent),
@@ -44,7 +43,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
 
       if (success) {
         alert('Odpowiedzi zapisane!');
-        refetch();
+        goToTestStudentPage(navigate);
       } else {
         alert(submitError || 'Błąd podczas zapisywania odpowiedzi.');
       }
@@ -59,72 +58,87 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
   if (!testDetails) return <p>Nie znaleziono szczegółów testu.</p>;
 
   return (
-      <div className="student-test-details-page">
-          <div className="student-test-details-box">
-              <h1>Szczegóły Testu</h1>
+    <div className="student-test-details-page">
+      <div className="student-test-details-box">
+        <h1>Szczegóły Testu</h1>
 
-              <div className="student-test-details-info">
-                  <h2>Tytuł testu: {testDetails.title}</h2>
-                  <h3>Zadania:</h3>
-                  {testDetails.assignment.length === 0 ? (
-                      <p>Brak zadań.</p>
-                  ) : (
-                      <div className="student-assignment-list">
-                          {testDetails.assignment.map((assignment) => (
-                              <div
-                                  key={assignment.idAssignment}
-                                  className="student-assignment-item"
-                              >
-                                  <p><strong>Treść zadania:</strong> {assignment.content}</p>
-                                  <p>
-                                      <strong>Poprawna odpowiedź:</strong>{' '}
-                                      {assignment.answerAssignment && assignment.idMark
-                                          ? assignment.answerAssignment
-                                          : 'Brak'}
-                                  </p>
-                                  <p>
-                                      <strong>Ocena:</strong>{' '}
-                                      {assignment.idMark
-                                          ? `${assignment.description} (${assignment.value ? 'Poprawna' : 'Niepoprawna'})`
-                                          : 'Brak oceny'}
-                                  </p>
-                                  <div className="student-answer-field">
-                                      <label>Twoja odpowiedź:</label>
-                                      <input
-                                          type="text"
-                                          value={
-                                              answers[assignment.idAssignment] ??
-                                              assignment.studentAnswer ??
-                                              ''
-                                          }
-                                          onChange={(e) =>
-                                              handleAnswerChange(
-                                                  assignment.idAssignment,
-                                                  e.target.value
-                                              )
-                                          }
-                                      />
-                                  </div>
-                              </div>
-                          ))}
-                      </div>
+        <div className="student-test-details-info">
+          <h2>Tytuł testu: {testDetails.title}</h2>
+          <h3>Zadania:</h3>
+          {testDetails.assignment.length === 0 ? (
+            <p>Brak zadań.</p>
+          ) : (
+            <div className="student-assignment-list">
+              {testDetails.assignment.map((assignment) => (
+                <div
+                  key={assignment.idAssignment}
+                  className="student-assignment-item"
+                >
+                  <p>
+                    <strong>Treść zadania:</strong> {assignment.content}
+                  </p>
+                  {assignment.idMark != 0 && (
+                    <div>
+                      <p>
+                        <strong>Poprawna odpowiedź:</strong>{' '}
+                        {assignment.answerAssignment &&
+                        assignment.answerAssignment.trim().length > 0 &&
+                        assignment.idMark
+                          ? assignment.answerAssignment
+                          : 'Brak'}
+                      </p>
+                      <p>
+                        <strong>Ocena:</strong>{' '}
+                        {assignment.idMark
+                          ? `${assignment.value ? 'Poprawna' : 'Niepoprawna'}`
+                          : 'Brak oceny'}
+                        {assignment.description && (
+                          <div>
+                            <strong>Komentarz:</strong>
+                            {assignment.description}
+                          </div>
+                        )}
+                      </p>
+                    </div>
                   )}
-              </div>
-              <button
-                  className="student-submit-button"
-                  onClick={handleSubmit}
-                  disabled={submitting}
-              >
-                  {submitting ? 'Trwa zapisywanie...' : 'Zapisz odpowiedzi'}
-              </button>
-          </div>
-          <div className="button-container">
-              <AppButton
-                  label="Powrót"
-                  onClick={() => goToTestStudentPage(navigate)}
-              /></div>
-      </div>
 
+                  <div className="student-answer-field">
+                    <label>Twoja odpowiedź:</label>
+                    <input
+                      type="text"
+                      value={
+                        answers[assignment.idAssignment] ??
+                        assignment.studentAnswer ??
+                        ''
+                      }
+                      onChange={(e) =>
+                        handleAnswerChange(
+                          assignment.idAssignment,
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <button
+          className="student-submit-button"
+          onClick={handleSubmit}
+          disabled={submitting}
+        >
+          {submitting ? 'Trwa zapisywanie...' : 'Zapisz odpowiedzi'}
+        </button>
+      </div>
+      <div className="button-container">
+        <AppButton
+          label="Powrót"
+          onClick={() => goToTestStudentPage(navigate)}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import { updateToken } from '../futures/login/loginSlice';
 
 interface MarkDTO {
   idMark: number;
-  description: string;
+  description: string | null;
   value: boolean;
   idStudentAnswer: number;
 }
@@ -37,7 +37,6 @@ export const useCreateOrUpdateMark = () => {
     try {
       let response = await attemptRequest(token);
 
-      // Handle 401 Unauthorized (Token refresh logic)
       if (response.status === 401) {
         const newToken = await refreshAccessToken();
         if (newToken) {
@@ -48,7 +47,6 @@ export const useCreateOrUpdateMark = () => {
         }
       }
 
-      // Handle responses based on the status code
       if (!response.ok) {
         switch (response.status) {
           case 400:
@@ -64,7 +62,6 @@ export const useCreateOrUpdateMark = () => {
         return false;
       }
 
-      // If everything is OK
       return true;
     } catch (err) {
       console.error('Error during request:', err);

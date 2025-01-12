@@ -43,10 +43,7 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
     }
 
     const updatedMarks = Object.entries(marks)
-      .filter(
-        ([, mark]) =>
-          mark.description?.trim() !== '' && mark.value !== undefined
-      )
+      .filter(([, mark]) => mark.value !== undefined)
       .map(([idAssignment, mark]) => {
         const assignment = testDetails.assignment.find(
           (a) => a.idAssignment === Number(idAssignment)
@@ -61,14 +58,12 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
 
         return {
           idMark: 0,
-          description: mark.description,
+          description: mark.description ? mark.description : null,
           value: mark.value,
-          idStudentAnswer: assignment.idStudentAnswer, 
+          idStudentAnswer: assignment.idStudentAnswer,
         };
       })
-      .filter((mark) => mark !== null); 
-
-    console.log(updatedMarks);
+      .filter((mark) => mark !== null);
 
     if (updatedMarks.length === 0) {
       alert('Nie wprowadzono żadnych ocen do zapisania.');
@@ -95,94 +90,98 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
   if (!testDetails) return <p>Nie znaleziono szczegółów testu.</p>;
 
   return (
-      <div className="teacher-test-details-page">
-          <div className="teacher-test-details-box">
-              <h1>Szczegóły Testu</h1>
+    <div className="teacher-test-details-page">
+      <div className="teacher-test-details-box">
+        <h1>Szczegóły Testu</h1>
 
-              <div className="teacher-test-details-info">
-                  <h2>Tytuł testu: {testDetails.title}</h2>
-                  <h3>Zadania:</h3>
-                  {testDetails.assignment.length === 0 ? (
-                      <p>Brak zadań.</p>
-                  ) : (
-                      <div className="teacher-assignment-list">
-                          {testDetails.assignment.map((assignment) => (
-                              <div
-                                  key={assignment.idAssignment}
-                                  className="teacher-assignment-item"
-                              >
-                                  <p><strong>Treść zadania:</strong> {assignment.content}</p>
-                                  <p>
-                                      <strong>Odpowiedź ucznia:</strong>{' '}
-                                      {assignment.studentAnswer
-                                          ? assignment.studentAnswer
-                                          : 'Brak odpowiedzi'}
-                                  </p>
-                                  <p>
-                                      <strong>Poprawna odpowiedź:</strong>{' '}
-                                      {assignment.answerAssignment &&
-                                          assignment.answerAssignment.trim().length > 0
-                                          ? assignment.answerAssignment
-                                          : 'Brak'}
-                                  </p>
-                                  <div className="teacher-mark-field">
-                                      <label>Ocena:</label>
-                                      <select
-                                          value={
-                                              marks[assignment.idAssignment]?.value?.toString() ??
-                                              (assignment.description
-                                                  ? assignment.value.toString()
-                                                  : '')
-                                          }
-                                          onChange={(e) =>
-                                              handleMarkChange(
-                                                  assignment.idAssignment,
-                                                  'value',
-                                                  e.target.value === 'true'
-                                              )
-                                          }
-                                      >
-                                          <option value="">Wybierz</option>
-                                          <option value="true">Poprawna</option>
-                                          <option value="false">Niepoprawna</option>
-                                      </select>
-                                      <label>Opis oceny:</label>
-                                      <input
-                                          type="text"
-                                          value={
-                                              marks[assignment.idAssignment]?.description ??
-                                              assignment.description ??
-                                              ''
-                                          }
-                                          onChange={(e) =>
-                                              handleMarkChange(
-                                                  assignment.idAssignment,
-                                                  'description',
-                                                  e.target.value
-                                              )
-                                          }
-                                      />
-                                  </div>
-                              </div>
-                          ))}
-                      </div>
+        <div className="teacher-test-details-info">
+          <h2>Tytuł testu: {testDetails.title}</h2>
+          <h3>Zadania:</h3>
+          {testDetails.assignment.length === 0 ? (
+            <p>Brak zadań.</p>
+          ) : (
+            <div className="teacher-assignment-list">
+              {testDetails.assignment.map((assignment) => (
+                <div
+                  key={assignment.idAssignment}
+                  className="teacher-assignment-item"
+                >
+                  <p>
+                    <strong>Treść zadania:</strong> {assignment.content}
+                  </p>
+                  <p>
+                    <strong>Odpowiedź ucznia:</strong>{' '}
+                    {assignment.studentAnswer
+                      ? assignment.studentAnswer
+                      : 'Brak odpowiedzi'}
+                  </p>
+                  <p>
+                    <strong>Poprawna odpowiedź:</strong>{' '}
+                    {assignment.answerAssignment &&
+                    assignment.answerAssignment.trim().length > 0
+                      ? assignment.answerAssignment
+                      : 'Brak'}
+                  </p>
+                  {assignment.studentAnswer && (
+                    <div className="teacher-mark-field">
+                      <label>Ocena:</label>
+                      <select
+                        value={
+                          marks[assignment.idAssignment]?.value?.toString() ??
+                          (assignment.value !== undefined
+                            ? assignment.value.toString()
+                            : '')
+                        }
+                        onChange={(e) =>
+                          handleMarkChange(
+                            assignment.idAssignment,
+                            'value',
+                            e.target.value === 'true'
+                          )
+                        }
+                      >
+                        <option value="">Wybierz</option>
+                        <option value="true">Poprawna</option>
+                        <option value="false">Niepoprawna</option>
+                      </select>
+                      <label>Opis/komentarz oceny (obcionalnie):</label>
+                      <input
+                        type="text"
+                        value={
+                          marks[assignment.idAssignment]?.description ??
+                          assignment.description ??
+                          ''
+                        }
+                        onChange={(e) =>
+                          handleMarkChange(
+                            assignment.idAssignment,
+                            'description',
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
                   )}
-              </div>
-              <button
-                  className="teacher-submit-button"
-                  onClick={handleSubmit}
-                  disabled={submitting}
-              >
-                  {submitting ? 'Trwa zapisywanie...' : 'Zapisz oceny'}
-              </button>
-          </div>
-          <div className="button-container">
-              <AppButton
-                  label="Powrót"
-                  onClick={() => goToTestTeacherPage(navigate)}
-              /></div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <button
+          className="teacher-submit-button"
+          onClick={handleSubmit}
+          disabled={submitting}
+        >
+          {submitting ? 'Trwa zapisywanie...' : 'Zapisz oceny'}
+        </button>
       </div>
-
+      <div className="button-container">
+        <AppButton
+          label="Powrót"
+          onClick={() => goToTestTeacherPage(navigate)}
+        />
+      </div>
+    </div>
   );
 };
 
