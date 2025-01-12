@@ -10,21 +10,20 @@ async function handleLogin({ email, password }: LoginProps) {
         const response = await loginToApp({ email, password });
         if (!response.ok) {
             if (response.status === 401) {
-                alert('Błędny login lub hasło');
+                alert('Błędny login lub hasło!');
                 return;
             } else if (response.status === 403) {
-                alert('Użytkownik został zablokowany');
+                alert('Użytkownik został zablokowany!');
                 return;
             } else {
-                alert('Bazy danych'); // TODO: dodać przejscie do stony, kod 500
+                alert('Błąd bazy danych.');
                 return;
             }
         }
         const personaldata = response.json();
         return personaldata;
     } catch (error) {
-        console.error('Login failed', error);
-        alert('Login failed');
+        alert('Logowanie się nie powiodło!');
     }
 }
 

@@ -52,7 +52,7 @@
               "RelativeDocumentMoniker": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TestForStudentDetailsStudentPage.tsx",
               "ToolTip": "C:\\Users\\ASUS\\Desktop\\SystemZarzadzaniaKorepetycjami_FrontEnd\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TestForStudentDetailsStudentPage.tsx",
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TestForStudentDetailsStudentPage.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHsAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAgwHsAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2025-01-09T16:47:25.737Z",
               "EditorCaption": ""
@@ -67,7 +67,8 @@
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TestListStudentPage.tsx",
               "ViewState": "AgIAABoAAAAAAAAAAAAQwCsAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-09T16:43:03.467Z"
+              "WhenOpened": "2025-01-09T16:43:03.467Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -79,7 +80,8 @@
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\TestForStudentDetailsTeacherPage.tsx",
               "ViewState": "AgIAAJEAAAAAAAAAAAAAALIAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-09T16:36:19.718Z"
+              "WhenOpened": "2025-01-09T16:36:19.718Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -91,7 +93,8 @@
               "RelativeToolTip": "SystemZarzadzaniaKorepetycjami_FrontEnd\\public\\App.css",
               "ViewState": "AgIAAMYNAAAAAAAAAAAAANsNAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-01-09T16:35:12.06Z"
+              "WhenOpened": "2025-01-09T16:35:12.06Z",
+              "EditorCaption": ""
             }
           ]
         }
