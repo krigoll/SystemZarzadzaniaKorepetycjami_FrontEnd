@@ -20,9 +20,15 @@ const NewReportForm: React.FC = () => {
   const { createReport, loading, error } = useCreateReport();
   const uId = useSelector((state: RootState) => state.login.idPerson);
 
-  const handleSubmit = () => {
-    if (title.length < 1) return;
-    if (description.length < 1) return;
+  const handleSubmit = async () => {
+    if (title.length < 1 || title.length > 20) {
+      alert('Tytuł musi mieć pomiędzy 1 a 20 znaków.');
+      return;
+    }
+    if (description.length < 1) {
+      alert('Opis musi mieć pomiędzy 1 a 500 znaków.');
+      return;
+    }
     const CreateReport: CreateReportProps = {
       IdSender: uId,
       Title: title,
@@ -30,8 +36,8 @@ const NewReportForm: React.FC = () => {
       DateTime: new Date().toLocaleString(),
       IsDealt: false,
     };
-    createReport(CreateReport);
-    if (!error) {
+    const returnValue = await createReport(CreateReport);
+    if (returnValue == 0) {
       alert('Zgłoszenie wysłane pomyśnie!');
       setTitle('');
       setDescription('');
@@ -39,46 +45,43 @@ const NewReportForm: React.FC = () => {
   };
 
   return (
-      <div className="ticket-form">
-          <div className="ticket-form-box">
-              <h1>Nowe Zgłoszenie</h1>
+    <div className="ticket-form">
+      <div className="ticket-form-box">
+        <h1>Nowe Zgłoszenie</h1>
 
-              <div>
-                  <div>
-                      <label htmlFor="title">Tytuł zgłoszenia</label>
-                      <input
-                          type="text"
-                          id="title"
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
-                          placeholder="Wpisz tytuł zgłoszenia"
-                      />
-                  </div>
-
-                  <div>
-                      <label htmlFor="description">Opis zgłoszenia</label>
-                      <textarea
-                          id="description"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Wpisz szczegóły zgłoszenia..."
-                          rows={6}
-                      />
-                  </div>
-
-                  <div className="ticket-form-actions">
-                      <button onClick={handleSubmit} disabled={loading}>
-                          Wyślij
-                      </button>
-                      <button onClick={() => goToMenu(navigate)}>
-                          Powrót
-                      </button>
-                  </div>
-                  {error && <p className="error-message">Błąd: {error}</p>}
-              </div>
+        <div>
+          <div>
+            <label htmlFor="title">Tytuł zgłoszenia</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Wpisz tytuł zgłoszenia"
+            />
           </div>
-      </div>
 
+          <div>
+            <label htmlFor="description">Opis zgłoszenia</label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Wpisz szczegóły zgłoszenia..."
+              rows={6}
+            />
+          </div>
+
+          <div className="ticket-form-actions">
+            <button onClick={() => goToMenu(navigate)}>Powrót</button>
+            <button onClick={handleSubmit} disabled={loading}>
+              Wyślij
+            </button>
+          </div>
+          {error && <p className="error-message">Błąd: {error}</p>}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -51,7 +51,10 @@ export const useCreateReport = () => {
                 body: JSON.stringify(createReport),
               }
             );
-            setResponseStatus(retryResponse.status);
+            if (retryResponse.ok) {
+              setResponseStatus(retryResponse.status);
+              return 0;
+            }
           } else {
             throw new Error('Failed to refresh token');
           }
@@ -62,11 +65,14 @@ export const useCreateReport = () => {
         }
       } else {
         setResponseStatus(response.status);
+        return 0;
       }
+      return 1;
     } catch (error) {
       setError(
         error instanceof Error ? error.message : 'Unknown error occurred'
       );
+      return 1;
     } finally {
       setLoading(false);
     }
