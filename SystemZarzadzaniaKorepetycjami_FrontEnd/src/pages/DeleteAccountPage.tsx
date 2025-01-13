@@ -1,5 +1,4 @@
 import React from 'react';
-import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { goToProfile } from '../lib/Navigate';
 import { usePersonDelete } from '../lib/usePersonDelete';

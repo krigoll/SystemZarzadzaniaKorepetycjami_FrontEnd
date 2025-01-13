@@ -16,7 +16,7 @@ const ResetPasswordPage: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [code, setCode] = useState<string>('');
-    const [isCodeSend, setIsCodeSend] = useState<boolean>(true);
+    const [isCodeSend, setIsCodeSend] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const { createResetCode, isLoading, error } = useResetPasswordCode();
