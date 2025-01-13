@@ -20,16 +20,20 @@ const useResetPasswordCode = () => {
 
       if (response.ok) {
         setSuccess(true);
+        return 0;
       } else if (response.status === 400) {
-        setError('Nieprawidłowy adres e-mail.');
+        setError('Konto o podanym adresie email nie istnieje.');
+        return 1;
       } else if (response.status === 500) {
         setError('Błąd serwera. Spróbuj ponownie później.');
+        return 1;
       } else {
         setError('Wystąpił nieoczekiwany błąd.');
+        return 1;
       }
     } catch (err) {
-      // Obsługa błędów związanych z fetch (np. brak połączenia)
       setError('Nie można połączyć się z serwerem.');
+      return 1;
     } finally {
       setIsLoading(false);
     }
