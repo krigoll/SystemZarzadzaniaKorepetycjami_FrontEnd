@@ -32,10 +32,10 @@ const NewReportForm: React.FC = () => {
     };
     createReport(CreateReport);
     if (!error) {
-      alert('Zgłoszenie wysłane pomyśnie');
+      alert('Zgłoszenie wysłane pomyśnie!');
       setTitle('');
       setDescription('');
-    } else alert('nie udało się wysłać zgłoszenia');
+    } else alert('Nie udało się wysłać zgłoszenia!');
   };
 
   return (
