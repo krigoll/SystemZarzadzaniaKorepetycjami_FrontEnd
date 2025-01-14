@@ -9,161 +9,161 @@ import { useDeleteOpinion } from '../lib/useDeleteOpinion';
 import AppButton from '../components/AppButton';
 
 const AddReviewsPage: React.FC = () => {
-  const { teacherInfo } = useParams<{ teacherInfo: string }>();
-  const teacherId = Number(teacherInfo?.split(' ')[0]) || 0;
-  const teacherName =
-    teacherInfo?.split(' ')[1] + ' ' + teacherInfo?.split(' ')[2] ||
-    'Unknown Teacher';
+    const { teacherInfo } = useParams<{ teacherInfo: string }>();
+    const teacherId = Number(teacherInfo?.split(' ')[0]) || 0;
+    const teacherName =
+        teacherInfo?.split(' ')[1] + ' ' + teacherInfo?.split(' ')[2] ||
+        'Unknown Teacher';
 
-  const { reviews, loading, error, refetch } = useGetTeacherReviews(teacherId);
-  const [rating, setRating] = useState<number>(1);
-  const [newReview, setNewReview] = useState<string>('');
-  const uId = useSelector((state: RootState) => state.login.idPerson);
-  const email = useSelector((state: RootState) => state.login.email);
-  const navigate = useNavigate();
+    const { reviews, loading, error, refetch } = useGetTeacherReviews(teacherId);
+    const [rating, setRating] = useState<number>(1);
+    const [newReview, setNewReview] = useState<string>('');
+    const uId = useSelector((state: RootState) => state.login.idPerson);
+    const email = useSelector((state: RootState) => state.login.email);
+    const navigate = useNavigate();
 
-  const {
-    createOpinion,
-    loading: creating,
-    error: createError,
-  } = useCreateOpinion();
+    const {
+        createOpinion,
+        loading: creating,
+        error: createError,
+    } = useCreateOpinion();
 
-  const {
-    deleteOpinion,
-    loading: deleting,
-    error: deleteError,
-  } = useDeleteOpinion();
+    const {
+        deleteOpinion,
+        loading: deleting,
+        error: deleteError,
+    } = useDeleteOpinion();
 
-  const handleAddReview = async () => {
-    if (!newReview.trim()) {
-      alert('Podaj ocenę opisową');
-      return;
-    }
+    const handleAddReview = async () => {
+        if (!newReview.trim()) {
+            alert('Podaj treść opinii!');
+            return;
+        }
 
-    if (!rating || rating < 1 || rating > 5) {
-      alert('Ocena ma się mieścić od 1 do 5');
-      return;
-    }
+        if (!rating || rating < 1 || rating > 5) {
+            alert('Ocena ma się mieścić od 1 do 5!');
+            return;
+        }
 
-    const opinionDTO: OpinionDTO = {
-      IdTeacher: teacherId,
-      StudentEmail: email,
-      Rating: rating,
-      Content: newReview,
+        const opinionDTO: OpinionDTO = {
+            IdTeacher: teacherId,
+            StudentEmail: email,
+            Rating: rating,
+            Content: newReview,
+        };
+
+        await createOpinion(opinionDTO);
+
+        if (!createError) {
+            alert('Opinia została dodana!');
+            refetch();
+        }
     };
 
-    await createOpinion(opinionDTO);
+    const handleDeleteReview = async (idOpinion: number) => {
+        const status = await deleteOpinion(idOpinion);
 
-    if (!createError) {
-      alert('Opinia została dodana!');
-      refetch();
-    }
-  };
+        if (status == 200) {
+            alert('Opinia została usunięta!');
+            refetch();
+        }
+    };
 
-  const handleDeleteReview = async (idOpinion: number) => {
-    const status = await deleteOpinion(idOpinion);
+    const handleGoBack = () => {
+        navigate(-1);
+    };
 
-    if (status == 200) {
-      alert('Opinia została usunięta!');
-      refetch();
-    }
-  };
+    const filteredReviews = reviews?.filter((review) => review.idPerson !== uId);
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
+    return (
+        <div className="teacher-reviews-page">
+            <div className="teacher-reviews-box">
+                <h1>Opinie o nauczycielu: {teacherName}</h1>
 
-  const filteredReviews = reviews?.filter((review) => review.idPerson !== uId);
+                {error ? (
+                    <p className="error-message">Błąd podczas ładowania opinii.</p>
+                ) : loading ? (
+                    <p>Ładowanie...</p>
+                ) : (
+                    <>
+                        {reviews?.some((review) => review.idPerson === uId) ? (
+                            <div className="review-item">
+                                <p>Twoja opinia:</p>
+                                <p>
+                                    <strong>Ocena:</strong>{' '}
+                                    {reviews.find((review) => review.idPerson === uId)?.rating}
+                                    /5
+                                </p>
+                                <p>
+                                    {reviews.find((review) => review.idPerson === uId)?.content}
+                                </p>
+                                <div className="review-actions">
+                                    <button
+                                        className="delete-review"
+                                        onClick={() =>
+                                            handleDeleteReview(
+                                                reviews.find((review) => review.idPerson === uId)
+                                                    ?.idOpinion
+                                            )
+                                        }
+                                        disabled={deleting}
+                                    >
+                                        {deleting ? 'Usuwanie...' : 'Usuń'}
+                                    </button>
+                                    {deleteError && (
+                                        <p className="error-message">Błąd: {deleteError}</p>
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <textarea
+                                    value={newReview}
+                                    onChange={(e) => setNewReview(e.target.value)}
+                                    placeholder="Napisz swoją opinię..."
+                                    disabled={creating}
+                                />
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="5"
+                                    value={rating || 1}
+                                    onChange={(e) => setRating(Number(e.target.value))}
+                                    disabled={creating}
+                                />
+                                <p>Ocena: {rating || 1}/5</p>
+                                <div className="button-container">
+                                    <AppButton
+                                        label={creating ? 'Dodawanie...' : 'Akceptuj'}
+                                        onClick={handleAddReview}
+                                        disabled={creating}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        {createError && (
+                            <p className="error-message">Błąd: {createError}</p>
+                        )}
+                    </>
+                )}
 
-  return (
-    <div className="teacher-reviews-page">
-      <div className="teacher-reviews-box">
-        <h1>Opinie o Nauczycielu {teacherName}</h1>
-
-        {error ? (
-          <p className="error-message">Błąd podczas ładowania opinii.</p>
-        ) : loading ? (
-          <p>Ładowanie...</p>
-        ) : (
-          <>
-            {reviews?.some((review) => review.idPerson === uId) ? (
-              <div className="review-item">
-                <p>Twoja opinia:</p>
-                <p>
-                  <strong>Ocena:</strong>{' '}
-                  {reviews.find((review) => review.idPerson === uId)?.rating}
-                  /5
-                </p>
-                <p>
-                  {reviews.find((review) => review.idPerson === uId)?.content}
-                </p>
-                <div className="review-actions">
-                  <button
-                    className="delete-review"
-                    onClick={() =>
-                      handleDeleteReview(
-                        reviews.find((review) => review.idPerson === uId)
-                          ?.idOpinion
-                      )
-                    }
-                    disabled={deleting}
-                  >
-                    {deleting ? 'Usuwanie...' : 'Usuń'}
-                  </button>
-                  {deleteError && (
-                    <p className="error-message">Błąd: {deleteError}</p>
-                  )}
+                <div className="reviews-list">
+                    {filteredReviews?.map((review) => (
+                        <div key={review.idPerson} className="review-item">
+                            <p>{review.fullName}</p>
+                            <p>
+                                <strong>Ocena:</strong> {review.rating}/5
+                            </p>
+                            <p>{review.content}</p>
+                        </div>
+                    ))}
                 </div>
-              </div>
-            ) : (
-              <div>
-                <textarea
-                  value={newReview}
-                  onChange={(e) => setNewReview(e.target.value)}
-                  placeholder="Napisz swoją opinię..."
-                  disabled={creating}
-                />
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  value={rating || 1}
-                  onChange={(e) => setRating(Number(e.target.value))}
-                  disabled={creating}
-                />
-                <p>Ocena: {rating || 1}/5</p>
                 <div className="button-container">
-                  <AppButton
-                    label={creating ? 'Dodawanie...' : 'Akceptuj'}
-                    onClick={handleAddReview}
-                    disabled={creating}
-                  />
+                    <AppButton label="Powrót" onClick={handleGoBack} />
                 </div>
-              </div>
-            )}
-            {createError && (
-              <p className="error-message">Błąd: {createError}</p>
-            )}
-          </>
-        )}
-
-        <div className="reviews-list">
-          {filteredReviews?.map((review) => (
-            <div key={review.idPerson} className="review-item">
-              <p>{review.fullName}</p>
-              <p>
-                <strong>Ocena:</strong> {review.rating}/5
-              </p>
-              <p>{review.content}</p>
             </div>
-          ))}
         </div>
-        <div className="button-container">
-          <AppButton label="Powrót" onClick={handleGoBack} />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default AddReviewsPage;

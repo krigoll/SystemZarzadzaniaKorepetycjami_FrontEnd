@@ -73,7 +73,7 @@ export const useSignUpToLesson = () => {
         } else if (response.status === 422) {
           throw new Error('Nauczyciel nie jest wolny w wybranym terminie!');
         } else {
-          throw new Error('Error during lesson signup');
+          throw new Error('Błąd przy zapisywaniu się na korepetycje!');
         }
       }
 

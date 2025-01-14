@@ -42,7 +42,7 @@ const TeachersListPage: React.FC = () => {
                                       ) : null}
                                   </div>
                                   <AppButton
-                                      label="Wystaw opinię"
+                                      label="Szczegóły"
                                       onClick={() =>
                                           goToAddReviewPage(navigate, `${teacher.id} ${teacher.name}`)
                                       }

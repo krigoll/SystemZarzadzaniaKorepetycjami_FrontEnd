@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AppButton from '../components/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { goToMenu } from '../lib/Navigate';
 import { useGetReservedLessons } from '../lib/useGetReservedLessons';
