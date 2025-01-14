@@ -12,6 +12,7 @@ import { useGetTestsTeacher } from '../lib/useGetTestsTeacher';
 interface Test {
   idTest: number;
   title: string;
+  status: string;
   numberOfAssignments: number;
   fullname: string;
   creationTime: string;
@@ -55,17 +56,26 @@ const TestListTeacherPage: React.FC = () => {
                   <p>
                     <strong>Data:</strong> {test.creationTime}
                   </p>
+                  <p>
+                    <strong>Status:</strong> {test.status}&nbsp;
+                  </p>
                 </div>
                 <div className="test-item-actions">
-                  <AppButton
-                    label="Szczegóły"
-                    onClick={() =>
-                      goToTestForStudentDetailsTeacherPage(
-                        navigate,
-                        test.idTestForStudent
-                      )
-                    }
-                  />
+                  {test.status != 'Wyslany' && (
+                    <AppButton
+                      label={
+                        test.status == 'Rozwiazany'
+                          ? 'Sprawdż'
+                          : 'Sprawdż ponownie'
+                      }
+                      onClick={() =>
+                        goToTestForStudentDetailsTeacherPage(
+                          navigate,
+                          test.idTestForStudent
+                        )
+                      }
+                    />
+                  )}
                 </div>
               </div>
             ))

@@ -7,6 +7,7 @@ import { RootState } from '../futures/store';
 interface Test {
   idTest: number;
   title: string;
+  status: string;
   numberOfAssignments: number;
   fullname: string;
   creationTime: string;
