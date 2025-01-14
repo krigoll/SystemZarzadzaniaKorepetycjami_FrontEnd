@@ -19,7 +19,6 @@ const LessonDetailsPage: React.FC = () => {
   const lessonData = useLessonDetails(numericLessonId!);
 
   const getDay = (): string => {
-    console.log(lessonData);
     const currentDate = new Date();
     return currentDate.toISOString().split('T')[0];
   };
@@ -70,6 +69,12 @@ const LessonDetailsPage: React.FC = () => {
           ) : (
             <p>Data nie jest dostępna</p>
           )}
+          <p>
+            <strong>Cas trwania</strong> {lessonData.durationInMinutes} minut
+          </p>
+          <p>
+            <strong>Koszt</strong> {lessonData.cost} zł
+          </p>
           <p>
             <strong>Status:</strong> {lessonData.status}
           </p>

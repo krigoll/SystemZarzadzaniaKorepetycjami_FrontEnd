@@ -47,7 +47,9 @@ export const useCreateOpinion = () => {
                 body: JSON.stringify(opinionDTO),
               }
             );
+            if (retryResponse.ok) return 0;
             setResponseStatus(retryResponse.status);
+            return 1;
           } else {
             throw new Error('Failed to refresh token');
           }
@@ -56,13 +58,16 @@ export const useCreateOpinion = () => {
             `Failed to create opinion, status: ${response.status}`
           );
         }
+        return 1;
       } else {
         setResponseStatus(response.status);
+        return 0;
       }
     } catch (error) {
       setError(
         error instanceof Error ? error.message : 'Unknown error occurred'
       );
+      return 1;
     } finally {
       setLoading(false);
     }

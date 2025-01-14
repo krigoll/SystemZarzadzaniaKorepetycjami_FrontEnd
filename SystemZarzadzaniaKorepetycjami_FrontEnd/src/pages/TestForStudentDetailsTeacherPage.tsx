@@ -26,6 +26,14 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
     field: 'description' | 'value',
     value: string | boolean
   ) => {
+    if (
+      field === 'description' &&
+      typeof value === 'string' &&
+      value.trim().length > 100
+    ) {
+      alert('Opis nie może być dłuższy niż 100');
+      return;
+    }
     setMarks((prev) => ({
       ...prev,
       [idAssignment]: {
@@ -145,8 +153,7 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
                         <option value="false">Niepoprawna</option>
                       </select>
                       <label>Opis/komentarz oceny (obcionalnie):</label>
-                      <input
-                        type="text"
+                      <textarea
                         value={
                           marks[assignment.idAssignment]?.description ??
                           assignment.description ??

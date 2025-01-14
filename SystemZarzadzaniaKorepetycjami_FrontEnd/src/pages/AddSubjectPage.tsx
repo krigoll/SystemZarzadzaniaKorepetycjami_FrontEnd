@@ -37,10 +37,14 @@ const AddSubjectsPage: React.FC = () => {
     const validCost = /^\d*([.,]\d{0,2})?$/;
 
     if (validCost.test(cost)) {
-      setSelectedSubjects((prev) => ({
-        ...prev,
-        [subjectLevelId]: cost.replace(',', '.'),
-      }));
+      if (Number(cost) <= 500) {
+        setSelectedSubjects((prev) => ({
+          ...prev,
+          [subjectLevelId]: cost.replace(',', '.'),
+        }));
+      } else {
+        alert('Maksymalna stawka godzinowa to 500zł');
+      }
     } else {
       alert(
         "Proszę wprowadzić poprawny koszt w formacie liczbowym, np. '50' lub '50.25'."
