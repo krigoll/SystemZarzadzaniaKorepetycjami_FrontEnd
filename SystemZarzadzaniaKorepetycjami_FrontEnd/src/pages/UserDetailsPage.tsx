@@ -42,13 +42,13 @@ const UserDetailsPage: React.FC = () => {
       alert('Użytkownik został usunięty pomyślnie!');
       goToUserListPage(navigate);
     } else {
-      alert('Nie udału sie usunąć użytkownika!');
+      alert('Nie udało się usunąć użytkownika!');
     }
   };
 
   const handleBanUser = async () => {
-    if (reason.length < 10 || reason.length > 99) {
-      alert('Powód blokady użytkownia musi zawierać się w 10-99 znakach!');
+    if (reason.length <= 10 || reason.length >= 100) {
+      alert('Powód blokady użytkownia musi mieć od 10 do 100 znaków!');
       return false;
     }
     if (duration < 1) {
@@ -73,7 +73,7 @@ const UserDetailsPage: React.FC = () => {
       refetch();
       setBan(false);
     } else {
-      alert('Bład podczas blokowania użytkownika.');
+      alert('Bład podczas blokowania użytkownika!');
     }
   };
 
@@ -86,7 +86,7 @@ const UserDetailsPage: React.FC = () => {
   return (
     <div className="user-profile-container">
       <div className="user-profile-wrapper">
-        <div className="user-profile-header">Szczegły użytkownika</div>
+        <div className="user-profile-header">Szczegóły użytkownika</div>
         {personData ? (
           <div>
             {personData.image ? (
@@ -126,7 +126,7 @@ const UserDetailsPage: React.FC = () => {
             </div>
             <div className="user-profile-role">
               <p>
-                <strong>Czy zablokowany:</strong>{' '}
+                <strong>Zablokowany:</strong>{' '}
                 {personData.isBaned ? 'Tak' : 'Nie'}
               </p>
               {personData.isBaned && (
@@ -202,8 +202,8 @@ const UserDetailsPage: React.FC = () => {
                   value={reason}
                   onChange={(e) => {
                     const value = e.target.value;
-                    if (value.length > 100) {
-                      alert('Maksymalna długość powodu to 100 znaków.');
+                    if (value.length >= 100) {
+                      alert('Maksymalna długość powodu to 100 znaków!');
                     } else {
                       setReason(value);
                     }
@@ -233,7 +233,7 @@ const UserDetailsPage: React.FC = () => {
           {unban && (
             <div>
               <p>
-                <strong>Czy na pewno chcesz odblokować konto</strong>
+                Czy na pewno chcesz odblokować konto?
               </p>
               <AppButton
                 label={creating ? 'Odblokowywanie...' : 'Potwierdź'}

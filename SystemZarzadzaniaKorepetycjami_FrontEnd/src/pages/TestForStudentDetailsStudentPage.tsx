@@ -86,7 +86,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                                                     ? assignment.answerAssignment
                                                     : 'Brak'}
                                             </p>
-
+                                            
                                             {testDetails.status == 'Sprawdzony' && (
                                                 <p>
                                                     <strong>Ocena:</strong>{' '}
@@ -94,7 +94,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                                                         ? `${assignment.value ? 'Poprawne' : 'Niepoprawne'}`
                                                         : 'Brak oceny'}
                                                     {assignment.description && (
-                                                        <div>
+                                                        <div style={{ marginTop: '10px' }}>
                                                             <strong>Komentarz:</strong>
                                                             {assignment.description}
                                                         </div>
