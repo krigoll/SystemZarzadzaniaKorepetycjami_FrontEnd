@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\SystemZarzadzaniaKorepetycjami_FrontEnd",
+    "\\SystemZarzadzaniaKorepetycjami_FrontEnd\\public",
     "\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src",
     "\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages"
   ],
-  "SelectedNode": "\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\pages\\ReportCreatePage.tsx",
+  "SelectedNode": "\\SystemZarzadzaniaKorepetycjami_FrontEnd\\src\\App.tsx",
   "PreviewInSolutionExplorer": false
 }
