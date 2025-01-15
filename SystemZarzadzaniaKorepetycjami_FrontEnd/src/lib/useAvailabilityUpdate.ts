@@ -23,7 +23,6 @@ export const useAvailabilityUpdate = () => {
     setLoading(true);
     setError(null);
 
-    // Replace empty string with null for startTime and endTime
     availabilities.forEach((availability) => {
       if (availability.startTime === '') availability.startTime = null;
       if (availability.endTime === '') availability.endTime = null;
@@ -48,7 +47,7 @@ export const useAvailabilityUpdate = () => {
             const newToken = await refreshAccessToken();
             if (newToken) {
               dispatch(updateToken(newToken));
-              return postAvailability(newToken); // Retry with new token
+              return postAvailability(newToken);
             } else {
               throw new Error('Token refresh failed');
             }
@@ -74,8 +73,10 @@ export const useAvailabilityUpdate = () => {
 
     try {
       await postAvailability(token);
+      return 0;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unexpected error');
+      return 1;
     } finally {
       setLoading(false);
     }
