@@ -1,10 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import AppButton from '../components/AppButton';
-import { goToStudentOpinionPage, goToUserListPage } from '../lib/Navigate';
+import {
+  goToStudentOpinionPage,
+  goToTeacherOpinionAdminPage,
+  goToUserListPage,
+} from '../lib/Navigate';
 import { useUserDetails } from '../lib/useUserDetails';
 import { useState } from 'react';
 import { usePersonDelete } from '../lib/usePersonDelete';
 import { useCreateBan } from '../lib/useCreateBan';
+import { useDeleteBan } from '../lib/useDeleteBan';
 
 interface BanDTO {
   idPerson: number | null;
@@ -21,11 +26,14 @@ const UserDetailsPage: React.FC = () => {
   const { personData, refetch } = useUserDetails(numericPersonId);
   const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
   const [ban, setBan] = useState<boolean>(false);
+  const [unban, setUnban] = useState<boolean>(false);
   const [reason, setReason] = useState<string>('');
   const [duration, setDuration] = useState<number>(1);
   const { deletePerson } = usePersonDelete();
 
   const { createBan, loading: creating, error: createError } = useCreateBan();
+
+  const { deleteBan, loading: deleting, error: deleteError } = useDeleteBan();
 
   const handleDeleteUser = async () => {
     const status = await deletePerson(personData.email);
@@ -58,14 +66,21 @@ const UserDetailsPage: React.FC = () => {
       reason: reason,
     };
 
-    await createBan(banDTO);
+    const returnValue = await createBan(banDTO);
 
-    if (!createError) {
+    if (returnValue == 0) {
       alert('Użytkownik został zablokowany pomyślnie!');
       refetch();
+      setBan(false);
     } else {
       alert('Bład podczas blokowania użytkownika.');
     }
+  };
+
+  const handleUnnanUser = async () => {
+    deleteBan(personData.idBan);
+    setUnban(false);
+    refetch();
   };
 
   return (
@@ -148,10 +163,15 @@ const UserDetailsPage: React.FC = () => {
               </div>
             </div>
           )}
-          <AppButton          
-            label="Zablokuj konto"
-            onClick={() => setBan(!ban)}
-          />
+          {personData && personData.isBaned ? (
+            <AppButton
+              label="Odblokuj konto"
+              onClick={() => setUnban(!unban)}
+              disabled={deleting}
+            />
+          ) : (
+            <AppButton label="Zablokuj konto" onClick={() => setBan(!ban)} />
+          )}
           {personData && personData.isStudent && (
             <AppButton
               label="Wstawione opinie"
@@ -163,14 +183,31 @@ const UserDetailsPage: React.FC = () => {
               }
             />
           )}
+          {personData && personData.isTeacher && (
+            <AppButton
+              label="Opinie nauczyciela"
+              onClick={() =>
+                goToTeacherOpinionAdminPage(
+                  navigate,
+                  `${numericPersonId} ${personData.name} ${personData.surname}`
+                )
+              }
+            />
+          )}
           {ban && (
             <div>
               <div className="user-profile-form-field">
                 <label htmlFor="text">Powód:</label>
-                <input
-                  type="text"
+                <textarea
                   value={reason}
-                  onChange={(e) => setReason(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length > 100) {
+                      alert('Maksymalna długość powodu to 100 znaków.');
+                    } else {
+                      setReason(value);
+                    }
+                  }}
                 />
               </div>
               <div className="user-profile-form-field">
@@ -190,6 +227,21 @@ const UserDetailsPage: React.FC = () => {
               />
               {createError && (
                 <p style={{ color: 'red' }}>Błąd: {createError}</p>
+              )}
+            </div>
+          )}
+          {unban && (
+            <div>
+              <p>
+                <strong>Czy na pewno chcesz odblokować konto</strong>
+              </p>
+              <AppButton
+                label={creating ? 'Odblokowywanie...' : 'Potwierdź'}
+                onClick={handleUnnanUser}
+                disabled={creating}
+              />
+              {deleteError && (
+                <p style={{ color: 'red' }}>Błąd: {deleteError}</p>
               )}
             </div>
           )}

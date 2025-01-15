@@ -4,15 +4,7 @@ import { RootState } from '../futures/store';
 import { updateToken } from '../futures/login/loginSlice';
 import { useRefreshAccessToken } from './useRefreshAccessToken';
 
-interface BanDTO {
-  idPerson: number | null;
-  banedName: string;
-  startTime: string;
-  lenghtInDays: number;
-  reason: string;
-}
-
-export const useCreateBan = () => {
+export const useDeleteBan = () => {
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,19 +12,21 @@ export const useCreateBan = () => {
   const jwtToken = useSelector((state: RootState) => state.login.jwtToken);
   const refreshAccessToken = useRefreshAccessToken();
 
-  const createBan = async (banDTO: BanDTO) => {
+  const deleteBan = async (idBan: number) => {
     setLoading(true);
     setError(null);
     let token = jwtToken;
     try {
-      let response = await fetch(`http://localhost:5230/api/ban/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(banDTO),
-      });
+      let response = await fetch(
+        `http://localhost:5230/api/ban/${idBan}/delete`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -41,14 +35,13 @@ export const useCreateBan = () => {
             dispatch(updateToken(newToken));
             token = newToken;
             const retryResponse = await fetch(
-              `http://localhost:5230/api/ban/create`,
+              `http://localhost:5230/api/ban/${idBan}/delete`,
               {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
                   Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(banDTO),
               }
             );
 
@@ -85,5 +78,5 @@ export const useCreateBan = () => {
     }
   };
 
-  return { createBan, responseStatus, loading, error };
+  return { deleteBan, responseStatus, loading, error };
 };

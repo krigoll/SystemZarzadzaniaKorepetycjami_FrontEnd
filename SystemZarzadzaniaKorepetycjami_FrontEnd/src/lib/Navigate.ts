@@ -96,7 +96,14 @@ function goToStudentOpinionPage(
   navigate: NavigateFunction,
   studentInfo: string
 ) {
-  navigate(`/admin/userList/:idPerson/${studentInfo}`);
+  navigate(`/admin/userList/:idPerson/student/${studentInfo}`);
+}
+
+function goToTeacherOpinionAdminPage(
+  navigate: NavigateFunction,
+  teacherInfo: string
+) {
+  navigate(`/admin/userList/:idPerson/teacher/${teacherInfo}`);
 }
 
 function goToTeacherOpinionPage(navigate: NavigateFunction) {
@@ -209,4 +216,5 @@ export {
   goToTestForStudentDetailsPage,
   goToTestForStudentDetailsTeacherPage,
   goToStudentOpinionPage,
+  goToTeacherOpinionAdminPage,
 };

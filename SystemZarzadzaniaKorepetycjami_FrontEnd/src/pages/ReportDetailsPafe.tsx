@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import { useReportDetails } from '../lib/useReportDetails';
@@ -22,7 +22,15 @@ const ReportDetailsPage: React.FC = () => {
 
   const reportData = useReportDetails(numericReportId!);
 
-  const handleUpdateReport = async (rozpatrzenie: boolean) => {
+  const [isDealt, setIsDealt] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (reportData) {
+      setIsDealt(reportData.isDealt);
+    }
+  }, [reportData]);
+
+  const handleUpdateReport = async () => {
     if (!numericReportId || !reportData) return;
 
     const reportDTO: UpdateReportProps = {
@@ -30,57 +38,67 @@ const ReportDetailsPage: React.FC = () => {
       Title: reportData.title,
       Content: reportData.content,
       DateTime: reportData.dateTime,
-      IsDealt: rozpatrzenie,
+      IsDealt: isDealt,
     };
+
     await updateReport(numericReportId, reportDTO);
 
     if (!error) {
       alert('Zgłoszenie zostało zaktualizowane!');
       goToReportListPage(navigate);
     } else if (error) {
-      alert(`Wystąpił blad: ${error}`);
+      alert(`Wystąpił błąd: ${error}`);
     }
   };
 
   return (
-      <div className="report-details-page">
-          <div className="report-details-wrapper">
-              <h2 className="report-details-header">Szczegóły zgłoszenia</h2>
+    <div className="report-details-page">
+      <div className="report-details-wrapper">
+        <h2 className="report-details-header">Szczegóły zgłoszenia</h2>
 
-              {reportData ? (
-                  <div className="report-details-content">
-                      <p>
-                          <strong>Tytuł:</strong> {reportData.title}
-                      </p>
-                      <p>
-                          <strong>Data:</strong> {reportData.dateTime}
-                      </p>
-                      <p>
-                          <strong>Treść:</strong> {reportData.content}
-                      </p>
-                      <p>
-                          <strong>Rozpatrzono:</strong> {reportData.isDealt ? 'Tak' : 'Nie'}
-                      </p>
-                  </div>
-              ) : (
-                  <p>Ładowanie szczegółów zgłoszenia...</p>
-              )}
-
-              <div className="button-container">
-                  <button onClick={() => handleUpdateReport(true)} disabled={loading}>
-                      Rozpatrzone
-                  </button>
-                  <button onClick={() => handleUpdateReport(false)} disabled={loading}>
-                      Nierozpatrzone
-                  </button>
-              </div>
-
-              <div className="button-container">
-                  <AppButton label="Powrót" onClick={() => goToReportListPage(navigate)} />
-              </div>
+        {reportData ? (
+          <div className="report-details-content">
+            <p>
+              <strong>Tytuł:</strong> {reportData.title}
+            </p>
+            <p>
+              <strong>Data:</strong> {reportData.dateTime}
+            </p>
+            <p>
+              <strong>Treść:</strong> {reportData.content}
+            </p>
+            <p>
+              <label>
+                <strong>Rozpatrzono:</strong>{' '}
+                <input
+                  type="checkbox"
+                  checked={isDealt}
+                  onChange={(e) => setIsDealt(e.target.checked)}
+                  disabled={loading}
+                />
+              </label>
+            </p>
           </div>
-      </div>
+        ) : (
+          <p>Ładowanie szczegółów zgłoszenia...</p>
+        )}
 
+        <div className="button-container">
+          <AppButton
+            label="Zapisz"
+            onClick={handleUpdateReport}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="button-container">
+          <AppButton
+            label="Powrót"
+            onClick={() => goToReportListPage(navigate)}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -17,6 +17,7 @@ interface PersonResponse {
   isTeacher: boolean;
   isStudent: boolean;
   isBaned: boolean;
+  idBan: number;
   numberOfDays: number;
   reason: string;
 }
@@ -33,6 +34,7 @@ interface Person {
   isTeacher: boolean;
   isStudent: boolean;
   isBaned: boolean;
+  idBan: number;
   numberOfDays: number;
   reason: string;
 }
@@ -98,6 +100,7 @@ export const useUserDetails = (numericPersonId: number | null) => {
           isTeacher: dataUser.isTeacher,
           isStudent: dataUser.isStudent,
           isBaned: dataUser.isBaned,
+          idBan: dataUser.idBan,
           numberOfDays: dataUser.numberOfDays,
           reason: dataUser.reason,
         };

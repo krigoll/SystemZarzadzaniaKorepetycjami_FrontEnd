@@ -2,16 +2,16 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDeleteOpinion } from '../lib/useDeleteOpinion';
 import AppButton from '../components/AppButton';
-import { useGetStudentReviews } from '../lib/useGetStudentReviews';
+import { useGetTeacherReviews } from '../lib/useGetTeacherOpinionById';
 
-const StudentOpinionPage: React.FC = () => {
-  const { studentInfo } = useParams<{ studentInfo: string }>();
-  const email = studentInfo?.split(' ')[0];
+const TeacherOpinionAdminPage: React.FC = () => {
+  const { teacherInfo } = useParams<{ teacherInfo: string }>();
+  const id = Number(teacherInfo?.split(' ')[0]);
   const studentName =
-    studentInfo?.split(' ')[1] + ' ' + studentInfo?.split(' ')[2] ||
+    teacherInfo?.split(' ')[1] + ' ' + teacherInfo?.split(' ')[2] ||
     'Unknown Teacher';
 
-  const { reviews, loading, error, refetch } = useGetStudentReviews(email);
+  const { reviews, loading, error, refetch } = useGetTeacherReviews(id);
   const navigate = useNavigate();
 
   const { deleteOpinion, loading: deleting } = useDeleteOpinion();
@@ -32,7 +32,7 @@ const StudentOpinionPage: React.FC = () => {
   return (
     <div className="teacher-reviews-page">
       <div className="teacher-reviews-box">
-        <h1>Opinie ucznia {studentName}</h1>
+        <h1>Opinie o nauczycielu {studentName}</h1>
 
         {error ? (
           <p className="error-message">Błąd podczas ładowania opinii.</p>
@@ -68,4 +68,4 @@ const StudentOpinionPage: React.FC = () => {
   );
 };
 
-export default StudentOpinionPage;
+export default TeacherOpinionAdminPage;
