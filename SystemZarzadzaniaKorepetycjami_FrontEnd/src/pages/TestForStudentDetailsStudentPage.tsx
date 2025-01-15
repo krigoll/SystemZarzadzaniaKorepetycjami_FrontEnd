@@ -76,7 +76,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                   <p>
                     <strong>Treść zadania:</strong> {assignment.content}
                   </p>
-                  {assignment.idMark != 0 && (
+                  {testDetails.status != 'Wyslany' && (
                     <div>
                       <p>
                         <strong>Poprawna odpowiedź:</strong>{' '}
@@ -86,49 +86,60 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                           ? assignment.answerAssignment
                           : 'Brak'}
                       </p>
-                      <p>
-                        <strong>Ocena:</strong>{' '}
-                        {assignment.idMark
-                          ? `${assignment.value ? 'Poprawne' : 'Niepoprawne'}`
-                          : 'Brak oceny'}
-                        {assignment.description && (
-                          <div>
-                            <strong>Komentarz:</strong>
-                            {assignment.description}
-                          </div>
-                        )}
-                      </p>
+                      {testDetails.status == 'Sprawdzony' && (
+                        <p>
+                          <strong>Ocena:</strong>{' '}
+                          {assignment.idMark
+                            ? `${assignment.value ? 'Poprawne' : 'Niepoprawne'}`
+                            : 'Brak oceny'}
+                          {assignment.description && (
+                            <div>
+                              <strong>Komentarz:</strong>
+                              {assignment.description}
+                            </div>
+                          )}
+                        </p>
+                      )}
                     </div>
                   )}
 
-                  <div className="student-answer-field">
-                    <label>Twoja odpowiedź:</label>
-                    <textarea
-                      value={
-                        answers[assignment.idAssignment] ??
-                        assignment.studentAnswer ??
-                        ''
-                      }
-                      onChange={(e) =>
-                        handleAnswerChange(
-                          assignment.idAssignment,
-                          e.target.value
-                        )
-                      }
-                    />
-                  </div>
+                  {testDetails.status == 'Wyslany' ? (
+                    <div className="student-answer-field">
+                      <label>Twoja odpowiedź:</label>
+                      <textarea
+                        value={
+                          answers[assignment.idAssignment] ??
+                          assignment.studentAnswer ??
+                          ''
+                        }
+                        onChange={(e) =>
+                          handleAnswerChange(
+                            assignment.idAssignment,
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <strong>Twoja odpowiedź:</strong>{' '}
+                      {assignment.studentAnswer}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           )}
         </div>
-        <button
-          className="student-submit-button"
-          onClick={handleSubmit}
-          disabled={submitting}
-        >
-          {submitting ? 'Trwa zapisywanie...' : 'Zapisz odpowiedzi'}
-        </button>
+        {testDetails.status == 'Wyslany' && (
+          <button
+            className="student-submit-button"
+            onClick={handleSubmit}
+            disabled={submitting}
+          >
+            {submitting ? 'Trwa przesyłanie...' : 'Prześlij odpowiedzi'}
+          </button>
+        )}
       </div>
       <div className="button-container">
         <AppButton

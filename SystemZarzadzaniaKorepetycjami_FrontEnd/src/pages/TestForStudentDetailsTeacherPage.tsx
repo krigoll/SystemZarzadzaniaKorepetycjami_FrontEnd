@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AppButton from '../components/AppButton';
 import { useGetTestForStudentDetails } from '../lib/useGetTestForStudentDetails';
@@ -12,7 +12,7 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
     Record<number, { description: string; value: boolean }>
   >({});
 
-  const { testDetails, loading, error, refetch } = useGetTestForStudentDetails(
+  const { testDetails, loading, error } = useGetTestForStudentDetails(
     Number(idTestForStudent)
   );
   const {
@@ -20,6 +20,26 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
     loading: submitting,
     error: submitError,
   } = useCreateOrUpdateMark();
+
+  useEffect(() => {
+    if (testDetails) {
+      const initialMarks: Record<
+        number,
+        { description: string; value: boolean }
+      > = testDetails.assignment.reduce(
+        (acc, assignment) => {
+          acc[assignment.idAssignment] = {
+            description: assignment.description || '',
+            value: assignment.value ?? undefined,
+          };
+          return acc;
+        },
+        {} as Record<number, { description: string; value: boolean }>
+      );
+
+      setMarks(initialMarks);
+    }
+  }, [testDetails]);
 
   const handleMarkChange = (
     idAssignment: number,
@@ -83,7 +103,7 @@ const TestForStudentDetailsTeacherPage: React.FC = () => {
 
       if (success) {
         alert('Oceny zapisane!');
-        refetch();
+        goToTestTeacherPage(navigate);
       } else {
         alert(submitError || 'Błąd podczas zapisywania ocen.');
       }
