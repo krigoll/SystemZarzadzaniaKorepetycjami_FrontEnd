@@ -78,17 +78,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                                     </p>
                                     {testDetails.status != 'Wyslany' && (
                                         <div>
-                                            {testDetails.status == 'Rozwiazany' && (
-                                                <p>
-                                                    <strong>Poprawna odpowiedź:</strong>{' '}
-                                                    {assignment.answerAssignment &&
-                                                        assignment.answerAssignment.trim().length > 0 &&
-                                                        assignment.idMark
-                                                        ? assignment.answerAssignment
-                                                        : 'Brak'}
-                                                </p>
-                                            )}
-
+                                        
                                             {testDetails.status == 'Sprawdzony' && (
                                                 <p>
                                                     <strong>Ocena:</strong>{' '}
