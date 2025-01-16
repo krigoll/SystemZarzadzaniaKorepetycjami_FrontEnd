@@ -3531,7 +3531,6 @@ p {
 .reviews-section {
     margin: 50px;
     word-wrap: break-word;
-
 }
 
 .checkbox-container-admin {
@@ -3539,7 +3538,7 @@ p {
     justify-content: center;
     gap: 20px;
     margin: 20px 0;
-;
+    ;
 }
 
     .checkbox-container-admin label {

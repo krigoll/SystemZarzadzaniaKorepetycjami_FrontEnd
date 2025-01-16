@@ -1,4 +1,4 @@
 export interface SubjectCategoryDTO {
-  subjectName: string;
-  subjectCategoryName: string;
+    subjectName: string;
+    subjectCategoryName: string;
 }

@@ -45,97 +45,97 @@ import StudentOpinionPage from './pages/StudentOpinionPage';
 import TeacherOpinionAdminPage from './pages/TeacherOpinionAdminPage';
 
 function App() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    const jwtToken = Cookies.get('jwtToken');
-    const refreshToken = Cookies.get('refreshToken');
-    const email = Cookies.get('email');
+    useEffect(() => {
+        const jwtToken = Cookies.get('jwtToken');
+        const refreshToken = Cookies.get('refreshToken');
+        const email = Cookies.get('email');
 
-    if (jwtToken && refreshToken && email) {
-      dispatch(
-        setUser({
-          email: email,
-          jwtToken: jwtToken,
-          refreshToken: refreshToken,
-        })
-      );
-    }
-  }, [dispatch]);
+        if (jwtToken && refreshToken && email) {
+            dispatch(
+                setUser({
+                    email: email,
+                    jwtToken: jwtToken,
+                    refreshToken: refreshToken,
+                })
+            );
+        }
+    }, [dispatch]);
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Registration />} />
-        <Route path="/addSubjects" element={<AddSubjectsPage />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/teacher" element={<TeacherMenu />} />
-        <Route
-          path="/teacher/determiningAvailabilty/"
-          element={<DeterminingAvailabilty />}
-        />
-        <Route path="/student" element={<StudentMenu />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/edit" element={<EditProfile />} />
-        <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
-        <Route
-          path="/student/chooseSubject/:id"
-          element={<ChooseTeacherPage />}
-        />
-        <Route path="/student/signUpToLesson" element={<SignUpToLesson />} />
-        <Route path="/teacher/requests" element={<RequestsPage />} />
-        <Route path="/teacher/editSubject" element={<EditSubjectPage />} />
-        <Route path="/profile/deleteAccount" element={<DeleteAccountPage />} />
-        <Route path="/calendar/:startDay" element={<CalendarPage />} />
-        <Route
-          path="/lessonDetails/:lessonId"
-          element={<LessonDetailsPage />}
-        />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route
-          path="/teachersReviewsList"
-          element={<TeachersReviewsListPage />}
-        />
-        <Route path="/addReview/:teacherInfo" element={<AddReviewPage />} />
-        <Route path="/teacher/myOpinion" element={<TeacherOpinionPage />} />
-        <Route path="/admin" element={<AdminMenuPage />} />
-        <Route path="/admin/userList" element={<UserListPage />} />
-        <Route path="/admin/userList/:idPerson" element={<UserDetailsPage />} />
-        <Route
-          path="/admin/userList/:idPerson/student/:studentInfo"
-          element={<StudentOpinionPage />}
-        />
-        <Route
-          path="/admin/userList/:idPerson/teacher/:teacherInfo"
-          element={<TeacherOpinionAdminPage />}
-        />
-        <Route path="/admin/subjectList" element={<SubjectListPage />} />
-        <Route path="/report/new" element={<NewReportForm />} />
-        <Route path="/report" element={<ReportListPage />} />
-        <Route path="/report/:reportId" element={<ReportDetailsPage />} />
-        <Route path="/teacher/tests" element={<TestsPage />} />
-        <Route path="/teacher/tests/:idTest" element={<TestDetailsPage />} />
-        <Route
-          path="/teacher/tests/:idTest/student"
-          element={<GiveTestToStudentPage />}
-        />
-        <Route path="/teacher/givenTests" element={<TestListTeacherPage />} />
-        <Route
-          path="/teacher/givenTests/:idTestForStudent"
-          element={<TestForStudentDetailsTeacherPage />}
-        />
-        <Route path="/student/givenTests" element={<TestListStudentPage />} />
-        <Route
-          path="/student/givenTests/:idTestForStudent"
-          element={<TestForStudentDetailsStudentPage />}
-        />
-        <Route path="/forgot-password" element={<ResetPasswordPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<Registration />} />
+                <Route path="/addSubjects" element={<AddSubjectsPage />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/teacher" element={<TeacherMenu />} />
+                <Route
+                    path="/teacher/determiningAvailabilty/"
+                    element={<DeterminingAvailabilty />}
+                />
+                <Route path="/student" element={<StudentMenu />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/edit" element={<EditProfile />} />
+                <Route path="/student/chooseSubject" element={<ChooseSubjectPage />} />
+                <Route
+                    path="/student/chooseSubject/:id"
+                    element={<ChooseTeacherPage />}
+                />
+                <Route path="/student/signUpToLesson" element={<SignUpToLesson />} />
+                <Route path="/teacher/requests" element={<RequestsPage />} />
+                <Route path="/teacher/editSubject" element={<EditSubjectPage />} />
+                <Route path="/profile/deleteAccount" element={<DeleteAccountPage />} />
+                <Route path="/calendar/:startDay" element={<CalendarPage />} />
+                <Route
+                    path="/lessonDetails/:lessonId"
+                    element={<LessonDetailsPage />}
+                />
+                <Route path="/chat" element={<ChatPage />} />
+                <Route
+                    path="/teachersReviewsList"
+                    element={<TeachersReviewsListPage />}
+                />
+                <Route path="/addReview/:teacherInfo" element={<AddReviewPage />} />
+                <Route path="/teacher/myOpinion" element={<TeacherOpinionPage />} />
+                <Route path="/admin" element={<AdminMenuPage />} />
+                <Route path="/admin/userList" element={<UserListPage />} />
+                <Route path="/admin/userList/:idPerson" element={<UserDetailsPage />} />
+                <Route
+                    path="/admin/userList/:idPerson/student/:studentInfo"
+                    element={<StudentOpinionPage />}
+                />
+                <Route
+                    path="/admin/userList/:idPerson/teacher/:teacherInfo"
+                    element={<TeacherOpinionAdminPage />}
+                />
+                <Route path="/admin/subjectList" element={<SubjectListPage />} />
+                <Route path="/report/new" element={<NewReportForm />} />
+                <Route path="/report" element={<ReportListPage />} />
+                <Route path="/report/:reportId" element={<ReportDetailsPage />} />
+                <Route path="/teacher/tests" element={<TestsPage />} />
+                <Route path="/teacher/tests/:idTest" element={<TestDetailsPage />} />
+                <Route
+                    path="/teacher/tests/:idTest/student"
+                    element={<GiveTestToStudentPage />}
+                />
+                <Route path="/teacher/givenTests" element={<TestListTeacherPage />} />
+                <Route
+                    path="/teacher/givenTests/:idTestForStudent"
+                    element={<TestForStudentDetailsTeacherPage />}
+                />
+                <Route path="/student/givenTests" element={<TestListStudentPage />} />
+                <Route
+                    path="/student/givenTests/:idTestForStudent"
+                    element={<TestForStudentDetailsStudentPage />}
+                />
+                <Route path="/forgot-password" element={<ResetPasswordPage />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

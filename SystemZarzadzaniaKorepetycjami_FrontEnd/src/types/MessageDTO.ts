@@ -1,6 +1,6 @@
 export interface MessageDTO {
-    senderId : number;
-    receiverId : number;
-    date : string;
-	content : string;
+    senderId: number;
+    receiverId: number;
+    date: string;
+    content: string;
 }

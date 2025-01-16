@@ -3,218 +3,218 @@ import { DataToEdit } from '../types/DataToEdit';
 import { DataToSignUpToLesson } from '../types/DataToSignUpToLesson';
 
 function goToLogin(navigate: NavigateFunction) {
-  navigate('/login');
+    navigate('/login');
 }
 
 function goToRegistration(navigate: NavigateFunction) {
-  navigate('/registration');
+    navigate('/registration');
 }
 
 function goToMainPage(navigate: NavigateFunction) {
-  navigate('/');
+    navigate('/');
 }
 
 function goToAddSubject(navigate: NavigateFunction) {
-  navigate('/addSubjects');
+    navigate('/addSubjects');
 }
 
 function goToMenu(navigate: NavigateFunction) {
-  navigate('/menu');
+    navigate('/menu');
 }
 
 function goToProfile(navigate: NavigateFunction) {
-  navigate('/profile');
+    navigate('/profile');
 }
 
 function goToEditProfile(navigate: NavigateFunction, dataToEdit: DataToEdit) {
-  navigate('/profile/edit', { state: { dataToEdit } });
+    navigate('/profile/edit', { state: { dataToEdit } });
 }
 
 function goToStudentMenu(navigate: NavigateFunction) {
-  navigate('/student');
+    navigate('/student');
 }
 
 function goToTeacherMenu(navigate: NavigateFunction) {
-  navigate('/teacher');
+    navigate('/teacher');
 }
 
 function goToDeterminingAvailabilty(navigate: NavigateFunction) {
-  navigate(`/teacher/determiningAvailabilty`);
+    navigate(`/teacher/determiningAvailabilty`);
 }
 
 function goToChooseSubjectPage(navigate: NavigateFunction) {
-  navigate(`/student/chooseSubject`);
+    navigate(`/student/chooseSubject`);
 }
 
 function goToChooseTeacherPage(
-  navigate: NavigateFunction,
-  idSubjectLevel: string
+    navigate: NavigateFunction,
+    idSubjectLevel: string
 ) {
-  navigate(`/student/chooseSubject/${idSubjectLevel}`);
+    navigate(`/student/chooseSubject/${idSubjectLevel}`);
 }
 
 function goToSignUpToLessonPage(
-  navigate: NavigateFunction,
-  DataToSignUpToLesson: DataToSignUpToLesson
+    navigate: NavigateFunction,
+    DataToSignUpToLesson: DataToSignUpToLesson
 ) {
-  navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
+    navigate('/student/signUpToLesson', { state: { DataToSignUpToLesson } });
 }
 
 function goToRequestsPage(navigate: NavigateFunction) {
-  navigate(`/teacher/requests`);
+    navigate(`/teacher/requests`);
 }
 
 function goToEditSubjectPage(navigate: NavigateFunction) {
-  navigate(`/teacher/editSubject`);
+    navigate(`/teacher/editSubject`);
 }
 
 function goToDeleteAccountPage(navigate: NavigateFunction) {
-  navigate(`/profile/deleteAccount`);
+    navigate(`/profile/deleteAccount`);
 }
 
 function goToCalendarPage(navigate: NavigateFunction, dateDay: string) {
-  navigate(`/calendar/${dateDay}`);
+    navigate(`/calendar/${dateDay}`);
 }
 
 function goToLessonDetailsPage(navigate: NavigateFunction, lessonId: number) {
-  navigate(`/lessonDetails/${lessonId}`);
+    navigate(`/lessonDetails/${lessonId}`);
 }
 
 function goToChat(navigate: NavigateFunction) {
-  navigate(`/chat`);
+    navigate(`/chat`);
 }
 
 function goToTeachersReviewsListPage(navigate: NavigateFunction) {
-  navigate(`/teachersReviewsList`);
+    navigate(`/teachersReviewsList`);
 }
 
 function goToAddReviewPage(navigate: NavigateFunction, teacherInfo: string) {
-  navigate(`/addReview/${teacherInfo}`);
+    navigate(`/addReview/${teacherInfo}`);
 }
 
 function goToStudentOpinionPage(
-  navigate: NavigateFunction,
-  studentInfo: string
+    navigate: NavigateFunction,
+    studentInfo: string
 ) {
-  navigate(`/admin/userList/:idPerson/student/${studentInfo}`);
+    navigate(`/admin/userList/:idPerson/student/${studentInfo}`);
 }
 
 function goToTeacherOpinionAdminPage(
-  navigate: NavigateFunction,
-  teacherInfo: string
+    navigate: NavigateFunction,
+    teacherInfo: string
 ) {
-  navigate(`/admin/userList/:idPerson/teacher/${teacherInfo}`);
+    navigate(`/admin/userList/:idPerson/teacher/${teacherInfo}`);
 }
 
 function goToTeacherOpinionPage(navigate: NavigateFunction) {
-  navigate(`/teacher/myOpinion`);
+    navigate(`/teacher/myOpinion`);
 }
 
 function goToAdminMenuPage(navigate: NavigateFunction) {
-  navigate(`/admin`);
+    navigate(`/admin`);
 }
 
 function goToUserListPage(navigate: NavigateFunction) {
-  navigate(`/admin/userList`);
+    navigate(`/admin/userList`);
 }
 
 function goToSubjectListPage(navigate: NavigateFunction) {
-  navigate(`/admin/subjectList`);
+    navigate(`/admin/subjectList`);
 }
 
 function goToNewReportFormPage(navigate: NavigateFunction) {
-  navigate(`/report/new`);
+    navigate(`/report/new`);
 }
 
 function goToReportListPage(navigate: NavigateFunction) {
-  navigate(`/report`);
+    navigate(`/report`);
 }
 
 function goToReportDetailsPage(navigate: NavigateFunction, reportId: number) {
-  navigate(`/report/${reportId}`);
+    navigate(`/report/${reportId}`);
 }
 
 function goToUserDetailsPage(navigate: NavigateFunction, idPerson: number) {
-  navigate(`/admin/userList/${idPerson}`);
+    navigate(`/admin/userList/${idPerson}`);
 }
 
 function goToTestsPage(navigate: NavigateFunction) {
-  navigate(`/teacher/tests`);
+    navigate(`/teacher/tests`);
 }
 
 function goToTestsDetailsPage(
-  navigate: NavigateFunction,
-  idTest: number | null
+    navigate: NavigateFunction,
+    idTest: number | null
 ) {
-  navigate(`/teacher/tests/${idTest}`);
+    navigate(`/teacher/tests/${idTest}`);
 }
 
 function goToGiveTestToStudentPage(
-  navigate: NavigateFunction,
-  idTest: number | null
+    navigate: NavigateFunction,
+    idTest: number | null
 ) {
-  navigate(`/teacher/tests/${idTest}/student`);
+    navigate(`/teacher/tests/${idTest}/student`);
 }
 
 function goToTestTeacherPage(navigate: NavigateFunction) {
-  navigate(`/teacher/givenTests`);
+    navigate(`/teacher/givenTests`);
 }
 
 function goToTestStudentPage(navigate: NavigateFunction) {
-  navigate(`/student/givenTests`);
+    navigate(`/student/givenTests`);
 }
 
 function goToTestForStudentDetailsPage(
-  navigate: NavigateFunction,
-  idTestForStudent: number
+    navigate: NavigateFunction,
+    idTestForStudent: number
 ) {
-  navigate(`/student/givenTests/${idTestForStudent}`);
+    navigate(`/student/givenTests/${idTestForStudent}`);
 }
 
 function goToTestForStudentDetailsTeacherPage(
-  navigate: NavigateFunction,
-  idTestForStudent: number
+    navigate: NavigateFunction,
+    idTestForStudent: number
 ) {
-  navigate(`/teacher/givenTests/${idTestForStudent}`);
+    navigate(`/teacher/givenTests/${idTestForStudent}`);
 }
 
 export {
-  goToLogin,
-  goToRegistration,
-  goToMainPage,
-  goToAddSubject,
-  goToMenu,
-  goToProfile,
-  goToEditProfile,
-  goToStudentMenu,
-  goToTeacherMenu,
-  goToDeterminingAvailabilty,
-  goToChooseSubjectPage,
-  goToChooseTeacherPage,
-  goToSignUpToLessonPage,
-  goToRequestsPage,
-  goToEditSubjectPage,
-  goToDeleteAccountPage,
-  goToCalendarPage,
-  goToLessonDetailsPage,
-  goToChat,
-  goToTeachersReviewsListPage,
-  goToAddReviewPage,
-  goToTeacherOpinionPage,
-  goToAdminMenuPage,
-  goToUserListPage,
-  goToSubjectListPage,
-  goToNewReportFormPage,
-  goToReportListPage,
-  goToReportDetailsPage,
-  goToUserDetailsPage,
-  goToTestsPage,
-  goToTestsDetailsPage,
-  goToGiveTestToStudentPage,
-  goToTestTeacherPage,
-  goToTestStudentPage,
-  goToTestForStudentDetailsPage,
-  goToTestForStudentDetailsTeacherPage,
-  goToStudentOpinionPage,
-  goToTeacherOpinionAdminPage,
+    goToLogin,
+    goToRegistration,
+    goToMainPage,
+    goToAddSubject,
+    goToMenu,
+    goToProfile,
+    goToEditProfile,
+    goToStudentMenu,
+    goToTeacherMenu,
+    goToDeterminingAvailabilty,
+    goToChooseSubjectPage,
+    goToChooseTeacherPage,
+    goToSignUpToLessonPage,
+    goToRequestsPage,
+    goToEditSubjectPage,
+    goToDeleteAccountPage,
+    goToCalendarPage,
+    goToLessonDetailsPage,
+    goToChat,
+    goToTeachersReviewsListPage,
+    goToAddReviewPage,
+    goToTeacherOpinionPage,
+    goToAdminMenuPage,
+    goToUserListPage,
+    goToSubjectListPage,
+    goToNewReportFormPage,
+    goToReportListPage,
+    goToReportDetailsPage,
+    goToUserDetailsPage,
+    goToTestsPage,
+    goToTestsDetailsPage,
+    goToGiveTestToStudentPage,
+    goToTestTeacherPage,
+    goToTestStudentPage,
+    goToTestForStudentDetailsPage,
+    goToTestForStudentDetailsTeacherPage,
+    goToStudentOpinionPage,
+    goToTeacherOpinionAdminPage,
 };
