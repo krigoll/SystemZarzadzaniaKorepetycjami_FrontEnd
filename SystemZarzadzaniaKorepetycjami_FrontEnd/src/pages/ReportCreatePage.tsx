@@ -33,8 +33,8 @@ const NewReportForm: React.FC = () => {
   const uId = useSelector((state: RootState) => state.login.idPerson);
 
   const handleSubmit = async () => {
-    if (title.trim().length <= 1 || title.trim().length >= 20) {
-      alert('Tytuł musi mieć od 1 do 20 znaków!');
+    if (title.trim().length <= 1 || title.trim().length >= 50) {
+      alert('Tytuł musi mieć od 1 do 50 znaków!');
       return;
     }
     if (description.trim().length <= 1 || description.trim().length >= 500) {
