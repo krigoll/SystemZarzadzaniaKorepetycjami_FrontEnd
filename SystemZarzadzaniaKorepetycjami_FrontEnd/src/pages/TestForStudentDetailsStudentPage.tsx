@@ -87,7 +87,7 @@ const TestForStudentDetailsStudentPage: React.FC = () => {
                                                         : 'Brak oceny'}
                                                     {assignment.description && (
                                                         <div style={{ marginTop: '10px' }}>
-                                                            <strong>Komentarz:</strong>
+                                                            <strong>Komentarz: </strong>
                                                             {assignment.description}
                                                         </div>
                                                     )}

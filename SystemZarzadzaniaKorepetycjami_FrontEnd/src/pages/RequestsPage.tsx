@@ -27,6 +27,7 @@ const TeacherRequestsPage: React.FC = () => {
 
     const handleAccept = async (requestId: number) => {
         try {
+            console.log(requestId);
             const response = await acceptLesson(requestId);
             if (response.ok) {
                 alert(`Lekcja została zaakceptowana!`);
