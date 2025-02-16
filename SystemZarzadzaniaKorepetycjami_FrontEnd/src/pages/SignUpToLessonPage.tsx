@@ -180,7 +180,7 @@ const TeacherDetailsPage: React.FC = () => {
                                 <div key={index} className="day-row">
                                     <p>
                                         {day}: {availability[index]?.startTime || 'Brak'}
-                                        {' - '}
+                                        {availability[index]?.startTime && '-'}
                                         {availability[index]?.endTime}
                                     </p>
                                 </div>

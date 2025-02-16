@@ -29,6 +29,7 @@ const LessonDetailsPage: React.FC = () => {
             if (response.ok) {
                 alert(`Lekcja została anulowana!`);
                 setCancel(false);
+                goToCalendarPage(navigate, getDay());
             } else {
                 alert(`Nie udało się anulować lekcji!`);
             }
@@ -78,8 +79,8 @@ const LessonDetailsPage: React.FC = () => {
                     <p>
                         <strong>Status:</strong> {lessonData.status}
                     </p>
-                    {(lessonData.status != 'Anulowana' ||
-                        lessonData.status != 'Odrzucona') &&
+                    {(lessonData.status == 'Anulowana' ||
+                        lessonData.status == 'Odrzucona') ||
                         lessonData.startDate > aktualnaDataICzas && (
                             <button
                                 className="delete-account"
